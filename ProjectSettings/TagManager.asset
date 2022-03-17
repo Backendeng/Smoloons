@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Armor
+  - NAN
+  - target
+  - Kills
+  - Scroller
+  - Rank
+  - WinLose
+  - LN
+  - weapon
+  - RoomL
+  - fader
+  - gameover
+  - world_canvas
+  - level
+  - enemies
+  - Bomb
+  - life
+  - power
+  - speed
+  - kick
+  - Explosion
+  - Block
+  - powerup
+  - map
+  - AudioSourceObject
+  - Volume_Slider
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PlayerUI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

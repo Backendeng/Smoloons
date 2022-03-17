@@ -1,0 +1,311 @@
+fileFormatVersion: 2
+guid: d366f39643cc97540acd380b0fb72750
+timeCreated: 1523591768
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: CATRigLArm1
+    100002: CATRigLArm2
+    100004: CATRigLArmDigit11
+    100006: CATRigLArmDigit12
+    100008: CATRigLArmDigit13
+    100010: CATRigLArmDigit21
+    100012: CATRigLArmDigit22
+    100014: CATRigLArmDigit23
+    100016: CATRigLArmDigit31
+    100018: CATRigLArmDigit32
+    100020: CATRigLArmDigit33
+    100022: CATRigLArmDigit41
+    100024: CATRigLArmDigit42
+    100026: CATRigLArmDigit43
+    100028: CATRigLArmDigit51
+    100030: CATRigLArmDigit52
+    100032: CATRigLArmDigit53
+    100034: CATRigLArmPalm
+    100036: CATRigLLeg1
+    100038: CATRigLLeg2
+    100040: CATRigLLegAnkle
+    100042: CATRigLLegDigit11
+    100044: CATRigLLegPlatform
+    100046: CATRigPalm_Sword_Bone001
+    100048: CATRigPelvise
+    100050: CATRigPelvise001
+    100052: CATRigPelvise002
+    100054: CATRigRArm1
+    100056: CATRigRArm2
+    100058: CATRigRArmCollarbone
+    100060: CATRigRArmDigit11
+    100062: CATRigRArmDigit12
+    100064: CATRigRArmDigit13
+    100066: CATRigRArmDigit21
+    100068: CATRigRArmDigit22
+    100070: CATRigRArmDigit23
+    100072: CATRigRArmDigit31
+    100074: CATRigRArmDigit32
+    100076: CATRigRArmDigit33
+    100078: CATRigRArmDigit41
+    100080: CATRigRArmDigit42
+    100082: CATRigRArmDigit43
+    100084: CATRigRArmDigit51
+    100086: CATRigRArmDigit52
+    100088: CATRigRArmDigit53
+    100090: CATRigRArmPalm
+    100092: CATRigRLeg1
+    100094: CATRigRLeg2
+    100096: CATRigRLegAnkle
+    100098: CATRigRLegDigit11
+    100100: CATRigRLegPlatform
+    100102: CATRigSpine
+    100104: CATRigSpine1
+    100106: CATRigSpine2
+    100108: CATRigSpine3
+    100110: CATRigSpine4
+    100112: //RootNode
+    100114: Character001
+    100116: humanBody
+    100118: humanBody-reduced
+    100120: humanBody-reduced1
+    100122: Object001
+    100124: pCube1
+    400000: CATRigLArm1
+    400002: CATRigLArm2
+    400004: CATRigLArmDigit11
+    400006: CATRigLArmDigit12
+    400008: CATRigLArmDigit13
+    400010: CATRigLArmDigit21
+    400012: CATRigLArmDigit22
+    400014: CATRigLArmDigit23
+    400016: CATRigLArmDigit31
+    400018: CATRigLArmDigit32
+    400020: CATRigLArmDigit33
+    400022: CATRigLArmDigit41
+    400024: CATRigLArmDigit42
+    400026: CATRigLArmDigit43
+    400028: CATRigLArmDigit51
+    400030: CATRigLArmDigit52
+    400032: CATRigLArmDigit53
+    400034: CATRigLArmPalm
+    400036: CATRigLLeg1
+    400038: CATRigLLeg2
+    400040: CATRigLLegAnkle
+    400042: CATRigLLegDigit11
+    400044: CATRigLLegPlatform
+    400046: CATRigPalm_Sword_Bone001
+    400048: CATRigPelvise
+    400050: CATRigPelvise001
+    400052: CATRigPelvise002
+    400054: CATRigRArm1
+    400056: CATRigRArm2
+    400058: CATRigRArmCollarbone
+    400060: CATRigRArmDigit11
+    400062: CATRigRArmDigit12
+    400064: CATRigRArmDigit13
+    400066: CATRigRArmDigit21
+    400068: CATRigRArmDigit22
+    400070: CATRigRArmDigit23
+    400072: CATRigRArmDigit31
+    400074: CATRigRArmDigit32
+    400076: CATRigRArmDigit33
+    400078: CATRigRArmDigit41
+    400080: CATRigRArmDigit42
+    400082: CATRigRArmDigit43
+    400084: CATRigRArmDigit51
+    400086: CATRigRArmDigit52
+    400088: CATRigRArmDigit53
+    400090: CATRigRArmPalm
+    400092: CATRigRLeg1
+    400094: CATRigRLeg2
+    400096: CATRigRLegAnkle
+    400098: CATRigRLegDigit11
+    400100: CATRigRLegPlatform
+    400102: CATRigSpine
+    400104: CATRigSpine1
+    400106: CATRigSpine2
+    400108: CATRigSpine3
+    400110: CATRigSpine4
+    400112: //RootNode
+    400114: Character001
+    400116: humanBody
+    400118: humanBody-reduced
+    400120: humanBody-reduced1
+    400122: Object001
+    400124: pCube1
+    2100000: Default Material
+    2100002: lambert3
+    4300000: humanBody
+    4300002: humanBody-reduced
+    4300004: humanBody-reduced1
+    4300006: pCube1
+    7400000: Take 001
+    7400002: Run
+    7400004: Attack
+    9500000: //RootNode
+    13700000: humanBody
+    13700002: humanBody-reduced
+    13700004: humanBody-reduced1
+    13700006: pCube1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      firstFrame: 75
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 30
+      lastFrame: 54
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

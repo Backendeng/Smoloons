@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
+  m_Name: PhotonServerSettings
+  m_EditorClassIdentifier: 
+  AppID: 039dd8fb-2631-41be-8380-1913eb94b266
+  VoiceAppID: 
+  ChatAppID: f9ab7628-96cb-437c-8a49-6d0e924ad1ea
+  HostType: 1
+  PreferredRegion: 0
+  EnabledRegions: -1
+  Protocol: 0
+  ServerAddress: 
+  ServerPort: 5055
+  VoiceServerPort: 5055
+  JoinLobby: 0
+  EnableLobbyStatistics: 0
+  PunLogging: 0
+  NetworkLogging: 1
+  RunInBackground: 1
+  RpcList:
+  - Chat
+  - DestroyRpc
+  - healthSet
+  - increaseKills
+  - InstantiateRpc
+  - PickupItemInit
+  - playerDetails
+  - PunPickup
+  - PunPickupSimple
+  - PunRespawn
+  - RequestForPickupItems
+  - RequestForPickupTimes
+  - RPC_LoadedGameScene
+  - RPC_LoadGameOthers
+  - RPC_PlayerUICameraFollow
+  - setDeaths
+  - setName
+  - SetRank
+  DisableAutoOpenWizard: 1
