@@ -20,8 +20,8 @@ public class PhotonMap: Photon.MonoBehaviour {
 
 	private int start_poses = 10;
 
-	int x = 23;
-	int y = 17;
+	int x = 15;
+	int y = 15;
 
 	private void Awake() {
 		PhotonView = GetComponent < PhotonView > ();
@@ -88,7 +88,7 @@ public class PhotonMap: Photon.MonoBehaviour {
 			for (int i_y = 0; i_y < y; i_y++) {
 
 				// Create floor
-				new_instance(i_x, -1, i_y, floor_prefab);
+				// new_instance(i_x, -1, i_y, floor_prefab);
 
 				// Create all wall limits 
 				if (i_x == 0 || i_x == x - 1 || i_y == 0 || i_y == y - 1) {
