@@ -96,12 +96,12 @@ public class PhotonMap: Photon.MonoBehaviour {
 					// add door and goal (only once per map)
 					if (i_y == y / 2 && i_x == x - 1) {
 						array_representation[i_x, i_y] = Blocks.Door;
-						new_instance(i_x, 0, i_y, wall_prefab);
+						// new_instance(i_x, 0, i_y, wall_prefab);
 						//                 new_instance(i_x+1, 0, i_y, goal_prefab);
 						// add paper powerup here
 					} else {
 						array_representation[i_x, i_y] = Blocks.Wall;
-						new_instance(i_x, 0, i_y, wall_prefab);
+						// new_instance(i_x, 0, i_y, wall_prefab);
 					}
 
 				} else {
