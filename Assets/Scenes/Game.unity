@@ -5611,7 +5611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f71f0b717c5bd645966f0e5d229ccd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall_prefab: {fileID: 2794135261344442598, guid: 0df0610b3a37da34ebffb4c7338c4106,
+  wall_prefab: {fileID: 1806082955396458, guid: 7df375eae6403f1458b9c7485a2f2b9d,
     type: 3}
   floor_prefab: {fileID: 1806082955396458, guid: 9163a489b47d42845a921103260a5a1e,
     type: 3}
@@ -13614,7 +13614,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709677914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: -0.5}
+  m_LocalPosition: {x: -0.5, y: -1, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2038740448}
