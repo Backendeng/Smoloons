@@ -420,4 +420,16 @@ public class Player_Controller: Photon.MonoBehaviour {
 		}
 	}
 
+	public void RPC_DeleteBlock (int viewID) {
+		Debug.Log(viewID);
+		PhotonView.RPC("DeleteBlock", PhotonTargets.All, viewID);
+	}
+
+	[PunRPC]
+    private void DeleteBlock(int viewID)
+    {
+		Debug.Log(viewID);
+        PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
+    }
+
 }
