@@ -245,8 +245,8 @@ GameObject:
   - component: {fileID: 114397408183088440}
   - component: {fileID: 114688353230010472}
   m_Layer: 0
-  m_Name: brekable
-  m_TagString: Untagged
+  m_Name: Breakable
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -294,7 +294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerup_prefab: {fileID: 0}
-  explosion: {fileID: 0}
+  explosion: {fileID: 3544880814778068290, guid: af5b890dfa954664c8be25d9250e5f9b,
+    type: 3}
 --- !u!114 &114397408183088440
 MonoBehaviour:
   m_ObjectHideFlags: 0
