@@ -10,7 +10,7 @@ public class PlayerNetwork: Photon.MonoBehaviour {
 	public string PlayerName {
 		get;
 		private set;
-	} [SerializeField]
+	} 
 	public int PlayersInGame = 0;
 	//[SerializeField]
 	public bool mc,
@@ -31,7 +31,7 @@ public class PlayerNetwork: Photon.MonoBehaviour {
 		PhotonView = GetComponent < PhotonView > ();
 		wasAlreadyConnected = false;
 
-		PlayerName = "Avdhesh#" + Random.Range(10000, 99999);
+		PlayerName = "Player" + Random.Range(10000, 99999);
 
 		PhotonNetwork.sendRate = 200;
 		PhotonNetwork.sendRateOnSerialize = 60;

@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 public class Player_Controller: Photon.MonoBehaviour {
 
 	private string FireAxis = "Fire 1";
@@ -83,6 +84,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		myTransform = transform.Find("model").transform;
 		animator = transform.Find("model").GetComponent < Animator > ();
 		Invoke("changeName", 2f);
+
 	}
 
 	// Update is called once per frame
@@ -196,10 +198,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 		}
 	}
 
-	public void RPC_SpawnPlayer(Transform spawnPoint, string shape) {
+	public void RPC_SpawnPlayer(Transform spawnPoint, string shape, string PlayerName) {
 
-		PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
-
+		GameObject playerObject =  PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
+		Debug.Log(playerObject.transform.GetChild(1).name);
+		playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = PlayerName;
 	}
 
 	[PunRPC]
