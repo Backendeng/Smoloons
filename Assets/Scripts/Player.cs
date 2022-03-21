@@ -243,16 +243,17 @@ public class Player: Photon.MonoBehaviour {
 			}
 		}
 	}
-
-	void OnTriggerEnter(Collider collider) {
-		if (collider.CompareTag("powerup")) {
-			Debug.Log(collider.gameObject.transform.position);
-			if (PhotonView != null && PhotonView.isMine) {
-				update_label(collider.gameObject.GetComponent < powerup_script > ().powerup);
-				// PlayerManagement.Instance.ModifyHealth(PhotonView.owner, lifes);
-			}
-		}
-	}
+	
+	// void OnTriggerEnter(Collider collider) {
+	// 	if (collider.CompareTag("powerup")) {
+			
+	// 		Debug.Log(collider.gameObject.GetComponent < powerup_script > ().powerup);
+	// 		if (PhotonView != null && PhotonView.isMine) {
+	// 			update_label(collider.gameObject.GetComponent < powerup_script > ().powerup);
+	// 			// PlayerManagement.Instance.ModifyHealth(PhotonView.owner, lifes);
+	// 		}
+	// 	}
+	// }
 
 	[PunRPC]
 	private void increaseKills(int playerUID) {
