@@ -20,8 +20,8 @@ public class PhotonMap: Photon.MonoBehaviour {
 
 	private int start_poses = 10;
 
-	int x = 15;
-	int y = 15;
+	int x = 19;
+	int y = 13;
 
 	private void Awake() {
 		PhotonView = GetComponent < PhotonView > ();
