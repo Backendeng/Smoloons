@@ -41,11 +41,12 @@ public class breakable_script: Photon.MonoBehaviour {
 		if (collision.collider.CompareTag("Explosion")) {
 			Instantiate(explosion, transform.position, Quaternion.identity);
 
-			if (PhotonNetwork.connected == true && PhotonNetwork.isMasterClient) {
+			if (PhotonNetwork.connected == true) {
 				if (Random.Range(0.0f, 1.0f) > 0.5f) {
 					PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
 				}
-				PhotonNetwork.Destroy(gameObject);
+				if (PhotonNetwork.isMasterClient)
+					PhotonNetwork.Destroy(gameObject);
 			} else {
 				int viewID =  photonView.viewID;
 				photonView.RPC("DeleteBlock", PhotonTargets.MasterClient, viewID);

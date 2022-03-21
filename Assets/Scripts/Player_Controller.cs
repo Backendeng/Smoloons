@@ -81,7 +81,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		//Cache the attached components for better performance and less typing
 		rigidBody = GetComponent < Rigidbody > ();
 		myTransform = transform;
-		animator = myTransform.Find("stand").GetComponent < Animator > ();
+		animator = myTransform.Find("model").GetComponent < Animator > ();
 		// Invoke("changeName", 2f);
 	}
 
@@ -130,25 +130,25 @@ public class Player_Controller: Photon.MonoBehaviour {
 		{ //Up movement
 
 			rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, player.moveSpeed);
-			myTransform.rotation = Quaternion.Euler(0, -90, 0);
+			myTransform.rotation = Quaternion.Euler(0, -90, -30);
 			animator.SetBool("Walking", true);
 		}
 
 		if (Input.GetButton("Left")) { //Left movement
 			rigidBody.velocity = new Vector3( - player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
-			myTransform.rotation = Quaternion.Euler(0, 180, 0);
+			myTransform.rotation = Quaternion.Euler(-30, 180, 0);
 			animator.SetBool("Walking", true);
 		}
 
 		if (Input.GetButton("Down")) { //Down movement
 			rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, -player.moveSpeed);
-			myTransform.rotation = Quaternion.Euler(0, 90, 0);
+			myTransform.rotation = Quaternion.Euler(0, 90, 30);
 			animator.SetBool("Walking", true);
 		}
 
 		if (Input.GetButton("Right")) { //Right movement
 			rigidBody.velocity = new Vector3(player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
-			myTransform.rotation = Quaternion.Euler(0, 0, 0);
+			myTransform.rotation = Quaternion.Euler(30, 0, 0);
 			animator.SetBool("Walking", true);
 		}
 
