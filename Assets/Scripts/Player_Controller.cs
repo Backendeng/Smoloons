@@ -80,8 +80,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 		player = GetComponent < Player > ();
 		//Cache the attached components for better performance and less typing
 		rigidBody = GetComponent < Rigidbody > ();
-		myTransform = transform;
-		animator = myTransform.Find("model").GetComponent < Animator > ();
+		myTransform = transform.Find("model").transform;
+		animator = transform.Find("model").GetComponent < Animator > ();
 		// Invoke("changeName", 2f);
 	}
 
