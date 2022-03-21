@@ -82,7 +82,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		rigidBody = GetComponent < Rigidbody > ();
 		myTransform = transform.Find("model").transform;
 		animator = transform.Find("model").GetComponent < Animator > ();
-		// Invoke("changeName", 2f);
+		Invoke("changeName", 2f);
 	}
 
 	// Update is called once per frame
@@ -368,7 +368,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	}
 
 	private void changeName() {
-		// PhotonView.RPC("setName", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
+		PhotonView.RPC("setName", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 	}
 
 	[PunRPC]
