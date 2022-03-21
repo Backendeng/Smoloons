@@ -270,11 +270,16 @@ public class Player_Controller: Photon.MonoBehaviour {
 	{
 
 		if (collision.collider.CompareTag("Explosion")) {
-			movement_status = false;
-			myTransform.rotation = Quaternion.Euler(0, 90, 30);
-			animator.SetBool("hitup", true);
-			animator.SetBool("holding", true);
-			holding_status = true;
+			if (!holding_status){
+				movement_status = false;
+				myTransform.rotation = Quaternion.Euler(0, 90, 30);
+				animator.SetBool("hitup", true);
+				animator.SetBool("holding", true);
+				holding_status = true;
+			} else  {
+				int viewID =  PhotonView.viewID;
+				PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
+			}
 		}
 
 	}
@@ -314,6 +319,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 		gameObject.SetActive(true);
 		gameObject.transform.position = selfSpawnTransform.position;
 
+	}
+
+	[PunRPC]
+	private void DeletePlayer(int viewID) {
+		PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
 	}
 
 	[PunRPC]

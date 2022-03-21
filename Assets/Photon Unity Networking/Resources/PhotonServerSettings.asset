@@ -49,4 +49,5 @@ MonoBehaviour:
   - DeleteBLock
   - DeleteBlock
   - setPlayerName
+  - DeletePlayer
   DisableAutoOpenWizard: 1

@@ -76,16 +76,16 @@ public class Player: Photon.MonoBehaviour {
 		case POWERUPS.BOMB:
 			bomb_label.text = bombs.ToString();
 			break;
-		case POWERUPS.KICK:
-			if (canKick) {
-				kick_label.text = "1";
-			} else {
-				kick_label.text = "0";
-			}
-			break;
-		case POWERUPS.LIFE:
-			life_label.text = lifes.ToString();
-			break;
+		// case POWERUPS.KICK:
+		// 	if (canKick) {
+		// 		kick_label.text = "1";
+		// 	} else {
+		// 		kick_label.text = "0";
+		// 	}
+		// 	break;
+		// case POWERUPS.LIFE:
+		// 	life_label.text = lifes.ToString();
+		// 	break;
 		case POWERUPS.POWER:
 			explosion_label.text = explosion_power.ToString();
 			break;
