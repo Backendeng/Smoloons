@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
 
 public class KillsIncrementer: MonoBehaviour {
 
@@ -77,6 +78,11 @@ public class KillsIncrementer: MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		allPlayers = GameObject.FindGameObjectsWithTag("Player");
+
+		for (int i = 0; i < allPlayers.Length; i++) {
+		    allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[i];
+		}
+		// Array.Reverse(ePN);
 
 		// timer = startTime - Time.timeSinceLevelLoad;
 

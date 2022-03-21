@@ -48,4 +48,5 @@ MonoBehaviour:
   - SetRank
   - DeleteBLock
   - DeleteBlock
+  - setPlayerName
   DisableAutoOpenWizard: 1

@@ -200,50 +200,6 @@ public class Player: Photon.MonoBehaviour {
 
 	}
 
-	void OnCollisionEnter(Collision collision) {
-
-		if (collision.collider.CompareTag("Explosion")) {
-			if (PhotonView != null && PhotonView.isMine) {
-				lifes--;
-
-				PlayerManagement.Instance.ModifyHealth(PhotonView.owner, lifes);
-			}
-			if (!respawning) {
-				// lifes--;
-
-				if (GetComponent < Player_Controller > ().isActiveAndEnabled) {
-					update_label(POWERUPS.LIFE);
-				}
-
-				if (lifes <= 0) {
-					// PhotonView.RPC("increaseKills", PhotonTargets.All, collision.gameObject.GetComponentInParent<PhotonView>().ownerId);
-					// PhotonView.RPC("setDeaths", PhotonTargets.All, PhotonNetwork.player.ID);
-					dead = true; // 1
-					if (GetComponent < Player_Controller > ().isActiveAndEnabled) {
-
-						StartCoroutine(gameover_wait());
-					} else {
-
-						Destroy(gameObject);
-						FindObjectOfType < Global_Game_Controller > ().update_labels();
-					}
-
-				} else {
-					if (GetComponent < Player_Controller > ().isActiveAndEnabled) {
-						// StartCoroutine(dmg_animation());
-					} else {
-
-}
-					respawning = true;
-					StartCoroutine(respawn_wait());
-				}
-
-				Instantiate(Explosion, transform.position, Quaternion.identity);
-
-			}
-		}
-	}
-	
 	// void OnTriggerEnter(Collider collider) {
 	// 	if (collider.CompareTag("powerup")) {
 			

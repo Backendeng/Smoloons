@@ -51,7 +51,9 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	private Blocks[, ] array_representation;
 	private int start_poses = 10;
+	private float holding_time;
 
+	private bool movement_status, holding_status;
 	public GameObject Map_parent;
 	public GameObject floor_prefab;
 	public GameObject wall_prefab;
@@ -75,9 +77,10 @@ public class Player_Controller: Photon.MonoBehaviour {
 			mobile = false;
 		} else {
 			mobile = true;
-
 		}
-
+		movement_status = true;
+		holding_status = false;
+		holding_time = 0.0f;
 		player = GetComponent < Player > ();
 		//Cache the attached components for better performance and less typing
 		rigidBody = GetComponent < Rigidbody > ();
@@ -90,7 +93,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-		PhotonView.RPC("healthSet", PhotonTargets.All);
+		// PhotonView.RPC("healthSet", PhotonTargets.All);
 
 		// if (globalKi.winLose[PhotonNetwork.player.ID - 1].Equals("Winner ! ! !"))
 		// {
@@ -110,7 +113,19 @@ public class Player_Controller: Photon.MonoBehaviour {
 			setDeaths();
 			// GameUI.Instance.playerKills.text = 
 			//  PhotonView.RPC("RPC_PlayerUICameraFollow", PhotonTargets.OthersBuffered);
-
+		}
+		if (holding_status){
+			holding_time += Time.deltaTime;
+	
+			if(holding_time > 5)
+			{
+				Debug.Log("alive");
+				holding_status = false;
+				movement_status = true;
+				holding_time = 0.0f;
+				animator.SetBool("holding", false);
+				animator.SetBool("hitup", false);
+			}
 		}
 	}
 
@@ -127,47 +142,49 @@ public class Player_Controller: Photon.MonoBehaviour {
 	/// </summary>
 	private void UpdatePlayer2Movement() {
 
-		if (Input.GetButton("Up"))
+		if (movement_status)
+		{
+			if (Input.GetButton("Up"))
+			{ //Up movement
 
-		{ //Up movement
-
-			rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, player.moveSpeed);
-			myTransform.rotation = Quaternion.Euler(0, -90, -30);
-			animator.SetBool("Walking", true);
-		}
-
-		if (Input.GetButton("Left")) { //Left movement
-			rigidBody.velocity = new Vector3( - player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
-			myTransform.rotation = Quaternion.Euler(-30, 180, 0);
-			animator.SetBool("Walking", true);
-		}
-
-		if (Input.GetButton("Down")) { //Down movement
-			rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, -player.moveSpeed);
-			myTransform.rotation = Quaternion.Euler(0, 90, 30);
-			animator.SetBool("Walking", true);
-		}
-
-		if (Input.GetButton("Right")) { //Right movement
-			rigidBody.velocity = new Vector3(player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
-			myTransform.rotation = Quaternion.Euler(30, 0, 0);
-			animator.SetBool("Walking", true);
-		}
-
-		if (mobile) {
-			Vector3 vel = new Vector3(Input.GetAxis("Horizontal") * player.moveSpeed, rigidBody.velocity.y, Input.GetAxis("Vertical") * player.moveSpeed);
-			if (vel != rigidBody.velocity) {
-				rigidBody.velocity = vel;
-				myTransform.rotation = Quaternion.Euler(0, FindDegree(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")), 0);
+				rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, player.moveSpeed);
+				myTransform.rotation = Quaternion.Euler(0, -90, -30);
 				animator.SetBool("Walking", true);
 			}
-		}
 
-		if (canDropBombs && (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Submit"))) { //Drop Bomb. For Player 2's bombs, allow both the numeric enter as the return key or players 
-			//without a numpad will be unable to drop bombs
+			if (Input.GetButton("Left")) { //Left movement
+				rigidBody.velocity = new Vector3( - player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
+				myTransform.rotation = Quaternion.Euler(-30, 180, 0);
+				animator.SetBool("Walking", true);
+			}
 
-			DropBomb();
+			if (Input.GetButton("Down")) { //Down movement
+				rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, -player.moveSpeed);
+				myTransform.rotation = Quaternion.Euler(0, 90, 30);
+				animator.SetBool("Walking", true);
+			}
 
+			if (Input.GetButton("Right")) { //Right movement
+				rigidBody.velocity = new Vector3(player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
+				myTransform.rotation = Quaternion.Euler(30, 0, 0);
+				animator.SetBool("Walking", true);
+			}
+
+			if (mobile) {
+				Vector3 vel = new Vector3(Input.GetAxis("Horizontal") * player.moveSpeed, rigidBody.velocity.y, Input.GetAxis("Vertical") * player.moveSpeed);
+				if (vel != rigidBody.velocity) {
+					rigidBody.velocity = vel;
+					myTransform.rotation = Quaternion.Euler(0, FindDegree(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")), 0);
+					animator.SetBool("Walking", true);
+				}
+			}
+
+			if (canDropBombs && (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Submit"))) { //Drop Bomb. For Player 2's bombs, allow both the numeric enter as the return key or players 
+				//without a numpad will be unable to drop bombs
+
+				DropBomb();
+
+			}
 		}
 	}
 
@@ -198,11 +215,10 @@ public class Player_Controller: Photon.MonoBehaviour {
 		}
 	}
 
-	public void RPC_SpawnPlayer(Transform spawnPoint, string shape, string PlayerName) {
+	public void RPC_SpawnPlayer(Transform spawnPoint, string shape) {
 
-		GameObject playerObject =  PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
-		Debug.Log(playerObject.transform.GetChild(1).name);
-		playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = PlayerName;
+		PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
+		//playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = PlayerName;
 	}
 
 	[PunRPC]
@@ -250,15 +266,18 @@ public class Player_Controller: Photon.MonoBehaviour {
 		transform.Rotate(new Vector3(0, horizontal * rotateSpeed * Time.deltaTime, 0));
 
 	}
-	//private void OnCollisionEnter(Collision collision)
-	//{
+	private void OnCollisionEnter(Collision collision)
+	{
 
-	//    //if (!PhotonNetwork.isMasterClient)
-	//    //    return;
+		if (collision.collider.CompareTag("Explosion")) {
+			movement_status = false;
+			myTransform.rotation = Quaternion.Euler(0, 90, 30);
+			animator.SetBool("hitup", true);
+			animator.SetBool("holding", true);
+			holding_status = true;
+		}
 
-	//    // PhotonView photonView = collider.GetComponent<PhotonView>();
-
-	//}
+	}
 
 	public void OnTriggerEnter(Collider collision) {
 

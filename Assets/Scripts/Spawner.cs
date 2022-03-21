@@ -10,15 +10,13 @@ public class Spawner: MonoBehaviour {
 	public Transform[] spawnPoint = new Transform[5];
 	public int playerID = 0;
 	public string character;
-	public string PlayerName;
 
 	// public bool summaryOpen;
 
 	private void Awake() {
 		// summaryOpen
 		playerID = PhotonNetwork.player.ID;
-		character = PlayerNetwork.Instance.cha;
-		PlayerName = PlayerNetwork.Instance.PlayerName;
+		character = "Monkey";
 	}
 
 	private void Start() {
@@ -37,27 +35,27 @@ public class Spawner: MonoBehaviour {
 		switch (playerID % 5) {
 		case 1:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[0], character, PlayerName);
+			pm.RPC_SpawnPlayer(spawnPoint[0], character);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[0];
 			break;
 		case 2:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[1], character, PlayerName);
+			pm.RPC_SpawnPlayer(spawnPoint[1], character);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[1];
 			break;
 		case 3:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[2], character, PlayerName);
+			pm.RPC_SpawnPlayer(spawnPoint[2], character);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[2];
 			break;
 		case 4:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[3], character, PlayerName);
+			pm.RPC_SpawnPlayer(spawnPoint[3], character);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[3];
 			break;
 		case 0:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[4], character, PlayerName);
+			pm.RPC_SpawnPlayer(spawnPoint[4], character);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[4];
 			break;
 		default:
