@@ -244,6 +244,7 @@ public class Player: Photon.MonoBehaviour {
 		}
 	}
 	
+	
 	// void OnTriggerEnter(Collider collider) {
 	// 	if (collider.CompareTag("powerup")) {
 			
