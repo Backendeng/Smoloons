@@ -379,7 +379,7 @@ MonoBehaviour:
   playerDeaths: {fileID: 0}
   healthFG: {fileID: 0}
   selfSpawnTransform: {fileID: 0}
-  playerGameObject: {fileID: 0}
+  playerGameObject: {fileID: 1294263013438475721}
   target: {fileID: 0}
   pm: {fileID: 0}
   deaths: 0
