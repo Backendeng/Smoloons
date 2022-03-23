@@ -373,7 +373,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canDropBombs: 1
   canMove: 0
-  bombPrefab: {fileID: 124052, guid: 449c73842e61e434ea11f82bf0da8884, type: 3}
+  bombPrefab: {fileID: 5077070045298592707, guid: 73b294f04d869984784cc976c74823b9,
+    type: 3}
   _playerHealth: {fileID: 0}
   playerKills: {fileID: 0}
   playerDeaths: {fileID: 0}
