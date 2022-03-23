@@ -143,7 +143,12 @@ PrefabInstance:
     - target: {fileID: 3953076233298205227, guid: b17dbf4ee2b071f41b00618a526e4878,
         type: 3}
       propertyPath: m_Name
-      value: Breakable Variant
+      value: Breakable
+      objectReference: {fileID: 0}
+    - target: {fileID: 3953076233298205227, guid: b17dbf4ee2b071f41b00618a526e4878,
+        type: 3}
+      propertyPath: m_TagString
+      value: Breakable
       objectReference: {fileID: 0}
     - target: {fileID: 5081249617216072396, guid: b17dbf4ee2b071f41b00618a526e4878,
         type: 3}
