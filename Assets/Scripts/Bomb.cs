@@ -32,7 +32,7 @@ public class Bomb: Photon.MonoBehaviour {
 		StartCoroutine(CreateExplosions(Vector3.back));
 		StartCoroutine(CreateExplosions(Vector3.left));
 
-		GetComponent < MeshRenderer > ().enabled = false; //2
+		transform.Find("model").transform.GetComponent < MeshRenderer > ().enabled = false; //2
 		exploded = true;
 		transform.Find("Collider").gameObject.SetActive(false); //3
 		Destroy(gameObject, .3f); //4
