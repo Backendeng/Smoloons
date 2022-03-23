@@ -106,11 +106,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac9150310eb3f44993344f02a9b08dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bomb: {fileID: 100002, guid: f67d41c04ed3d6d4ea6451ee2baec160, type: 3}
+  bomb: {fileID: 7778216744474941296, guid: aa833c2ecdc04ef4c833faff2e79c92a, type: 3}
   kick: {fileID: 100012, guid: 00836820b73447b48b59cfe8b0be8e12, type: 3}
   life: {fileID: 100008, guid: 9773c105daa35c64cb8df9ddea3fdaff, type: 3}
-  power: {fileID: 100004, guid: 3b3df45f3fdef7e4797e952d5bc02292, type: 3}
-  speed: {fileID: 100006, guid: c3c2525a1fc602943b872aa5c04bd899, type: 3}
+  power: {fileID: 3589466311330627192, guid: dc523c518561651429642bb9c493c606, type: 3}
+  speed: {fileID: 5557744922784468528, guid: 3f91347761f7c3c47aaea200b6a16423, type: 3}
+  curr: {fileID: 0}
   powerup: 0
 --- !u!114 &3172387268919820127
 MonoBehaviour:
