@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 400002}
   - component: {fileID: 114194852879105176}
   m_Layer: 0
-  m_Name: powerup_bomb
+  m_Name: powerup_bomb1
   m_TagString: powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
