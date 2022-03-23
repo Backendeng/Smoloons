@@ -7,7 +7,7 @@ using System;
 public class PhotonMap: Photon.MonoBehaviour {
 
 	public GameObject wall_prefab;
-	private GameObject breakable_prefab;
+	public GameObject breakable_prefab;
 	private GameObject startpos_prefab;
 	public GameObject floor_prefab;
 	private GameObject goal_prefab;
@@ -116,10 +116,12 @@ public class PhotonMap: Photon.MonoBehaviour {
 						// add breakables
 						if (!start_next_to(i_x, i_y)) {
 							array_representation[i_x, i_y] = Blocks.Breakable;
-							if (PhotonNetwork.isMasterClient) {
-								GameObject temp_floor1 = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Breakable"), new Vector3(i_x, 0, i_y), Quaternion.Euler(-90f, 0f, -90f), 0);
+							// if (PhotonNetwork.isMasterClient) {
+								GameObject temp_floor1 = Instantiate(breakable_prefab, new Vector3(i_x, 0, i_y), Quaternion.identity);
 								temp_floor1.transform.SetParent(Map_parent.transform);
-							}
+								// GameObject temp_floor1 = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Breakable"), new Vector3(i_x, 0, i_y), Quaternion.Euler(-90f, 0f, -90f), 0);
+								// temp_floor1.transform.SetParent(Map_parent.transform);
+							// }
 
 						}
 					}

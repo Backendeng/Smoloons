@@ -80,7 +80,7 @@ public class KillsIncrementer: MonoBehaviour {
 		allPlayers = GameObject.FindGameObjectsWithTag("Player");
 
 		for (int i = 0; i < allPlayers.Length; i++) {
-		    allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[i];
+		    allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[allPlayers.Length - i - 1];
 		}
 		// Array.Reverse(ePN);
 
