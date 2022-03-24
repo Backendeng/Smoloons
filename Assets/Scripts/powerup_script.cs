@@ -14,7 +14,7 @@ public class powerup_script: MonoBehaviour {
 	public GameObject curr;
 
 	public POWERUPS powerup;
-
+	AudioSource powerup_audio;
 	// Use this for initialization
 	void Start() {
 
@@ -43,6 +43,8 @@ public class powerup_script: MonoBehaviour {
 		go.GetComponent < Transform > ().SetParent(this.transform);
 
 		text = Resources.Load("PopupTextParent") as GameObject;
+		
+		powerup_audio = GetComponent<AudioSource>();
 	}
 
 	void OnTriggerEnter(Collider collider)
@@ -50,8 +52,10 @@ public class powerup_script: MonoBehaviour {
 	{
 
 		if (collider.CompareTag("Player")) {
-
-			Destroy(gameObject); // 3  
+			powerup_audio.enabled = true;
+			transform.GetComponent <BoxCollider> ().enabled = false;
+			Destroy(transform.GetChild(0).gameObject); // 3  
+			Destroy(gameObject, 1f);
 
 			Player player = collider.GetComponent < Player > ();
 

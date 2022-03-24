@@ -120,6 +120,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 			if(holding_time > 5)
 			{
 				Debug.Log("alive");
+				transform.Find("bubble").gameObject.SetActive(false);
 				holding_status = false;
 				movement_status = true;
 				holding_time = 0.0f;
@@ -277,6 +278,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 				myTransform.rotation = Quaternion.Euler(0, 90, 30);
 				animator.SetBool("hitup", true);
 				animator.SetBool("holding", true);
+				transform.Find("bubble").gameObject.SetActive(true);
 				holding_status = true;
 			} else if (holding_time > 1) {
 				int viewID =  PhotonView.viewID;
