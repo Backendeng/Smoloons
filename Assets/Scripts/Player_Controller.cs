@@ -352,9 +352,13 @@ public class Player_Controller: Photon.MonoBehaviour {
 			ki.eachPlayerKills[3]++;
 			ki.eachPlayerScore[3] = ki.eachPlayerScore[3] + 25;
 			break;
-		case 0:
+		case 5:
 			ki.eachPlayerKills[4]++;
 			ki.eachPlayerScore[4] = ki.eachPlayerScore[4] + 25;
+			break;
+		case 0:
+			ki.eachPlayerKills[5]++;
+			ki.eachPlayerScore[5] = ki.eachPlayerScore[5] + 25;
 			break;
 		default:
 			break;
@@ -387,8 +391,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 		case 4:
 			ki.eachPlayerDeaths[3]++;
 			break;
-		case 0:
+		case 5:
 			ki.eachPlayerDeaths[4]++;
+			break;
+		case 0:
+			ki.eachPlayerDeaths[5]++;
 			break;
 		default:
 			break;
@@ -425,8 +432,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 		case 4:
 			ki.eachPlayerName[3] = PhotonNetwork.playerList[3].ID + " " + PhotonNetwork.playerList[3].NickName;
 			break;
-		case 0:
+		case 5:
 			ki.eachPlayerName[4] = PhotonNetwork.playerList[4].ID + " " + PhotonNetwork.playerList[4].NickName;
+			break;
+		case 0:
+			ki.eachPlayerName[5] = PhotonNetwork.playerList[5].ID + " " + PhotonNetwork.playerList[5].NickName;
 			break;
 		default:
 			break;
