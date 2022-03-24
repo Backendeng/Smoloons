@@ -91,7 +91,7 @@ public class Bomb: Photon.MonoBehaviour {
 		{
 
 			if (!exploded && collision.collider.CompareTag("Explosion")) { // 1 & 2  
-
+				Debug.Log("collider");
 				CancelInvoke("Explode"); // 2
 				Explode(); // 3
 			}
