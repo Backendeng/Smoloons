@@ -36,7 +36,6 @@ public class breakable_script: Photon.MonoBehaviour {
 	void OnCollisionEnter(Collision collision)
 
 	{
-		Debug.Log(1);
 		// if (collision.collider.CompareTag ("Explosion"))
 		// {
 
@@ -50,22 +49,15 @@ public class breakable_script: Photon.MonoBehaviour {
 
 		// }
 		if (collision.collider.CompareTag("Explosion")) {
-			Debug.Log(2);
 			Instantiate(explosion, transform.position, Quaternion.identity);
-			Debug.Log(3);
 			if (PhotonNetwork.connected == true) {
-				Debug.Log(4);
 				if (Random.Range(0.0f, 1.0f) > 0.5f) {
 					PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
 				}
-				Debug.Log(5);
 				// if (PhotonNetwork.isMasterClient)
 				animator.enabled  = true;
-				Debug.Log(7);
 				Destroy(gameObject, 2.0f);
-				Debug.Log(8);
 			} else {
-				Debug.Log(6);
 				Destroy(gameObject);
 				// int viewID =  photonView.viewID;
 				// photonView.RPC("DeleteBlock", PhotonTargets.MasterClient, viewID);
