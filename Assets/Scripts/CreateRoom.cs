@@ -31,7 +31,7 @@ public class CreateRoom: MonoBehaviour {
 		RoomOptions roomOptions = new RoomOptions() {
 			IsVisible = true,
 			IsOpen = true,
-			MaxPlayers = 5
+			MaxPlayers = 6
 		};
 
 		roomOptions.PlayerTtl = 6000;

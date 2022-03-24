@@ -819,8 +819,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7933672334899697954}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!1 &4707519521452133473
@@ -1685,31 +1685,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 78dffd7480142bb4e95750039a7d668c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 78dffd7480142bb4e95750039a7d668c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.67
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 78dffd7480142bb4e95750039a7d668c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.14
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 78dffd7480142bb4e95750039a7d668c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0033487643
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 78dffd7480142bb4e95750039a7d668c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9488798
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 78dffd7480142bb4e95750039a7d668c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.24954139
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 78dffd7480142bb4e95750039a7d668c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.19324864
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 78dffd7480142bb4e95750039a7d668c, type: 3}
       propertyPath: m_RootOrder
