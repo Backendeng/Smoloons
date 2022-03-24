@@ -232,7 +232,9 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 		if (stream.isWriting) {
 			stream.SendNext(transform.position);
-			stream.SendNext(transform.rotation);
+			stream.SendNext(myTransform.rotation);
+			Debug.Log("me");
+			Debug.Log(transform.rotation);
 			stream.SendNext(curr_health);
 
 			stream.SendNext(deaths);
@@ -250,7 +252,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	private void SmoothMovement() {
 
 		transform.position = Vector3.Lerp(transform.position, TargetPosition, 0.2f);
-		transform.rotation = Quaternion.RotateTowards(transform.rotation, TargetRotation, 500 * Time.deltaTime);
+		transform.Find("model").transform.rotation = Quaternion.RotateTowards(transform.Find("model").transform.rotation, TargetRotation, 500 * Time.deltaTime);
 
 	}
 
@@ -276,7 +278,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 				animator.SetBool("hitup", true);
 				animator.SetBool("holding", true);
 				holding_status = true;
-			} else  {
+			} else if (holding_time > 1) {
 				int viewID =  PhotonView.viewID;
 				PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 			}
