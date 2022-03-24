@@ -233,9 +233,13 @@ public class Player: Photon.MonoBehaviour {
 			ki.eachPlayerKills[3]++;
 			ki.eachPlayerScore[3] = ki.eachPlayerScore[3] + 25;
 			break;
-		case 0:
+		case 5:
 			ki.eachPlayerKills[4]++;
 			ki.eachPlayerScore[4] = ki.eachPlayerScore[4] + 25;
+			break;
+		case 0:
+			ki.eachPlayerKills[5]++;
+			ki.eachPlayerScore[5] = ki.eachPlayerScore[5] + 25;
 			break;
 		default:
 			break;
@@ -260,8 +264,11 @@ public class Player: Photon.MonoBehaviour {
 		case 4:
 			ki.eachPlayerDeaths[3]++;
 			break;
-		case 0:
+		case 5:
 			ki.eachPlayerDeaths[4]++;
+			break;
+		case 0:
+			ki.eachPlayerDeaths[5]++;
 			break;
 		default:
 			break;

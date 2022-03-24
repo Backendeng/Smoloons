@@ -34,6 +34,7 @@ public class Bomb: Photon.MonoBehaviour {
 
 		transform.Find("model").transform.GetComponent < MeshRenderer > ().enabled = false; //2
 		transform.Find("audio").gameObject.SetActive (true);
+		transform.Find("pop").gameObject.SetActive (true);
 		exploded = true;
 		transform.Find("Collider").gameObject.SetActive(false); //3
 		Destroy(gameObject, .3f); //4
