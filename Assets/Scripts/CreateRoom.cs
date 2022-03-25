@@ -34,8 +34,8 @@ public class CreateRoom: MonoBehaviour {
 			MaxPlayers = 6
 		};
 
-		roomOptions.PlayerTtl = 6000;
-		roomOptions.EmptyRoomTtl = 6000;
+		roomOptions.PlayerTtl = 3000;
+		roomOptions.EmptyRoomTtl = 3000;
 
 		if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default)) {
 			arenaCreationStatus = "Arena creation request sent successfully.";
