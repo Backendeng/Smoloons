@@ -58,7 +58,7 @@ public class breakable_script: Photon.MonoBehaviour {
 				animator.enabled  = true;
 				Destroy(gameObject, 2.0f);
 			} else {
-				Destroy(gameObject);
+				Destroy(gameObject, 1.0f);
 				// int viewID =  photonView.viewID;
 				// photonView.RPC("DeleteBlock", PhotonTargets.MasterClient, viewID);
 			}

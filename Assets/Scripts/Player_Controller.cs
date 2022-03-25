@@ -275,13 +275,13 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 		if (collision.collider.CompareTag("Explosion")) {
 			if (!holding_status){
+				holding_status = true;
 				movement_status = false;
 				myTransform.rotation = Quaternion.Euler(0, 90, 30);
 				animator.SetBool("hitup", true);
 				animator.SetBool("holding", true);
 				transform.Find("bubble").gameObject.SetActive(true);
-				holding_status = true;
-			} else if (holding_time > 1) {
+			} else if (holding_time > 0.4) {
 				// int viewID =  PhotonView.viewID;
 				// PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 				GhostMonkey();
@@ -332,6 +332,16 @@ public class Player_Controller: Photon.MonoBehaviour {
 		holding_time = 0.0f;
 		animator.SetBool("holding", false);
 		animator.SetBool("hitup", false);
+		
+		for (int i = 0; i < globalKi.allPlayers.Length; i++) {
+			if (PhotonView.isMine){
+				globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(true);
+				globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(true);
+			} else {
+				globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(false);
+				globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(false);
+			}
+		}
 	}
 
 	private void FurtherRespawn() {
