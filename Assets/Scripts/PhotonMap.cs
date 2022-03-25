@@ -177,4 +177,7 @@ public class PhotonMap: Photon.MonoBehaviour {
 		return false;
 	}
 
+	public void startStone() {
+		Debug.Log("map startstone");
+	}
 }
