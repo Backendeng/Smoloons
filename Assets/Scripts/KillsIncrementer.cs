@@ -34,7 +34,7 @@ public class KillsIncrementer: MonoBehaviour {
 	private void Awake() {
 		j = 0;
 
-		startTime = 1000;
+		startTime = 100;
 
 		scroller = GameObject.FindGameObjectWithTag("Scroller");
 		rankCalc = GameObject.FindGameObjectWithTag("Rank");
