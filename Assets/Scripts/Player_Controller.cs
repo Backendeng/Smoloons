@@ -57,6 +57,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public GameObject Map_parent;
 	public GameObject floor_prefab;
 	public GameObject wall_prefab;
+	public Material ghost_material;
 
 	private void Awake() {
 		globalKillInc = GameObject.FindGameObjectWithTag("Kills");
@@ -281,8 +282,9 @@ public class Player_Controller: Photon.MonoBehaviour {
 				transform.Find("bubble").gameObject.SetActive(true);
 				holding_status = true;
 			} else if (holding_time > 1) {
-				int viewID =  PhotonView.viewID;
-				PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
+				// int viewID =  PhotonView.viewID;
+				// PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
+				GhostMonkey();
 			}
 		}
 
@@ -314,6 +316,15 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 		}
 
+	}
+
+	private void GhostMonkey() {
+		canDropBombs = false;
+		transform.GetComponent<CapsuleCollider>().enabled = false;
+		gameObject.tag = "Ghost";
+		for (int i = 1 ; i < 7; i++ ){
+			myTransform.GetChild(i).GetComponent<MeshRenderer> ().material = ghost_material;
+		}
 	}
 
 	private void FurtherRespawn() {
