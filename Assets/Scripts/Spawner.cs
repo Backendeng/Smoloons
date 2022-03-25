@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class Spawner: MonoBehaviour {
 
 	Player_Controller pm = new Player_Controller();
-
 	public Transform[] spawnPoint = new Transform[6];
+	public Transform[] spawnPoint_17 = new Transform[6];
+	public Transform[] spawnPoint_13 = new Transform[4];
 	public int playerID = 0;
 	public string character;
 
@@ -24,7 +25,11 @@ public class Spawner: MonoBehaviour {
 		Debug.Log(PhotonNetwork.player.ID);
 
 		Invoke("CreatePlayer", 2f);
-
+		if (PlayerNetwork.Instance.map == "11x13")
+			spawnPoint = spawnPoint_13;
+		else {
+			spawnPoint = spawnPoint_17;
+		}
 	}
 
 	public void OnDis() {

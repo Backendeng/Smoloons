@@ -20,8 +20,7 @@ public class PhotonMap: Photon.MonoBehaviour {
 
 	private int start_poses = 10;
 
-	int x = 19;
-	int y = 13;
+	int x, y;
 
 	private void Awake() {
 		PhotonView = GetComponent < PhotonView > ();
@@ -29,6 +28,15 @@ public class PhotonMap: Photon.MonoBehaviour {
 	// Start is called before the first frame update
 
 	void Start() {
+		
+		if (PlayerNetwork.Instance.map == "11x13")
+		{
+			x = 13;
+		}
+		else 
+		{
+			x = 19;
+		}
 		array_representation = new Blocks[x, y];
 		create_map(x, y);
 	}

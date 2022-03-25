@@ -22,6 +22,7 @@ public class PlayerNetwork: Photon.MonoBehaviour {
 	private PhotonView PhotonView;
 	public Player_Controller CurrentPlayer;
 	public string cha;
+	public string map;
 
 	private Coroutine playerPingCoroutine;
 

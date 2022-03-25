@@ -12,9 +12,10 @@ public class RoomCanvas: MonoBehaviour {
 			PhotonNetwork.room.IsOpen = true;
 			PhotonNetwork.room.IsVisible = false;
 			if (PhotonNetwork.room.PlayerCount > 4)
-				PhotonNetwork.LoadLevel(3);
+				PlayerNetwork.Instance.map = "11x17";
 			else
-				PhotonNetwork.LoadLevel(2);
+				PlayerNetwork.Instance.map = "11x13";
+			PhotonNetwork.LoadLevel(2);
 		}
 
 	}
