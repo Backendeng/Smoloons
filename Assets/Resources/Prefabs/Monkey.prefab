@@ -678,6 +678,7 @@ GameObject:
   - component: {fileID: 8753358790166376515}
   - component: {fileID: 7933672334899697954}
   - component: {fileID: 3869557111389439470}
+  - component: {fileID: 65248457951335556}
   m_Layer: 0
   m_Name: Monkey
   m_TagString: Player
@@ -820,10 +821,23 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7933672334899697954}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!65 &65248457951335556
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577088387120230896}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 1, z: 0.9}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &4707519521452133473
 GameObject:
   m_ObjectHideFlags: 0
