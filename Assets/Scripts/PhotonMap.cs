@@ -31,7 +31,7 @@ public class PhotonMap: Photon.MonoBehaviour {
 		
 		if (PlayerNetwork.Instance.map == "11x13")
 		{
-			x = 13;
+			x = 15;
 			y = 13;
 		}
 		else 
