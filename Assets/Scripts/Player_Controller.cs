@@ -321,6 +321,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	private void GhostMonkey() {
 		canDropBombs = false;
 		// transform.GetComponent<CapsuleCollider>().enabled = false;
+		transform.GetComponent<CapsuleCollider>().center = new Vector3(0, 2.5, 0);
 		gameObject.tag = "Ghost";
 		for (int i = 1 ; i < 7; i++ ){
 			myTransform.GetChild(i).GetComponent<SkinnedMeshRenderer> ().material = ghost_material;
