@@ -34,7 +34,7 @@ public class KillsIncrementer: MonoBehaviour {
 	private void Awake() {
 		j = 0;
 
-		startTime = 100;
+		startTime = 20;
 
 		scroller = GameObject.FindGameObjectWithTag("Scroller");
 		rankCalc = GameObject.FindGameObjectWithTag("Rank");
@@ -94,7 +94,7 @@ public class KillsIncrementer: MonoBehaviour {
 
 		timerText.text = minutes + " : " + seconds;
 
-		if (timer <= 0) {
+		if (timer <= 0 && !createStonestats) {
 		    
 		    timerText.text = "0" + " : " + "0"; 
 		    Debug.Log("start");
@@ -207,5 +207,6 @@ public class KillsIncrementer: MonoBehaviour {
 
 	public void StartStone() {
 		Debug.Log("startStone");
+		createStonestats = true;
 	}
 }
