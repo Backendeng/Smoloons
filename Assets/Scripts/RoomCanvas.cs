@@ -7,14 +7,9 @@ public class RoomCanvas: MonoBehaviour {
 	//public Button[] characterButton = new Button[5];
 
 	public void OnStartMatch() {
-		PlayerNetwork.Instance.cha = "Monkey";
 		if (PhotonNetwork.isMasterClient) {
 			PhotonNetwork.room.IsOpen = true;
 			PhotonNetwork.room.IsVisible = false;
-			if (PhotonNetwork.room.PlayerCount > 4)
-				PlayerNetwork.Instance.map = "11x17";
-			else
-				PlayerNetwork.Instance.map = "11x13";
 			PhotonNetwork.LoadLevel(2);
 		}
 

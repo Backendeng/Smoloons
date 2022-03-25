@@ -27,7 +27,7 @@ public class Spawner: MonoBehaviour {
 		Debug.Log(PhotonNetwork.player.ID);
 
 		Invoke("CreatePlayer", 2f);
-		if (PlayerNetwork.Instance.map == "11x13")
+		if (PhotonNetwork.room.PlayerCount < 5)
 		{
 			spawnPoint = spawnPoint_13;
 			Grand_13.SetActive(true);
