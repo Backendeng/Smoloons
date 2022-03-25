@@ -33,9 +33,10 @@ public class RoomLayoutGroup : MonoBehaviour
     private void RoomReceived(RoomInfo room) {
 
         int index = RoomListingButtons.FindIndex(x => x.RoomName == room.Name);
-
+        Debug.Log("Roomlistingbutton index");
+        Debug.Log(index);        
         if (index == -1) {
-            if (room.IsVisible && room.PlayerCount < room.MaxPlayers && !room.IsOpen) {
+            if (room.IsVisible && room.PlayerCount < room.MaxPlayers) {
 
                 GameObject roomListingObject = Instantiate(RoomListingPrefab);
                 roomListingObject.transform.SetParent(transform, false);

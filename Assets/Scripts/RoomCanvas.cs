@@ -10,7 +10,7 @@ public class RoomCanvas: MonoBehaviour {
 		PlayerNetwork.Instance.cha = "Monkey";
 		if (PhotonNetwork.isMasterClient) {
 			PhotonNetwork.room.IsOpen = true;
-			PhotonNetwork.room.IsVisible = true;
+			PhotonNetwork.room.IsVisible = false;
 			PhotonNetwork.LoadLevel(2);
 		}
 
