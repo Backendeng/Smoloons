@@ -9,6 +9,8 @@ public class Spawner: MonoBehaviour {
 	public Transform[] spawnPoint = new Transform[6];
 	public Transform[] spawnPoint_17 = new Transform[6];
 	public Transform[] spawnPoint_13 = new Transform[4];
+	public GameObject Grand_17;
+	public GameObject Grand_13;
 	public int playerID = 0;
 	public string character;
 
@@ -26,9 +28,15 @@ public class Spawner: MonoBehaviour {
 
 		Invoke("CreatePlayer", 2f);
 		if (PlayerNetwork.Instance.map == "11x13")
+		{
 			spawnPoint = spawnPoint_13;
-		else {
+			Grand_13.SetActive(true);
+			Grand_17.SetActive(false);
+		} else {
 			spawnPoint = spawnPoint_17;
+			Grand_17.SetActive(true);
+			Grand_13.SetActive(false);
+			
 		}
 	}
 
