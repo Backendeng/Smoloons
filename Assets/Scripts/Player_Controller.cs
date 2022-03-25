@@ -235,17 +235,13 @@ public class Player_Controller: Photon.MonoBehaviour {
 		if (stream.isWriting) {
 			stream.SendNext(transform.position);
 			stream.SendNext(myTransform.rotation);
-			Debug.Log("me");
-			Debug.Log(transform.rotation);
 			stream.SendNext(curr_health);
-
 			stream.SendNext(deaths);
 		}
 		else {
 			TargetPosition = (Vector3) stream.ReceiveNext();
 			TargetRotation = (Quaternion) stream.ReceiveNext();
 			curr_health = (float) stream.ReceiveNext();
-
 			deaths = (int) stream.ReceiveNext();
 		}
 
