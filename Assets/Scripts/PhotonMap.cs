@@ -32,10 +32,12 @@ public class PhotonMap: Photon.MonoBehaviour {
 		if (PlayerNetwork.Instance.map == "11x13")
 		{
 			x = 13;
+			y = 13;
 		}
 		else 
 		{
 			x = 19;
+			y = 13;
 		}
 		array_representation = new Blocks[x, y];
 		create_map(x, y);
