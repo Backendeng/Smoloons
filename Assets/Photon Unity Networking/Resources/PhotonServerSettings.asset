@@ -50,4 +50,5 @@ MonoBehaviour:
   - DeleteBlock
   - setPlayerName
   - DeletePlayer
+  - GhostMonkey
   DisableAutoOpenWizard: 1

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using UnityEngine.UI;
 using TMPro;
 
@@ -77,13 +76,13 @@ public class KillsIncrementer: MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		allPlayers = GameObject.FindGameObjectsWithTag("Player");
+		allPlayers = FindGameObjectsWithSameName("Monkey(Clone)");
 
 		for (int i = 0; i < allPlayers.Length; i++) {
 			if (PhotonNetwork.isMasterClient)
-		    	allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[allPlayers.Length - i - 1];
+		    	allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[i];
 			else
-				allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[i];
+				allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[allPlayers.Length - i - 1];
 		}
 		// Array.Reverse(ePN);
 
@@ -178,6 +177,20 @@ public class KillsIncrementer: MonoBehaviour {
 			}
 			else winLose[i] = "Loser";
 		}
+	}
+
+	public GameObject[] FindGameObjectsWithSameName(string name)
+	{
+		GameObject[] allObjs = Object.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+		List<GameObject> likeNames = new List<GameObject>();
+		foreach (GameObject obj in allObjs)
+		{
+			if (obj.name == name)
+			{
+				likeNames.Add(obj);
+			}
+		}
+		return likeNames.ToArray();
 	}
 
 }

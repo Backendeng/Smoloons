@@ -51,7 +51,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	private Blocks[, ] array_representation;
 	private int start_poses = 10;
-	private float holding_time;
+	public float holding_time;
 
 	private bool movement_status, holding_status;
 	public GameObject Map_parent;
@@ -127,6 +127,19 @@ public class Player_Controller: Photon.MonoBehaviour {
 				holding_time = 0.0f;
 				animator.SetBool("holding", false);
 				animator.SetBool("hitup", false);
+			}
+		}
+		for (int i = 0; i < globalKi.allPlayers.Length; i++) {
+			if (PhotonView.isMine) {
+				if ( gameObject.tag == "Ghost"){
+					globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(true);
+					globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(true);
+				} else {
+					if (globalKi.allPlayers[i].tag == "Ghost") {
+						globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(false);
+						globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(false);
+					}
+				}
 			}
 		}
 	}
@@ -278,9 +291,10 @@ public class Player_Controller: Photon.MonoBehaviour {
 				animator.SetBool("holding", true);
 				transform.Find("bubble").gameObject.SetActive(true);
 			} else if (holding_time > 0.4) {
-				// int viewID =  PhotonView.viewID;
+				int viewID =  PhotonView.viewID;
 				// PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
-				GhostMonkey();
+				// GhostMonkey();
+				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID);
 			}
 		}
 
@@ -314,30 +328,24 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	}
 
-	private void GhostMonkey() {
-		canDropBombs = false;
+	[PunRPC]
+	private void GhostMonkey(int viewID) {
+		// canDropBombs = false;
+		GameObject ghostMonkey = PhotonView.Find(viewID).gameObject;
+		ghostMonkey.transform.GetComponent<Player_Controller>().canDropBombs = false;
 		// transform.GetComponent<CapsuleCollider>().enabled = false;
-		transform.GetComponent<CapsuleCollider>().center = new Vector3(0f, 2.5f, 0f);
-		gameObject.tag = "Ghost";
+		ghostMonkey.transform.GetComponent<CapsuleCollider>().center = new Vector3(0f, 2.5f, 0f);
+		ghostMonkey.gameObject.tag = "Ghost";
 		for (int i = 1 ; i < 7; i++ ){
-			myTransform.GetChild(i).GetComponent<SkinnedMeshRenderer> ().material = ghost_material;
+			ghostMonkey.transform.Find("model").GetChild(i).GetComponent<SkinnedMeshRenderer> ().material = ghost_material;
 		}
-		transform.Find("bubble").gameObject.SetActive(false);
-		holding_status = false;
-		movement_status = true;
-		holding_time = 0.0f;
-		animator.SetBool("holding", false);
-		animator.SetBool("hitup", false);
-		
-		for (int i = 0; i < globalKi.allPlayers.Length; i++) {
-			if (PhotonView.isMine){
-				globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(true);
-				globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(true);
-			} else {
-				globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(false);
-				globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(false);
-			}
-		}
+		ghostMonkey.transform.Find("bubble").gameObject.SetActive(false);
+		ghostMonkey.transform.GetComponent<Player_Controller>().holding_time = 10;
+		// ghostMonkey.holding_status = false;
+		// ghostMonkey.movement_status = true;
+		// ghostMonkey.holding_time = 0.0f;
+		// ghostMonkey.animator.SetBool("holding", false);
+		// ghostMonkey.animator.SetBool("hitup", false);
 	}
 
 	private void FurtherRespawn() {
