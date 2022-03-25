@@ -320,11 +320,17 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	private void GhostMonkey() {
 		canDropBombs = false;
-		transform.GetComponent<CapsuleCollider>().enabled = false;
+		// transform.GetComponent<CapsuleCollider>().enabled = false;
 		gameObject.tag = "Ghost";
 		for (int i = 1 ; i < 7; i++ ){
-			myTransform.GetChild(i).GetComponent<MeshRenderer> ().material = ghost_material;
+			myTransform.GetChild(i).GetComponent<SkinnedMeshRenderer> ().material = ghost_material;
 		}
+		transform.Find("bubble").gameObject.SetActive(false);
+		holding_status = false;
+		movement_status = true;
+		holding_time = 0.0f;
+		animator.SetBool("holding", false);
+		animator.SetBool("hitup", false);
 	}
 
 	private void FurtherRespawn() {

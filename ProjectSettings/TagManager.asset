@@ -30,6 +30,8 @@ TagManager:
   - map
   - AudioSourceObject
   - Volume_Slider
+  - Breakable
+  - Ghost
   layers:
   - Default
   - TransparentFX
