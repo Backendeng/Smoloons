@@ -98,7 +98,7 @@ public class KillsIncrementer: MonoBehaviour {
 		    
 		    timerText.text = "0" + " : " + "0"; 
 		    Debug.Log("start");
-			PhotonView.RPC("CreateStone", PhotonTargets.All);
+			pv.RPC("CreateStone", PhotonTargets.All);
 		    // WinLosePanel.SetActive(true);
 		}
 
