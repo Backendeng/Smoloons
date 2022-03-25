@@ -11,9 +11,10 @@ public class RoomCanvas: MonoBehaviour {
 		if (PhotonNetwork.isMasterClient) {
 			PhotonNetwork.room.IsOpen = true;
 			PhotonNetwork.room.IsVisible = false;
-			Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
-			Debug.Log(PhotonNetwork.PlayerList.Length);
-			// PhotonNetwork.LoadLevel(2);
+			if (PhotonNetwork.room.PlayerCount > 4)
+				PhotonNetwork.LoadLevel(3);
+			else
+				PhotonNetwork.LoadLevel(2);
 		}
 
 	}
