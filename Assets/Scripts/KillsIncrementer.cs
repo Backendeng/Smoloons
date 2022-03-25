@@ -28,6 +28,7 @@ public class KillsIncrementer: MonoBehaviour {
 	public GameObject scroller,
 	rankCalc;
 	public RankCalc rankCalcInstance;
+	public bool createStonestats = false;
 
 	PhotonView pv;
 	private void Awake() {
@@ -86,18 +87,23 @@ public class KillsIncrementer: MonoBehaviour {
 		}
 		// Array.Reverse(ePN);
 
-		// timer = startTime - Time.timeSinceLevelLoad;
+		timer = startTime - Time.timeSinceLevelLoad;
 
-		// string minutes = ((int)timer / 60).ToString();
-		// string seconds = (timer % 60).ToString("f0");
+		string minutes = ((int)timer / 60).ToString();
+		string seconds = (timer % 60).ToString("f0");
 
-		// timerText.text = minutes + " : " + seconds;
+		timerText.text = minutes + " : " + seconds;
 
-		// if (timer <= 0) {
-		//     timer = 0;
-		//     timerText.text = "0" + " : " + "0"; 
-		//     WinLose();
-		//     WinLosePanel.SetActive(true);
+		if (timer <= 0) {
+		    
+		    timerText.text = "0" + " : " + "0"; 
+		    Debug.Log("start");
+			PhotonView.RPC("CreateStone", PhotonTargets.All);
+		    // WinLosePanel.SetActive(true);
+		}
+
+		// if (createStonestats) {
+		// 	StartStone();
 		// }
 
 		// Array.Sort(eachPlayerName);
@@ -193,4 +199,13 @@ public class KillsIncrementer: MonoBehaviour {
 		return likeNames.ToArray();
 	}
 
+	[PunRPC]
+	private void CreateStone() {
+		timer = 5000;
+		StartStone();
+	}
+
+	public void StartStone() {
+		Debug.Log("startStone");
+	}
 }
