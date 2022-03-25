@@ -127,7 +127,10 @@ public class PhotonMap: Photon.MonoBehaviour {
 						if (!start_next_to(i_x, i_y)) {
 							array_representation[i_x, i_y] = Blocks.Breakable;
 							// if (PhotonNetwork.isMasterClient) {
-								GameObject temp_floor1 = Instantiate(breakable_prefab, new Vector3(i_x, 0, i_y), Quaternion.identity);
+								int xx =i_x;
+								if (PlayerNetwork.Instance.map == "11x13")
+									xx += 2;
+								GameObject temp_floor1 = Instantiate(breakable_prefab, new Vector3(xx, 0, i_y), Quaternion.identity);
 								temp_floor1.transform.SetParent(Map_parent.transform);
 								// GameObject temp_floor1 = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Breakable"), new Vector3(i_x, 0, i_y), Quaternion.Euler(-90f, 0f, -90f), 0);
 								// temp_floor1.transform.SetParent(Map_parent.transform);
@@ -141,7 +144,10 @@ public class PhotonMap: Photon.MonoBehaviour {
 	}
 
 	private GameObject new_instance(int x, int y, int z, GameObject prefab) {
-		GameObject temp_floor = Instantiate(prefab, new Vector3(x, y, z), Quaternion.Euler(-90f, 0f, 0f)); // create new prefab instance
+		int xx =x;
+		if (PlayerNetwork.Instance.map == "11x13")
+			xx += 2;
+		GameObject temp_floor = Instantiate(prefab, new Vector3(xx, y, z), Quaternion.Euler(-90f, 0f, 0f)); // create new prefab instance
 		temp_floor.transform.SetParent(Map_parent.transform); // set parent
 		return temp_floor;
 	}
