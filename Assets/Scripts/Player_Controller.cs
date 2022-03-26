@@ -468,7 +468,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		GameObject go = GameObject.FindGameObjectWithTag("Kills");
 		KillsIncrementer k = go.GetComponent < KillsIncrementer > ();
 
-		GameUI.Instance.playerDeaths.text = k.eachPlayerDeaths[(PhotonNetwork.player.ID - 1) % 5].ToString();
+		GameUI.Instance.playerDeaths.text = k.eachPlayerDeaths[(PhotonNetwork.player.ID - 1) % 6].ToString();
 
 	}
 
