@@ -33,6 +33,7 @@ TagManager:
   - Breakable
   - Ghost
   - LastStone
+  - light
   layers:
   - Default
   - TransparentFX

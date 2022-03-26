@@ -58,8 +58,6 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public GameObject floor_prefab;
 	public GameObject wall_prefab;
 	public Material ghost_material;
-	public GameObject light;
-	public GameObject spotLight;
 
 	private void Awake() {
 		globalKillInc = GameObject.FindGameObjectWithTag("Kills");
@@ -136,8 +134,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 				if ( gameObject.tag == "Ghost"){
 					globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(true);
 					globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(true);
-					light.SetActive(false);
-					spotLight.SetActive(true);
+					GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(false);
+					GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(true);
 				} else {
 					if (globalKi.allPlayers[i].tag == "Ghost") {
 						globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(false);
