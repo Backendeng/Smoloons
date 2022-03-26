@@ -281,7 +281,6 @@ public class Player_Controller: Photon.MonoBehaviour {
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
-
 		if (collision.collider.CompareTag("Explosion")) {
 			if (!holding_status){
 				int viewID =  PhotonView.viewID;
@@ -301,6 +300,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 			}
 		}
 		if (collision.collider.CompareTag("LastStone")) {
+			Debug.Log("laststone");
 			int viewID =  PhotonView.viewID;
 			PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 		}
@@ -378,7 +378,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	[PunRPC]
 	private void DeletePlayer(int viewID) {
+		Debug.Log(1);
+		StartCoroutine(DeathAnimation(PhotonView.Find(viewID).gameObject));
+		Debug.Log(2);
 		PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
+		Debug.Log(3);
 	}
 
 	[PunRPC]
@@ -422,6 +426,17 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 		GameUI.Instance.playerKills.text = k.eachPlayerKills[(PhotonNetwork.player.ID - 1) % 5].ToString();
 		GameUI.Instance.playerScore.text = k.eachPlayerScore[(PhotonNetwork.player.ID - 1) % 5].ToString();
+	}
+
+	IEnumerator DeathAnimation(GameObject DeathPlayer)
+	{
+		Debug.Log(4);
+		DeathPlayer.transform.Find("model").transform.rotation = Quaternion.Euler(0, 90, 30);
+		Debug.Log(5);
+		DeathPlayer.transform.Find("model").GetComponent < Animator > ().SetBool("die", true);
+		Debug.Log(6);
+   		yield return new WaitForSeconds(2f);
+		   Debug.Log(8);
 	}
 
 	[PunRPC]

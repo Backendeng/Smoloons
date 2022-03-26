@@ -66,7 +66,6 @@ public class PhotonMap: Photon.MonoBehaviour {
 			int seconds = (int) (timer);
 			if (seconds > second){
 				second = seconds;
-				Debug.Log(second);
 				createStone();
 			}
 		}
@@ -229,9 +228,10 @@ public class PhotonMap: Photon.MonoBehaviour {
 
 	private GameObject stone_instance(int x, int y, int z, GameObject prefab) {
 		int xx =x+1;
+		int zz = z;
 		if (PhotonNetwork.room.PlayerCount < 5)
-			xx += 2;
-		GameObject temp_floor = Instantiate(prefab, new Vector3(xx, y, z+1), Quaternion.Euler(-90f, 0f, 0f)); // create new prefab instance
+			xx -= 2;
+		GameObject temp_floor = Instantiate(prefab, new Vector3(xx, y, zz), Quaternion.Euler(0f, 0f, 0f)); // create new prefab instance
 		temp_floor.transform.SetParent(Stone_parent.transform); // set parent
 		return temp_floor;
 	}

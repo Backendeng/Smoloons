@@ -48,6 +48,7 @@ public class breakable_script: Photon.MonoBehaviour {
 		// // 	 Destroy(gameObject); // 3  
 
 		// }
+		// Debug.Log(collision.collider.gameObject.tag);
 		if (collision.collider.CompareTag("Explosion")) {
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			if (PhotonNetwork.connected == true) {
