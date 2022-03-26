@@ -52,4 +52,5 @@ MonoBehaviour:
   - DeletePlayer
   - GhostMonkey
   - CreateStone
+  - BubbleMonkey
   DisableAutoOpenWizard: 1

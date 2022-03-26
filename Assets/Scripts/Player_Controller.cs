@@ -53,7 +53,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	private int start_poses = 10;
 	public float holding_time;
 
-	private bool movement_status, holding_status;
+	public bool movement_status, holding_status;
 	public GameObject Map_parent;
 	public GameObject floor_prefab;
 	public GameObject wall_prefab;
@@ -284,18 +284,25 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 		if (collision.collider.CompareTag("Explosion")) {
 			if (!holding_status){
-				holding_status = true;
-				movement_status = false;
-				myTransform.rotation = Quaternion.Euler(0, 90, 30);
-				animator.SetBool("hitup", true);
-				animator.SetBool("holding", true);
-				transform.Find("bubble").gameObject.SetActive(true);
+				int viewID =  PhotonView.viewID;
+				PhotonView.RPC("BubbleMonkey", PhotonTargets.All, viewID);
+				// movement_status = false;
+				// holding_time  = .0f;
+				// holding_status = true;
+				// myTransform.rotation = Quaternion.Euler(0, 90, 30);
+				// animator.SetBool("hitup", true);
+				// animator.SetBool("holding", true);
+				// transform.Find("bubble").gameObject.SetActive(true);
 			} else if (holding_time > 0.4) {
 				int viewID =  PhotonView.viewID;
 				// PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 				// GhostMonkey();
 				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID);
 			}
+		}
+		if (collision.collider.CompareTag("LastStone")) {
+			int viewID =  PhotonView.viewID;
+			PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 		}
 
 	}
@@ -329,6 +336,17 @@ public class Player_Controller: Photon.MonoBehaviour {
 	}
 
 	[PunRPC]
+	private void BubbleMonkey(int viewID) {
+		GameObject bubbleMonkey = PhotonView.Find(viewID).gameObject;
+		bubbleMonkey.transform.GetComponent<Player_Controller>().movement_status = false;
+		bubbleMonkey.transform.GetComponent<Player_Controller>().holding_time  = .0f;
+		bubbleMonkey.transform.GetComponent<Player_Controller>().holding_status = true;
+		bubbleMonkey.transform.Find("model").transform.rotation = Quaternion.Euler(0, 90, 30);
+		bubbleMonkey.transform.Find("model").GetComponent < Animator > ().SetBool("hitup", true);
+		bubbleMonkey.transform.Find("model").GetComponent < Animator > ().SetBool("holding", true);
+		bubbleMonkey.transform.Find("bubble").gameObject.SetActive(true);
+	}
+	[PunRPC]
 	private void GhostMonkey(int viewID) {
 		// canDropBombs = false;
 		GameObject ghostMonkey = PhotonView.Find(viewID).gameObject;
@@ -341,6 +359,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		}
 		ghostMonkey.transform.Find("bubble").gameObject.SetActive(false);
 		ghostMonkey.transform.GetComponent<Player_Controller>().holding_time = 10;
+		ghostMonkey.transform.GetComponent<AudioSource>().enabled = true;
 		// ghostMonkey.holding_status = false;
 		// ghostMonkey.movement_status = true;
 		// ghostMonkey.holding_time = 0.0f;

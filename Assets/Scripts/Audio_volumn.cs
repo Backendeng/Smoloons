@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class Audio_volumn : MonoBehaviour
 {
     public GameObject slider;
+    public GameObject powerupSound;
+    public GameObject bombSound;
+    public GameObject Monkey;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +26,9 @@ public class Audio_volumn : MonoBehaviour
         float VolumeSliderGet = slider.GetComponent <Slider> ().value;
         Debug.Log(VolumeSliderGet);
         gameObject.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        powerupSound.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        bombSound.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        Monkey.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        Monkey.transform.GetChild(2).GetComponent<AudioSource>().volume = VolumeSliderGet;
     }
 }

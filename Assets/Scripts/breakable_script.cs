@@ -56,12 +56,16 @@ public class breakable_script: Photon.MonoBehaviour {
 				}
 				// if (PhotonNetwork.isMasterClient)
 				animator.enabled  = true;
+				transform.GetComponent <BoxCollider> ().enabled = false;
 				Destroy(gameObject, 2.0f);
 			} else {
-				Destroy(gameObject, 1.0f);
+				Destroy(gameObject, 0.5f);
 				// int viewID =  photonView.viewID;
 				// photonView.RPC("DeleteBlock", PhotonTargets.MasterClient, viewID);
 			}
+		}
+		if (collision.collider.CompareTag("LastStone")) {
+			Destroy(gameObject);
 		}
 	}
 

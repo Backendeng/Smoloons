@@ -32,6 +32,7 @@ TagManager:
   - Volume_Slider
   - Breakable
   - Ghost
+  - LastStone
   layers:
   - Default
   - TransparentFX
