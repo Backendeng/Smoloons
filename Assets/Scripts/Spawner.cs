@@ -11,6 +11,8 @@ public class Spawner: MonoBehaviour {
 	public Transform[] spawnPoint_13 = new Transform[4];
 	public GameObject Grand_17;
 	public GameObject Grand_13;
+	public GameObject SpawnPoints_17;
+	public GameObject SpawnPoints_13;
 	public int playerID = 0;
 	public string character;
 
@@ -31,11 +33,15 @@ public class Spawner: MonoBehaviour {
 		{
 			spawnPoint = spawnPoint_13;
 			Grand_13.SetActive(true);
+			SpawnPoints_13.SetActive(true);
+			SpawnPoints_17.SetActive(false);
 			Grand_17.SetActive(false);
 		} else {
 			spawnPoint = spawnPoint_17;
 			Grand_17.SetActive(true);
 			Grand_13.SetActive(false);
+			SpawnPoints_13.SetActive(false);
+			SpawnPoints_17.SetActive(true);
 			
 		}
 	}

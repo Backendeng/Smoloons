@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wall_prefab: {fileID: 2031314997861805762, guid: 765fb58fdfaa1f6409fb9621677a9197,
     type: 3}
+  breakable_prefab: {fileID: 0}
   floor_prefab: {fileID: 1806082955396458, guid: 9163a489b47d42845a921103260a5a1e,
     type: 3}
   Map_parent: {fileID: 0}

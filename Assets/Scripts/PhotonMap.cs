@@ -6,7 +6,10 @@ using UnityEngine.UI;
 using System;
 public class PhotonMap: Photon.MonoBehaviour {
 
+
+	public static PhotonMap Instance;
 	public GameObject wall_prefab;
+	public GameObject stone_prefab;
 	public GameObject breakable_prefab;
 	private GameObject startpos_prefab;
 	public GameObject floor_prefab;
@@ -14,13 +17,18 @@ public class PhotonMap: Photon.MonoBehaviour {
 	private GameObject door_prefab;
 	private GameObject powerup_prefab;
 	public GameObject Map_parent;
+	public GameObject Stone_parent;
 
 	private PhotonView PhotonView;
 	private Blocks[, ] array_representation;
 
 	private int start_poses = 10;
 
-	int x, y;
+	int x, y, x1, x2, x3, y1, y2, y3;
+	bool xplus, yplus, xminus, yminus;
+	float timer = 0.0f;
+	int second = 0;
+	bool startStonestats = false;
 
 	private void Awake() {
 		PhotonView = GetComponent < PhotonView > ();
@@ -33,19 +41,86 @@ public class PhotonMap: Photon.MonoBehaviour {
 		{
 			x = 15;
 			y = 13;
+			x2 = 13;
+			y2 = 11;
 		}
 		else 
 		{
 			x = 19;
 			y = 13;
+			x2 = 17;
+			y2 = 11;
 		}
 		array_representation = new Blocks[x, y];
 		create_map(x, y);
+		startStonestats = false;
+		xplus = yplus = xminus = yminus = false;
+		x1 = x3 = 0;
+		y1 = y3 = 0;
 	}
 
 	// Update is called once per frame
 	void Update() {
+		if (startStonestats){
+			timer += Time.deltaTime;
+			int seconds = (int) (timer);
+			if (seconds > second){
+				second = seconds;
+				Debug.Log(second);
+				createStone();
+			}
+		}
+	}
 
+	public void createStone() {
+		if (xplus) {
+			if (x1 < x2) {
+				stone_instance(x1, 0, y1, stone_prefab);
+				x1++;
+			} else {
+				y3++;
+				y1++;
+				x1--;
+				xplus=false;
+				yplus=true;
+			}
+		}
+		if (yplus) {
+			if (y1 < y2) {
+				stone_instance(x1, 0, y1, stone_prefab);
+				y1++;
+			} else {
+				x2--;
+				x1--;
+				y1--;
+				yplus = false;
+				xminus = true;
+			}
+		}
+		if (xminus) {
+			if(x1 >= x3){
+				stone_instance(x1, 0, y1, stone_prefab);
+				x1--;
+			} else {
+				xminus = false;
+				yminus = true;
+				y2--;
+				y1--;
+				x1++;
+			}
+		}
+		if(yminus) {
+			if (y1 >= y3){
+				stone_instance(x1, 0, y1, stone_prefab);
+				y1--;
+			} else {
+				yminus = false;
+				xplus = true;
+				x3++;
+				x1++;
+				y1++;
+			}
+		}
 	}
 
 	public void create_map(int x, int y) {
@@ -152,6 +227,15 @@ public class PhotonMap: Photon.MonoBehaviour {
 		return temp_floor;
 	}
 
+	private GameObject stone_instance(int x, int y, int z, GameObject prefab) {
+		int xx =x+1;
+		if (PhotonNetwork.room.PlayerCount < 5)
+			xx += 2;
+		GameObject temp_floor = Instantiate(prefab, new Vector3(xx, y, z+1), Quaternion.Euler(-90f, 0f, 0f)); // create new prefab instance
+		temp_floor.transform.SetParent(Stone_parent.transform); // set parent
+		return temp_floor;
+	}
+
 	private bool start_next_to(int x, int y) {
 		if (array_representation[x - 1, y] == Blocks.Startpos) {
 			return true;
@@ -179,5 +263,9 @@ public class PhotonMap: Photon.MonoBehaviour {
 
 	public void startStone() {
 		Debug.Log("map startstone");
+		xplus = true;
+		startStonestats = true;
 	}
+
+
 }

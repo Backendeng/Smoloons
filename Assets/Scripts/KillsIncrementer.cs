@@ -29,12 +29,14 @@ public class KillsIncrementer: MonoBehaviour {
 	rankCalc;
 	public RankCalc rankCalcInstance;
 	public bool createStonestats = false;
+	public GameObject photonmap1;
+	public GameObject photonmap2;
 
 	PhotonView pv;
 	private void Awake() {
 		j = 0;
 
-		startTime = 20;
+		startTime = 10;
 
 		scroller = GameObject.FindGameObjectWithTag("Scroller");
 		rankCalc = GameObject.FindGameObjectWithTag("Rank");
@@ -207,6 +209,11 @@ public class KillsIncrementer: MonoBehaviour {
 
 	public void StartStone() {
 		Debug.Log("startStone");
+		if (photonmap1.activeSelf)
+			photonmap1.GetComponent<PhotonMap>().startStone();
+		else 
+			photonmap2.GetComponent<PhotonMap>().startStone();
+
 		createStonestats = true;
 	}
 }
