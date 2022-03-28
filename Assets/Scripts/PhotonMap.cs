@@ -254,9 +254,9 @@ public class PhotonMap: Photon.MonoBehaviour {
 	}
 
 	private GameObject stone_instance(int x, int y, int z, GameObject prefab) {
-		int xx =x+1;
+		int xx =x-1;
 		int zz = z;
-		if (PhotonNetwork.room.PlayerCount < 5)
+		if (PhotonNetwork.room.PlayerCount > 4)
 			xx -= 2;
 		GameObject temp_floor = Instantiate(prefab, new Vector3(xx, y, zz), Quaternion.Euler(0f, 0f, 0f)); // create new prefab instance
 		temp_floor.transform.SetParent(Stone_parent.transform); // set parent
@@ -266,6 +266,8 @@ public class PhotonMap: Photon.MonoBehaviour {
 	private bool stone_stats(int x, int y){
 		int xx = x+1;
 		int yy = y+1;
+		// if (PhotonNetwork.room.PlayerCount < 5)
+		// 	xx -= 4;
 		if (xx > -1 && yy > -1)
 			if(array_representation[xx, yy] == Blocks.Wall)
 				return true;

@@ -88,7 +88,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		myTransform = transform.Find("model").transform;
 		animator = transform.Find("model").GetComponent < Animator > ();
 		Invoke("changeName", 2f);
-
+		Invoke("RPC_sendName", 2f);
 	}
 
 	// Update is called once per frame
@@ -477,6 +477,19 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	private void changeName() {
 		PhotonView.RPC("setName", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
+	}
+
+	private void RPC_sendName() {
+		if (PhotonView.isMine) {
+			int viewID =  PhotonView.viewID;
+			string name = transform.GetChild(1).GetComponent<TextMeshPro>().text;
+			PhotonView.RPC("sendName", PhotonTargets.All, viewID, name);
+		}
+	}
+
+	[PunRPC]
+	private void sendName (int viewID, string name){
+		PhotonView.Find(viewID).gameObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
 	}
 
 	[PunRPC]
