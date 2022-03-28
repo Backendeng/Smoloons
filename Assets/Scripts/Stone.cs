@@ -22,4 +22,6 @@ public class Stone : MonoBehaviour
                 transform.GetChild(0).GetComponent<BoxCollider>().size = new Vector3(0.023f, 0.023f, 0.1f);
             }
     }
+
+
 }
