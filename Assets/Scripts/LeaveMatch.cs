@@ -24,6 +24,9 @@ public class LeaveMatch: MonoBehaviour {
 		PhotonNetwork.LoadLevel(1);
 
 	}
+	public void OnRestart() {
+		PhotonNetwork.LoadLevel(1);
+	}
 
 	public void ExitGame() {
 		Application.Quit();
