@@ -15,12 +15,13 @@ public class Spawner: MonoBehaviour {
 	public GameObject SpawnPoints_13;
 	public int playerID = 0;
 	public string character;
-
+	public string playername;
 	// public bool summaryOpen;
 
 	private void Awake() {
 		// summaryOpen
 		playerID = PhotonNetwork.player.ID;
+		playername = PhotonNetwork.playerName;
 		character = "Monkey";
 	}
 
@@ -54,32 +55,32 @@ public class Spawner: MonoBehaviour {
 		switch (playerID % 6) {
 		case 1:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[0], character);
+			pm.RPC_SpawnPlayer(spawnPoint[0], character, playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[0];
 			break;
 		case 2:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[1], character);
+			pm.RPC_SpawnPlayer(spawnPoint[1], character, playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[1];
 			break;
 		case 3:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[2], character);
+			pm.RPC_SpawnPlayer(spawnPoint[2], character, playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[2];
 			break;
 		case 4:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[3], character);
+			pm.RPC_SpawnPlayer(spawnPoint[3], character, playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[3];
 			break;
 		case 5:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[4], character);
+			pm.RPC_SpawnPlayer(spawnPoint[4], character, playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[4];
 			break;
 		case 0:
 			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[5], character);
+			pm.RPC_SpawnPlayer(spawnPoint[5], character, playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[4];
 			break;
 		default:

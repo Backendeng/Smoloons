@@ -235,10 +235,10 @@ public class Player_Controller: Photon.MonoBehaviour {
 		}
 	}
 
-	public void RPC_SpawnPlayer(Transform spawnPoint, string shape) {
+	public void RPC_SpawnPlayer(Transform spawnPoint, string shape, string name) {
 
-		PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
-		//playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = PlayerName;
+		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
+		playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
 	}
 
 	[PunRPC]

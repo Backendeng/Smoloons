@@ -81,12 +81,12 @@ public class KillsIncrementer: MonoBehaviour {
 	void Update() {
 		allPlayers = FindGameObjectsWithSameName("Monkey(Clone)");
 
-		for (int i = 0; i < allPlayers.Length; i++) {
-			if (PhotonNetwork.isMasterClient)
-		    	allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[i];
-			else
-				allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[allPlayers.Length - i - 1];
-		}
+		// for (int i = 0; i < allPlayers.Length; i++) {
+		// 	if (PhotonNetwork.isMasterClient)
+		//     	allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[i];
+		// 	else
+		// 		allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[allPlayers.Length - i - 1];
+		// }
 		// Array.Reverse(ePN);
 
 		timer = startTime - Time.timeSinceLevelLoad;
