@@ -195,6 +195,7 @@ public class PhotonMap: Photon.MonoBehaviour {
 
 						array_representation[i_x, i_y] = Blocks.Wall;
 						new_instance(i_x, 0, i_y, wall_prefab);
+						Debug.Log(i_x +" , "+ i_y);
 					} else {
 
 						// add breakables
