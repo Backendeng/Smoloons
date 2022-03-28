@@ -122,11 +122,14 @@ public class Player_Controller: Photon.MonoBehaviour {
 			{
 				Debug.Log("alive");
 				transform.Find("bubble").gameObject.SetActive(false);
-				holding_status = false;
-				movement_status = true;
-				holding_time = 0.0f;
 				animator.SetBool("holding", false);
 				animator.SetBool("hitup", false);
+			}
+			if(holding_time > 6)
+			{
+				holding_time = 0.0f;
+				holding_status = false;
+				movement_status = true;
 			}
 		}
 		for (int i = 0; i < globalKi.allPlayers.Length; i++) {

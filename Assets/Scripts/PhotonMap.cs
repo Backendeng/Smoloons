@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
+
 public class PhotonMap: Photon.MonoBehaviour {
 
 
@@ -74,8 +74,13 @@ public class PhotonMap: Photon.MonoBehaviour {
 	public void createStone() {
 		if (xplus) {
 			if (x1 < x2) {
-				stone_instance(x1, 0, y1, stone_prefab);
-				x1++;
+				if (stone_stats(x1, y1)){
+					x1++;
+				}
+				if (x1 < x2){
+					stone_instance(x1, 0, y1, stone_prefab);
+					x1++;
+				}
 			} else {
 				y3++;
 				y1++;
@@ -86,8 +91,15 @@ public class PhotonMap: Photon.MonoBehaviour {
 		}
 		if (yplus) {
 			if (y1 < y2) {
-				stone_instance(x1, 0, y1, stone_prefab);
-				y1++;
+				if (stone_stats(x1, y1)){
+					y1++;
+				}
+				
+				if (y1 < y2){
+					stone_instance(x1, 0, y1, stone_prefab);
+					y1++;
+				}
+					
 			} else {
 				x2--;
 				x1--;
@@ -98,8 +110,14 @@ public class PhotonMap: Photon.MonoBehaviour {
 		}
 		if (xminus) {
 			if(x1 >= x3){
-				stone_instance(x1, 0, y1, stone_prefab);
-				x1--;
+				if (stone_stats(x1, y1)){
+					x1--;
+				}
+				
+				if(x1 >= x3){
+					stone_instance(x1, 0, y1, stone_prefab);
+					x1--;
+				}
 			} else {
 				xminus = false;
 				yminus = true;
@@ -110,8 +128,14 @@ public class PhotonMap: Photon.MonoBehaviour {
 		}
 		if(yminus) {
 			if (y1 >= y3){
-				stone_instance(x1, 0, y1, stone_prefab);
-				y1--;
+				if (stone_stats(x1, y1)){
+					y1--;
+				}
+				
+				if (y1 >= y3) {
+					stone_instance(x1, 0, y1, stone_prefab);
+					y1--;
+				}
 			} else {
 				yminus = false;
 				xplus = true;
@@ -205,8 +229,10 @@ public class PhotonMap: Photon.MonoBehaviour {
 								int xx =i_x;
 								if (PhotonNetwork.room.PlayerCount < 5)
 									xx += 2;
-								GameObject temp_floor1 = Instantiate(breakable_prefab, new Vector3(xx, 0, i_y), Quaternion.identity);
-								temp_floor1.transform.SetParent(Map_parent.transform);
+								if (Random.Range(0.0f, 1.0f) > 0.1f) {
+									GameObject temp_floor1 = Instantiate(breakable_prefab, new Vector3(xx, 0, i_y), Quaternion.identity);
+									temp_floor1.transform.SetParent(Map_parent.transform);
+								}
 								// GameObject temp_floor1 = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Breakable"), new Vector3(i_x, 0, i_y), Quaternion.Euler(-90f, 0f, -90f), 0);
 								// temp_floor1.transform.SetParent(Map_parent.transform);
 							// }
@@ -235,6 +261,15 @@ public class PhotonMap: Photon.MonoBehaviour {
 		GameObject temp_floor = Instantiate(prefab, new Vector3(xx, y, zz), Quaternion.Euler(0f, 0f, 0f)); // create new prefab instance
 		temp_floor.transform.SetParent(Stone_parent.transform); // set parent
 		return temp_floor;
+	}
+
+	private bool stone_stats(int x, int y){
+		int xx = x+1;
+		int yy = y+1;
+		if (xx > -1 && yy > -1)
+			if(array_representation[xx, yy] == Blocks.Wall)
+				return true;
+		return false;	
 	}
 
 	private bool start_next_to(int x, int y) {
