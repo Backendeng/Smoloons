@@ -120,7 +120,6 @@ public class Player_Controller: Photon.MonoBehaviour {
 	
 			if(holding_time > 5)
 			{
-				Debug.Log("alive");
 				transform.Find("bubble").gameObject.SetActive(false);
 				animator.SetBool("holding", false);
 				animator.SetBool("hitup", false);
@@ -231,6 +230,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 				if (player.canKick) {
 					go.GetComponent < Rigidbody > ().isKinematic = false; // make bomb kickable
 				}
+				canDropBombs = false;
 			}
 		}
 	}

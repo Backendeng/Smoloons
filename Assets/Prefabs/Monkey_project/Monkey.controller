@@ -388,7 +388,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: hitdown
-  m_Speed: 10
+  m_Speed: 1000
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101181279170265472}
@@ -540,13 +540,13 @@ AnimatorStateMachine:
     m_Position: {x: 852, y: -12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102545381265493936}
-    m_Position: {x: 540, y: 276, z: 0}
+    m_Position: {x: 384, y: 264, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102284081501242638}
-    m_Position: {x: 816, y: 96, z: 0}
+    m_Position: {x: 756, y: 132, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102005621316465610}
-    m_Position: {x: 1116, y: 72, z: 0}
+    m_Position: {x: 1044, y: 156, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
