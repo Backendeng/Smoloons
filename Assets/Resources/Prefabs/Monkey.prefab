@@ -802,6 +802,7 @@ MonoBehaviour:
   wall_prefab: {fileID: 2794135261344442598, guid: 0df0610b3a37da34ebffb4c7338c4106,
     type: 3}
   ghost_material: {fileID: 2100000, guid: 6b06f1722a149d345b311b4872e4dca8, type: 2}
+  player_image: {fileID: 21300000, guid: 6549fe6daeb8c4742955410c9b88eef3, type: 3}
 --- !u!114 &3869557111389439470
 MonoBehaviour:
   m_ObjectHideFlags: 0

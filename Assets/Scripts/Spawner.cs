@@ -54,33 +54,27 @@ public class Spawner: MonoBehaviour {
 	public void CreatePlayer() {
 		switch (playerID % 6) {
 		case 1:
-			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[0], character, playername);
+			pm.RPC_SpawnPlayer(spawnPoint[0], "Monkey", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[0];
 			break;
 		case 2:
-			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[1], character, playername);
+			pm.RPC_SpawnPlayer(spawnPoint[1], "Monkey1", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[1];
 			break;
 		case 3:
-			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[2], character, playername);
+			pm.RPC_SpawnPlayer(spawnPoint[2], "Monkey2", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[2];
 			break;
 		case 4:
-			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[3], character, playername);
+			pm.RPC_SpawnPlayer(spawnPoint[3], "Monkey3", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[3];
 			break;
 		case 5:
-			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[4], character, playername);
+			pm.RPC_SpawnPlayer(spawnPoint[4], "Monkey4", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[4];
 			break;
 		case 0:
-			Debug.Log(character);
-			pm.RPC_SpawnPlayer(spawnPoint[5], character, playername);
+			pm.RPC_SpawnPlayer(spawnPoint[5], "Monkey5", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[4];
 			break;
 		default:
