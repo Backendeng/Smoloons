@@ -59,7 +59,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public GameObject wall_prefab;
 	public Material ghost_material;
 	public Sprite player_image;
-	
+	public string playername;
 	private void Awake() {
 		globalKillInc = GameObject.FindGameObjectWithTag("Kills");
 		globalKi = globalKillInc.GetComponent < KillsIncrementer > ();
@@ -241,6 +241,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
 		playerObject.name = "Monkey";
 		playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
+		playername = name;
 	}
 
 	[PunRPC]

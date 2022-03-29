@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class SummaryLayoutGroup: MonoBehaviour {
 
+	public static SummaryLayoutGroup Instance;
 	[SerializeField]
 	private GameObject _summaryListingPrefab;
 	private GameObject SummaryListingPrefab {
@@ -16,7 +17,7 @@ public class SummaryLayoutGroup: MonoBehaviour {
 	public GameObject KI;
 	public KillsIncrementer KII;
 
-	public int timer;
+	public float timer;
 
 	private void Awake() {
 		timer = 1000;
@@ -26,11 +27,14 @@ public class SummaryLayoutGroup: MonoBehaviour {
 
 	private void Start() {
 		KII = KI.GetComponent < KillsIncrementer > ();
-		pv.RPC("playerDetails", PhotonTargets.All);
+		// pv.RPC("playerDetails", PhotonTargets.All);
 		// RoomListingButtons.Add(roomListing);
 	}
 
 	private void Update() {
+		// timer += Time.deltaTime;
+		// if (timer > 10)
+		// 	pv.RPC("playerDetails", PhotonTargets.All);
 		//timer--;
 		//if(timer<=0)
 		//for (int i=0;i<PhotonNetwork.countOfPlayers;i++) {
@@ -40,23 +44,30 @@ public class SummaryLayoutGroup: MonoBehaviour {
 
 	}
 
+	public void playerStatus (string name)
+	{
+		pv.RPC("playerDetails", PhotonTargets.All, name);
+	}
+
 	[PunRPC]
-	private void playerDetails() {
-		GameObject summaryListingObject = Instantiate(SummaryListingPrefab);
-		summaryListingObject.transform.SetParent(transform, false);
+	private void playerDetails(string name) {
+		// GameObject summaryListingObject = Instantiate(SummaryListingPrefab);
+		// summaryListingObject.transform.SetParent(transform, false);
 
-		//Text[] summaryChildren = summaryListingObject.GetComponentsInChildren<Text>();
+		// summaryListingObject.transform.Find("Name").transform.GetComponent<Text>().text = name;
+		// summaryListingObject.transform.Find("Image").transform.GetComponent<Image>().sprite = image;
 
-		//summaryChildren[1].text = PhotonNetwork.player.ID.ToString();
 
-		//switch (PhotonNetwork.player.ID % 5) {
-		//    case 1: summaryChildren[1].text = KillsIncrementer.Instance.eachPlayerName[0];
+		// switch (PhotonNetwork.player.ID % 6) {
+		//    case 1: name = KillsIncrementer.Instance.allPlayers[0].transform.GetComponent<Player_Controller>().playername;
+		// 			image = KillsIncrementer.Instance.allPlayers[0].transform.GetComponent<Player_Controller>().player_image;
 		//        break;
-		//    case 2: summaryChildren[1].text = KillsIncrementer.Instance.eachPlayerName[1];
+		// 	case 2: name = KillsIncrementer.Instance.allPlayers[1].transform.GetComponent<Player_Controller>().playername;
+		// 			image = KillsIncrementer.Instance.allPlayers[1].transform.GetComponent<Player_Controller>().player_image;
 		//        break;
 		//    default:
 		//        break;
-		//}
+		// }
 
 		//RoomListing roomListing = summaryListingObject.GetComponent<RoomListing>();
 	}

@@ -31,6 +31,9 @@ public class KillsIncrementer: MonoBehaviour {
 	public bool createStonestats = false;
 	public GameObject photonmap1;
 	public GameObject photonmap2;
+	public GameObject [] playerstatus;
+	public Transform UI_Parent;
+	public GameObject SummaryListingPrefab;
 
 	PhotonView pv;
 	private void Awake() {
@@ -45,6 +48,7 @@ public class KillsIncrementer: MonoBehaviour {
 		ePN = new string[PhotonNetwork.countOfPlayers];
 		fePN = new string[PhotonNetwork.countOfPlayers];
 		winLose = new string[PhotonNetwork.countOfPlayers];
+		playerstatus = new GameObject[PhotonNetwork.room.PlayerCount];
 
 		for (int i = 0; i < eachPlayerKills.Length; i++) {
 			eachPlayerKills[i] = 0;
@@ -67,6 +71,11 @@ public class KillsIncrementer: MonoBehaviour {
 			winLose[i] = "";
 		}
 
+		for (int i  = 0; i < PhotonNetwork.room.PlayerCount; i++ ){
+			playerstatus[i] = Instantiate(SummaryListingPrefab);
+			playerstatus[i].transform.SetParent(UI_Parent, false);
+		}
+
 	}
 
 	void Start() {
@@ -75,18 +84,27 @@ public class KillsIncrementer: MonoBehaviour {
 
 		WinLosePanel.SetActive(false);
 
+
 	}
 
 	// Update is called once per frame
 	void Update() {
-		allPlayers = FindGameObjectsWithSameName("Monkey(Clone)");
+		allPlayers = FindGameObjectsWithSameName("Monkey");
 
-		// for (int i = 0; i < allPlayers.Length; i++) {
-		// 	if (PhotonNetwork.isMasterClient)
-		//     	allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[i];
-		// 	else
-		// 		allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text = eachPlayerName[allPlayers.Length - i - 1];
-		// }
+		for (int i = 0; i < allPlayers.Length; i++) {
+			playerstatus[i].transform.Find("Name").transform.GetComponent<Text>().text = allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text;
+			playerstatus[i].transform.Find("Image").transform.GetComponent<Image>().sprite = allPlayers[i].transform.GetComponent<Player_Controller>().player_image;
+		}
+
+		if (allPlayers.Length != PhotonNetwork.room.PlayerCount){
+			foreach (Transform child in UI_Parent) {
+				GameObject.Destroy(child.gameObject);
+			}
+			for (int i  = 0; i < PhotonNetwork.room.PlayerCount; i++ ){
+				playerstatus[i] = Instantiate(SummaryListingPrefab);
+				playerstatus[i].transform.SetParent(UI_Parent, false);
+			}
+		}
 		// Array.Reverse(ePN);
 
 		timer = startTime - Time.timeSinceLevelLoad;
@@ -193,7 +211,7 @@ public class KillsIncrementer: MonoBehaviour {
 		List<GameObject> likeNames = new List<GameObject>();
 		foreach (GameObject obj in allObjs)
 		{
-			if (obj.name == name)
+			if (obj.name.Contains(name))
 			{
 				likeNames.Add(obj);
 			}
