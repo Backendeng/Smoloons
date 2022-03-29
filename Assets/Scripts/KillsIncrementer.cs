@@ -96,15 +96,15 @@ public class KillsIncrementer: MonoBehaviour {
 			playerstatus[i].transform.Find("Image").transform.GetComponent<Image>().sprite = allPlayers[i].transform.GetComponent<Player_Controller>().player_image;
 		}
 
-		if (allPlayers.Length != PhotonNetwork.room.PlayerCount){
-			foreach (Transform child in UI_Parent) {
-				GameObject.Destroy(child.gameObject);
-			}
-			for (int i  = 0; i < PhotonNetwork.room.PlayerCount; i++ ){
-				playerstatus[i] = Instantiate(SummaryListingPrefab);
-				playerstatus[i].transform.SetParent(UI_Parent, false);
-			}
-		}
+		// if (allPlayers.Length != PhotonNetwork.room.PlayerCount){
+		// 	foreach (Transform child in UI_Parent) {
+		// 		GameObject.Destroy(child.gameObject);
+		// 	}
+		// 	for (int i  = 0; i < PhotonNetwork.room.PlayerCount; i++ ){
+		// 		playerstatus[i] = Instantiate(SummaryListingPrefab);
+		// 		playerstatus[i].transform.SetParent(UI_Parent, false);
+		// 	}
+		// }
 		// Array.Reverse(ePN);
 
 		timer = startTime - Time.timeSinceLevelLoad;
