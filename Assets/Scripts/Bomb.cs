@@ -25,7 +25,8 @@ public class Bomb: Photon.MonoBehaviour {
 
 	void Explode() {
 		// center one
-		Instantiate(explosionPrefab, Round(transform.position), Quaternion.identity); //1
+		GameObject explosion = Instantiate(explosionPrefab, Round(transform.position), Quaternion.identity); //1
+		explosion.name = "Explosion_"+player.playername;
 
 		StartCoroutine(CreateExplosions(Vector3.forward));
 		StartCoroutine(CreateExplosions(Vector3.right));

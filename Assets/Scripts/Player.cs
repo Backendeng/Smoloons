@@ -70,6 +70,7 @@ public class Player: Photon.MonoBehaviour {
 	public Text _playerHealth, playerKills, playerDeaths;
 	public GameObject playerGameObject, target;
 	public POWERUPS powerups;
+	public string playername;
 
 	public void update_label(POWERUPS powerup) {
 		switch (powerup) {
@@ -157,7 +158,7 @@ public class Player: Photon.MonoBehaviour {
 			}
 		}
 		//Cache the attached components for better performance and less typing
-
+		playername = gameObject.name;
 	}
 
 	IEnumerator dmg_animation() {

@@ -8,6 +8,7 @@ public class KillsIncrementer: MonoBehaviour {
 
 	public static KillsIncrementer Instance;
 
+	public string[] eachPlayerKillOrder = new string[6];
 	public int[] eachPlayerKills = new int[6];
 	public int[] eachPlayerDeaths = new int[6];
 	public int[] eachPlayerScore = new int[6];
@@ -50,6 +51,9 @@ public class KillsIncrementer: MonoBehaviour {
 		winLose = new string[PhotonNetwork.countOfPlayers];
 		playerstatus = new GameObject[PhotonNetwork.room.PlayerCount];
 
+		for (int i = 0; i < eachPlayerKillOrder.Length; i++) {
+			eachPlayerKillOrder[i] = '';
+		}
 		for (int i = 0; i < eachPlayerKills.Length; i++) {
 			eachPlayerKills[i] = 0;
 		}

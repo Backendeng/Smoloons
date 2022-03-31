@@ -304,7 +304,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 				int viewID =  PhotonView.viewID;
 				// PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 				// GhostMonkey();
-				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID);
+
+				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.name);
 			}
 		}
 		if (collision.collider.CompareTag("LastStone")) {
@@ -315,7 +316,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		if (collision.collider.CompareTag("Player")) {
 			if (holding_time > 0.4 && holding_status) {
 				int viewID =  PhotonView.viewID;
-				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID);
+				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.name);
 			}
 		}
 
@@ -361,7 +362,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		bubbleMonkey.transform.Find("bubble").gameObject.SetActive(true);
 	}
 	[PunRPC]
-	private void GhostMonkey(int viewID) {
+	private void GhostMonkey(int viewID, string name) {
 		// canDropBombs = false;
 		GameObject ghostMonkey = PhotonView.Find(viewID).gameObject;
 		ghostMonkey.transform.GetComponent<Player_Controller>().canDropBombs = false;
@@ -374,11 +375,15 @@ public class Player_Controller: Photon.MonoBehaviour {
 		ghostMonkey.transform.Find("bubble").gameObject.SetActive(false);
 		ghostMonkey.transform.GetComponent<Player_Controller>().holding_time = 10;
 		ghostMonkey.transform.GetComponent<AudioSource>().enabled = true;
-		// ghostMonkey.holding_status = false;
-		// ghostMonkey.movement_status = true;
-		// ghostMonkey.holding_time = 0.0f;
-		// ghostMonkey.animator.SetBool("holding", false);
-		// ghostMonkey.animator.SetBool("hitup", false);
+		
+		GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
+		KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
+		for ( int i = 0 ; i < 6 ; i++ ){
+			if (ki.eachPlayerKillOrder[i] == ""){
+				ki.eachPlayerKillOrder[i] = name;
+				continue;
+			}
+		}
 	}
 
 	private void FurtherRespawn() {
