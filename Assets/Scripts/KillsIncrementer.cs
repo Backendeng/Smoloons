@@ -8,17 +8,17 @@ public class KillsIncrementer: MonoBehaviour {
 
 	public static KillsIncrementer Instance;
 
-	public int[] eachPlayerKills = new int[5];
-	public int[] eachPlayerDeaths = new int[5];
-	public int[] eachPlayerScore = new int[5];
-	public string[] eachPlayerName = new string[5];
-	public string[] ePN = new string[5];
-	public string[] fePN = new string[5];
-	public string[] winLose = new string[5];
+	public int[] eachPlayerKills = new int[6];
+	public int[] eachPlayerDeaths = new int[6];
+	public int[] eachPlayerScore = new int[6];
+	public string[] eachPlayerName = new string[6];
+	public string[] ePN = new string[6];
+	public string[] fePN = new string[6];
+	public string[] winLose = new string[6];
 	public GameObject WinLosePanel;
 	public Text WinLoseText;
-	public float[] eachPlayerHealth = new float[5];
-	public GameObject[] allPlayers = new GameObject[5];
+	public float[] eachPlayerHealth = new float[6];
+	public GameObject[] allPlayers = new GameObject[6];
 	public float startTime,
 	timer;
 	public Text timerText;
@@ -94,6 +94,16 @@ public class KillsIncrementer: MonoBehaviour {
 		for (int i = 0; i < allPlayers.Length; i++) {
 			playerstatus[i].transform.Find("Name").transform.GetComponent<Text>().text = allPlayers[i].transform.GetChild(1).GetComponent<TextMeshPro>().text;
 			playerstatus[i].transform.Find("Image").transform.GetComponent<Image>().sprite = allPlayers[i].transform.GetComponent<Player_Controller>().player_image;
+		}
+
+		for (int i = 0; i < playerstatus.Length; i++ ){
+			for (int j = 0; j < allPlayers.Length; j++ ){
+				if(playerstatus[i].transform.Find("Name").transform.GetComponent<Text>().text == allPlayers[j].transform.GetChild(1).GetComponent<TextMeshPro>().text && allPlayers[j].tag == "Ghost") {
+					playerstatus[i].transform.GetChild(0).transform.GetComponent<Image>().color = new Color32(255, 255, 255, 120);
+					playerstatus[i].transform.GetChild(2).transform.GetComponent<Text>().color = new Color32(255, 255, 255, 120);
+					playerstatus[i].transform.GetChild(3).transform.GetComponent<Image>().color = new Color32(255, 255, 255, 120);
+				}
+			}
 		}
 
 		// if (allPlayers.Length != PhotonNetwork.room.PlayerCount){

@@ -312,6 +312,12 @@ public class Player_Controller: Photon.MonoBehaviour {
 			int viewID =  PhotonView.viewID;
 			PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 		}
+		if (collision.collider.CompareTag("Player")) {
+			if (holding_time > 0.4 && holding_status) {
+				int viewID =  PhotonView.viewID;
+				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID);
+			}
+		}
 
 	}
 
