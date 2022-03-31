@@ -219,23 +219,24 @@ public class PhotonMap: Photon.MonoBehaviour {
 
 						array_representation[i_x, i_y] = Blocks.Wall;
 						new_instance(i_x, 0, i_y, wall_prefab);
-						Debug.Log(i_x +" , "+ i_y);
 					} else {
 
 						// add breakables
 						if (!start_next_to(i_x, i_y)) {
 							array_representation[i_x, i_y] = Blocks.Breakable;
-							// if (PhotonNetwork.isMasterClient) {
+							if (PhotonNetwork.isMasterClient) {
 								int xx =i_x;
 								if (PhotonNetwork.room.PlayerCount < 5)
 									xx += 2;
+
 								if (Random.Range(0.0f, 1.0f) > 0.1f) {
-									GameObject temp_floor1 = Instantiate(breakable_prefab, new Vector3(xx, 0, i_y), Quaternion.identity);
-									temp_floor1.transform.SetParent(Map_parent.transform);
+									// GameObject temp_floor1 = Instantiate(breakable_prefab, new Vector3(xx, 0, i_y), Quaternion.identity);
+									GameObject temp_floor1 = PhotonNetwork.InstantiateSceneObject(Path.Combine("Prefabs", "Breakable"), new Vector3(xx, 0, i_y), Quaternion.Euler(0f, 0f, 0f), 0, null);
+									// temp_floor1.transform.SetParent(Map_parent.transform);
 								}
 								// GameObject temp_floor1 = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Breakable"), new Vector3(i_x, 0, i_y), Quaternion.Euler(-90f, 0f, -90f), 0);
 								// temp_floor1.transform.SetParent(Map_parent.transform);
-							// }
+							}
 
 						}
 					}

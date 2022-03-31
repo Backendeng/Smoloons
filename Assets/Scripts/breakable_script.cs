@@ -17,7 +17,7 @@ public class breakable_script: Photon.MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		// powerup_prefab = (GameObject) Resources.Load("PowerUp", typeof(GameObject));
-		// photonView = gameObject.GetComponent < PhotonView > ();
+		photonView = GetComponent < PhotonView > ();
 		animation_status = false;
 		liveTimer = 0.0f;
 		animator = transform.GetComponent < Animator > ();
@@ -52,8 +52,18 @@ public class breakable_script: Photon.MonoBehaviour {
 		if (collision.collider.CompareTag("Explosion")) {
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			if (PhotonNetwork.connected == true) {
-				if (Random.Range(0.0f, 1.0f) > 0.5f) {
-					PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
+				if(photonView.isMine){
+					if (Random.Range(0.0f, 1.0f) > 0.5f) {
+						//  photonView.RPC("RPC_Powerup", PhotonTargets.All);
+						float random = Random.Range(0, 3);
+						if (random < 1 )
+							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
+						else if (random < 2)
+							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp1"), transform.position, Quaternion.identity, 0);
+						else
+							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp2"), transform.position, Quaternion.identity, 0);
+						// Powerups.transform.GetComponent<powerup_script>().Starts();
+					}
 				}
 				// if (PhotonNetwork.isMasterClient)
 				animator.enabled  = true;
@@ -75,4 +85,10 @@ public class breakable_script: Photon.MonoBehaviour {
     // {
     //     PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
     // }
+	[PunRPC]
+	private void RPC_Powerup() {
+		if (Random.Range(0.0f, 1.0f) > 0.5f) {
+			PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
+		}
+	}
 }

@@ -54,4 +54,5 @@ MonoBehaviour:
   - CreateStone
   - BubbleMonkey
   - sendName
+  - RPC_Powerup
   DisableAutoOpenWizard: 1

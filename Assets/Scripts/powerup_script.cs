@@ -18,26 +18,26 @@ public class powerup_script: MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 
-		powerup = (POWERUPS) Random.Range(0, 3);
+		// powerup = (POWERUPS) Random.Range(0, 3);
 
-		// load prefab look
-		switch (powerup) {
-		case POWERUPS.BOMB:
-			curr = bomb;
-			break;
-		// case POWERUPS.KICK:
-		// 	curr = kick;
+		// // load prefab look
+		// switch (powerup) {
+		// case POWERUPS.BOMB:
+		// 	curr = bomb;
 		// 	break;
-		// case POWERUPS.LIFE:
-		// 	curr = life;
+		// // case POWERUPS.KICK:
+		// // 	curr = kick;
+		// // 	break;
+		// // case POWERUPS.LIFE:
+		// // 	curr = life;
+		// // 	break;
+		// case POWERUPS.POWER:
+		// 	curr = power;
 		// 	break;
-		case POWERUPS.POWER:
-			curr = power;
-			break;
-		case POWERUPS.SPEED:
-			curr = speed;
-			break;
-		}
+		// case POWERUPS.SPEED:
+		// 	curr = speed;
+		// 	break;
+		// }
 		// curr position
 		GameObject go = Instantiate(curr, transform.position, Quaternion.identity) as GameObject;
 		go.GetComponent < Transform > ().SetParent(this.transform);
