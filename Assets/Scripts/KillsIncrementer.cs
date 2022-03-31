@@ -52,7 +52,7 @@ public class KillsIncrementer: MonoBehaviour {
 		playerstatus = new GameObject[PhotonNetwork.room.PlayerCount];
 
 		for (int i = 0; i < eachPlayerKillOrder.Length; i++) {
-			eachPlayerKillOrder[i] = '';
+			eachPlayerKillOrder[i] = "";
 		}
 		for (int i = 0; i < eachPlayerKills.Length; i++) {
 			eachPlayerKills[i] = 0;
@@ -207,7 +207,7 @@ public class KillsIncrementer: MonoBehaviour {
 
 		//rankScore = eachPlayerScore;
 		//Array.Sort(rankScore);
-
+		EndGame();
 	}
 
 	private void WinLose() {
@@ -247,5 +247,19 @@ public class KillsIncrementer: MonoBehaviour {
 			photonmap2.GetComponent<PhotonMap>().startStone();
 
 		createStonestats = true;
+	}
+
+	public void EndGame() {
+		if (eachPlayerKillOrder[0] != "" && GameObject.FindGameObjectsWithTag("Player").Length < 2 ) {
+			Debug.Log("EndGame");
+			int order = 0;
+			WinLosePanel.SetActive(true);
+			for (int i = eachPlayerKillOrder.Length - 1; i > -1; i--) {
+				if(eachPlayerKillOrder[i] != "") {
+					order++;
+					WinLoseText.text = order.ToString() + ". " + eachPlayerKillOrder[i] +"\n"; 
+				}
+			}
+		}
 	}
 }

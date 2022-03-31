@@ -380,8 +380,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 		KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
 		for ( int i = 0 ; i < 6 ; i++ ){
 			if (ki.eachPlayerKillOrder[i] == ""){
-				ki.eachPlayerKillOrder[i] = name;
-				continue;
+				ki.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
+				break;
 			}
 		}
 	}
