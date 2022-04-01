@@ -19,7 +19,7 @@ public class PlayerLayoutGroup: MonoBehaviour {
 		}
 	}
 
-	private void OnJoinedRoom() {
+	public void OnJoinedRoom() {
 
 		foreach(Transform child in transform) {
 			Destroy(child.gameObject);

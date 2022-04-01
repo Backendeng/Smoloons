@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class RoomCanvas: MonoBehaviour {
 
 	public string character = "";
-	//public Button[] characterButton = new Button[5];
 
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {

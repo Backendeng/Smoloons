@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainCanvasManager: MonoBehaviour {
 
 	public static MainCanvasManager Instance;
+	PlayerLayoutGroup plg = new PlayerLayoutGroup();
 
 	[SerializeField]
 	private LobbyCanvas _lobbyCanvas;
@@ -26,5 +27,10 @@ public class MainCanvasManager: MonoBehaviour {
 
 		Instance = this;
 
+	}
+
+	public void Start() {
+		Debug.Log("sdfas");
+		plg.OnJoinedRoom();
 	}
 }

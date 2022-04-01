@@ -26,7 +26,7 @@ public class LeaveMatch: MonoBehaviour {
 	}
 	public void OnRestart() {
 		PhotonNetwork.room.IsVisible = true;
-		PhotonNetwork.LoadLevel(1);
+		PhotonNetwork.LoadLevel(3);
 	}
 
 	public void ExitGame() {
