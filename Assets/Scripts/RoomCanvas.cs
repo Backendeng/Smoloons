@@ -49,7 +49,7 @@ public class RoomCanvas: MonoBehaviour {
 
      private void Update()
      {
-         Debug.Log("Player Ready = " + _playerCustomProperties["PlayerReady"]);
+        //  Debug.Log("Player Ready = " + _playerCustomProperties["PlayerReady"]);
      }
 
      private void Ready()
