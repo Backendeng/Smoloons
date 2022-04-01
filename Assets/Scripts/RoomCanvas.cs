@@ -26,6 +26,10 @@ public class RoomCanvas: MonoBehaviour {
 
 	public GameObject PlayerLayoutGroup;
 
+	private void Awake() {
+		PV = GetComponent < PhotonView > ();
+	}
+
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
 			PhotonNetwork.room.IsOpen = true;
@@ -54,14 +58,16 @@ public class RoomCanvas: MonoBehaviour {
 
      private void Ready()
      {
-         PlayerReady = true;    
-         selectedHero = "PlayerTest";
-         PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
-         _playerCustomProperties["PlayerReady"] = PlayerReady;
-		PlayerLayoutGroup.transform.Find(PhotonNetwork.player.ID.ToString()).transform.Find("PlayerNameText").GetComponent<Text>().text = "Ready";
+        PlayerReady = true;    
+        selectedHero = "PlayerTest";
+        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+        _playerCustomProperties["PlayerReady"] = PlayerReady;
+		// PlayerLayoutGroup.transform.Find(PhotonNetwork.player.ID.ToString()).transform.Find("PlayerNameText").GetComponent<Text>().text = "Ready";
+		// Debug.Log("Player Ready = " + _playerCustomProperties["PlayerReady"]);
+		PV.RPC("RPC_Ready", PhotonTargets.All, PhotonNetwork.player.ID);
      }
 
-     public void OnReady()
+    public void OnReady()
      {
          Ready();
 
@@ -75,5 +81,9 @@ public class RoomCanvas: MonoBehaviour {
         //  }
 
      }
-
+	
+	[PunRPC]
+	private void RPC_Ready(int PlayerID) {
+		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("PlayerNameText").GetComponent<Text>().text = "Ready";
+	}
 }

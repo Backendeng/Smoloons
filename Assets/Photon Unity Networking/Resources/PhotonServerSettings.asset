@@ -55,4 +55,5 @@ MonoBehaviour:
   - BubbleMonkey
   - sendName
   - RPC_Powerup
+  - RPC_Ready
   DisableAutoOpenWizard: 1
