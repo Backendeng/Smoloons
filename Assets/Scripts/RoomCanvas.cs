@@ -24,6 +24,8 @@ public class RoomCanvas: MonoBehaviour {
 	// }
 	public string character = "";
 
+	public GameObject PlayerLayoutGroup;
+
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
 			PhotonNetwork.room.IsOpen = true;
@@ -56,6 +58,7 @@ public class RoomCanvas: MonoBehaviour {
          selectedHero = "PlayerTest";
          PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
          _playerCustomProperties["PlayerReady"] = PlayerReady;
+		PlayerLayoutGroup.transform.Find(PhotonNetwork.player.ID.ToString()).transform.Find("PlayerNameText").GetComponent<Text>().text = "Ready";
      }
 
      public void OnReady()

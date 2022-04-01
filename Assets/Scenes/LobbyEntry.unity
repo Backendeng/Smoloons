@@ -2908,7 +2908,7 @@ RectTransform:
   - {fileID: 1158549443}
   - {fileID: 1867513614}
   m_Father: {fileID: 2004580490}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2929,6 +2929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedHero: 
   character: 
+  PlayerLayoutGroup: {fileID: 1817191197}
 --- !u!1 &1093976532
 GameObject:
   m_ObjectHideFlags: 0
@@ -5400,7 +5401,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000008965083, y: -0.000048637994}
+  m_AnchoredPosition: {x: -0.000008965083, y: -0.000028664035}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1817191199
@@ -6408,8 +6409,8 @@ RectTransform:
   - {fileID: 1583156037}
   - {fileID: 1311856994}
   - {fileID: 1093976533}
-  - {fileID: 2085326518}
   - {fileID: 1064492447}
+  - {fileID: 2085326518}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6733,7 +6734,7 @@ RectTransform:
   - {fileID: 695520791}
   - {fileID: 702789484}
   m_Father: {fileID: 2004580490}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

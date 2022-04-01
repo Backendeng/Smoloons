@@ -29,6 +29,7 @@ public class PlayerListing: MonoBehaviour {
 
 		PhotonPlayer = photonPlayer;
 		PlayerName.text = PhotonPlayer.NickName;
+		gameObject.name = photonPlayer.ID.ToString();
 
 		StartCoroutine(ShowPlayerPing());
 
