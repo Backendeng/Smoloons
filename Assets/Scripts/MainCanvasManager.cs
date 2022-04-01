@@ -23,14 +23,32 @@ public class MainCanvasManager: MonoBehaviour {
 		}
 	}
 
+	[SerializeField]
+	private CreateRoom _createRoom;
+	public CreateRoom CreateRoom {
+		get {
+			return _createRoom;
+		}
+	}
+
+	[SerializeField]
+	private JoinRoom _joinRoom;
+	public JoinRoom JoinRoom {
+		get {
+			return _joinRoom;
+		}
+	}
+
+
+
 	private void Awake() {
 
 		Instance = this;
 
 	}
 
-	public void Start() {
-		Debug.Log("sdfas");
-		plg.OnJoinedRoom();
-	}
+	// public void Start() {
+	// 	Debug.Log("sdfas");
+	// 	plg.OnJoinedRoom();
+	// }
 }

@@ -37,11 +37,11 @@ public class CreateRoom: MonoBehaviour {
 	}
 
 	public void OnExit() {
-		CreateDialog.SetActive(false);
+		MainCanvasManager.Instance.LobbyCanvas.transform.SetAsLastSibling();
 	}
 
 	public void OnAppear() {
-		CreateDialog.SetActive(false);
+		MainCanvasManager.Instance.CreateRoom.transform.SetAsLastSibling();
 	}
 
 	public void OnCreateRoom() {
