@@ -7,6 +7,8 @@ public class CreateRoom: MonoBehaviour {
 
 	public string arenaCreationStatus;
 	public GameObject LobNet;
+	public GameObject CreateDialog;
+	
 	LobbyNetwork LN;
 
 	[SerializeField]
@@ -23,7 +25,23 @@ public class CreateRoom: MonoBehaviour {
 	}
 	private void Start() {
 		LN = LobNet.GetComponent < LobbyNetwork > ();
+		OnGenerateRoomName();
+	}
 
+	public void OnGenerateRoomName() {
+		RoomName.text = "Smoloon" + Random.Range(10000000, 99999999);
+	}
+
+	public void OnCopy() {
+		GUIUtility.systemCopyBuffer = RoomName.text;
+	}
+
+	public void OnExit() {
+		CreateDialog.SetActive(false);
+	}
+
+	public void OnAppear() {
+		CreateDialog.SetActive(false);
 	}
 
 	public void OnCreateRoom() {
