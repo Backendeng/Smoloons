@@ -2,8 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
 
 public class CreateRoom: MonoBehaviour {
+
+#if UNITY_WEBGL
+
+	[DllImport("__Internal")]
+    private static extern void initWebGLCopyAndPaste(StringCallback cutCopyCallback, StringCallback pasteCallback);
+    [DllImport("__Internal")]
+    private static extern void passCopyToBrowser(string str);
+
+    delegate void StringCallback( string content );
+
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    private static void Init()
+    {
+        if ( !Application.isEditor )
+        {
+            initWebGLCopyAndPaste(GetClipboard, ReceivePaste );
+        }
+    }
+
+	[AOT.MonoPInvokeCallback( typeof(StringCallback) )]
+	private static void GetClipboard(string key)
+	{
+		passCopyToBrowser(GUIUtility.systemCopyBuffer);
+	}
+
+	[AOT.MonoPInvokeCallback( typeof(StringCallback) )]
+	private static void ReceivePaste(string str)
+	{
+		GUIUtility.systemCopyBuffer = str;
+	}
+
+#endif
 
 	public string arenaCreationStatus;
 	public GameObject LobNet;
@@ -34,6 +68,7 @@ public class CreateRoom: MonoBehaviour {
 
 	public void OnCopy() {
 		GUIUtility.systemCopyBuffer = RoomName.text;
+		passCopyToBrowser(GUIUtility.systemCopyBuffer);
 	}
 
 	public void OnExit() {
