@@ -19,6 +19,13 @@ public class PlayerLayoutGroup: MonoBehaviour {
 		}
 	}
 
+	void Start () {
+		PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;
+		for (int i = 0; i < photonPlayers.Length; i++) {
+			PlayerJoinedRoom(photonPlayers[i]);
+		}
+	}
+
 	public void OnJoinedRoom() {
 
 		foreach(Transform child in transform) {
@@ -85,6 +92,7 @@ public class PlayerLayoutGroup: MonoBehaviour {
 	public void OnLeaveRoom() {
 
 		PhotonNetwork.LeaveRoom();
+		PhotonNetwork.LoadLevel(1);
 
 	}
 
