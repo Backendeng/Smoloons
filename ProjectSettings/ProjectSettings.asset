@@ -653,7 +653,14 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -667,11 +674,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 0b5d17a3-11a7-4e29-bcf6-41ba722e6c94
+  cloudProjectId: 74c6d870-e3f6-474b-9ccf-80322cfd671f
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: BattleArena_CN
-  organizationId: avi_spc
+  projectName: BattleArena_CN (2)
+  organizationId: robertjackson19991011
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
   playerDataPath: 

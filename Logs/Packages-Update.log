@@ -77,3 +77,11 @@ The following packages were updated:
   com.unity.textmeshpro from version 1.4.1 to 3.0.6
 The following packages were removed:
   com.unity.package-manager-ui@2.0.13
+
+=== Sun Apr  3 02:02:03 2022
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.xr.legacyinputhelpers from version 2.1.8 to 2.1.9
