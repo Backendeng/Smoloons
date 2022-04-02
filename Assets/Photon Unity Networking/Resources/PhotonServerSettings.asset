@@ -28,8 +28,13 @@ MonoBehaviour:
   NetworkLogging: 1
   RunInBackground: 1
   RpcList:
+  - BubbleMonkey
   - Chat
+  - CreateStone
+  - DeleteBlock
+  - DeletePlayer
   - DestroyRpc
+  - GhostMonkey
   - healthSet
   - increaseKills
   - InstantiateRpc
@@ -43,17 +48,10 @@ MonoBehaviour:
   - RPC_LoadedGameScene
   - RPC_LoadGameOthers
   - RPC_PlayerUICameraFollow
+  - RPC_Powerup
+  - RPC_Ready
+  - sendName
   - setDeaths
   - setName
   - SetRank
-  - DeleteBLock
-  - DeleteBlock
-  - setPlayerName
-  - DeletePlayer
-  - GhostMonkey
-  - CreateStone
-  - BubbleMonkey
-  - sendName
-  - RPC_Powerup
-  - RPC_Ready
   DisableAutoOpenWizard: 1
