@@ -36,7 +36,9 @@ public class CreateRoom: MonoBehaviour {
 	public void OnCopy() {
 		// GUIUtility.systemCopyBuffer = RoomName.text;
 		// passCopyToBrowser(GUIUtility.systemCopyBuffer);
-		WebGLCopyAndPasteAPI.GetCopyClipboard(RoomName.text);
+		#if UNITY_WEBGL        
+            WebGLCopyAndPasteAPI.GetCopyClipboard(RoomName.text);
+    	#endif        
 	}
 
 	public void OnExit() {
