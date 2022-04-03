@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Runtime.InteropServices;
+
 
 public class CreateRoom: MonoBehaviour {
 
@@ -36,7 +38,9 @@ public class CreateRoom: MonoBehaviour {
 	public void OnCopy() {
 		// GUIUtility.systemCopyBuffer = RoomName.text;
 		// passCopyToBrowser(GUIUtility.systemCopyBuffer);
-		WebGLCopyAndPasteAPI.GetCopyClipboard(RoomName.text);
+		#if UNITY_WEBGL        
+            WebGLCopyAndPasteAPI.GetCopyClipboard(RoomName.text);
+    	#endif        
 	}
 
 	public void OnExit() {
