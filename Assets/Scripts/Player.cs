@@ -72,10 +72,14 @@ public class Player: Photon.MonoBehaviour {
 	public POWERUPS powerups;
 	public string playername;
 
+ 
 	public void update_label(POWERUPS powerup) {
 		switch (powerup) {
 		case POWERUPS.BOMB:
 			bomb_label.text = bombs.ToString();
+			int childID = bombs - 2;
+			// bomb_label.transform.parent.gameObject.transform.GetChild(childID).GetComponent<Image>().color = new Color32(255,255,255,255);
+			ChangeColor(bomb_label.transform.parent.gameObject.transform.GetChild(childID), childID);
 			break;
 		// case POWERUPS.KICK:
 		// 	if (canKick) {
@@ -270,6 +274,35 @@ public class Player: Photon.MonoBehaviour {
 			break;
 		case 0:
 			ki.eachPlayerDeaths[5]++;
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void ChangeColor(Transform valueObject, int childID) {
+
+		switch (childID) {
+		case 1:
+			valueObject.GetComponent<Image>().color = new Color32(96,145,95,255);
+			break;
+		case 2:
+			valueObject.GetComponent<Image>().color = new Color32(120,159,96,255);
+			break;
+		case 3:
+			valueObject.GetComponent<Image>().color = new Color32(146,174,98,255);
+			break;
+		case 4:
+			valueObject.GetComponent<Image>().color = new Color32(170,189,99,255);
+			break;
+		case 5:
+			valueObject.GetComponent<Image>().color = new Color32(190,204,75,255);
+			break;
+		case 6:
+			valueObject.GetComponent<Image>().color = new Color32(203,213,57,255);
+			break;
+		case 7:
+			valueObject.GetComponent<Image>().color = new Color32(215,225,40,255);
 			break;
 		default:
 			break;
