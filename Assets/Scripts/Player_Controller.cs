@@ -448,6 +448,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		DeathPlayer.transform.Find("model").transform.rotation = Quaternion.Euler(0, 90, 30);
 		DeathPlayer.transform.Find("model").GetComponent < Animator > ().SetBool("die", true);
 		DeathPlayer.transform.GetComponent<CapsuleCollider>().enabled = false;
+		DeathPlayer.transform.GetComponent<Player_Controller>().canMove = false;
 		DeathPlayer.transform.position = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
 		Destroy(DeathPlayer, 2);
 	}
