@@ -164,7 +164,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 		if (movement_status)
 		{
-			if (Input.GetButton("Up"))
+			if (Input.GetButton("Up") || Event.current.Equals(Event.KeyboardEvent("W")))
 			{ //Up movement
 
 				rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, player.moveSpeed);
@@ -448,7 +448,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		DeathPlayer.transform.Find("model").transform.rotation = Quaternion.Euler(0, 90, 30);
 		DeathPlayer.transform.Find("model").GetComponent < Animator > ().SetBool("die", true);
 		DeathPlayer.transform.GetComponent<CapsuleCollider>().enabled = false;
-		DeathPlayer.transform.GetComponent<Player_Controller>().canMove = false;
+		DeathPlayer.transform.GetComponent<Player_Controller>().movement_status = false;
 		DeathPlayer.transform.position = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
 		Destroy(DeathPlayer, 2);
 	}
