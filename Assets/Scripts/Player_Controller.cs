@@ -164,7 +164,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 		if (movement_status)
 		{
-			if (Input.GetButton("Up") || Event.current.Equals(Event.KeyboardEvent("W")))
+			if (Input.GetButton("Up") || Input.GetKeyDown(KeyCode.W))
 			{ //Up movement
 
 				rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, player.moveSpeed);
@@ -172,19 +172,19 @@ public class Player_Controller: Photon.MonoBehaviour {
 				animator.SetBool("Walking", true);
 			}
 
-			if (Input.GetButton("Left")) { //Left movement
+			if (Input.GetButton("Left") || Input.GetKeyDown(KeyCode.A)) { //Left movement
 				rigidBody.velocity = new Vector3( - player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
 				myTransform.rotation = Quaternion.Euler(-30, 180, 0);
 				animator.SetBool("Walking", true);
 			}
 
-			if (Input.GetButton("Down")) { //Down movement
+			if (Input.GetButton("Down") || Input.GetKeyDown(KeyCode.S)) { //Down movement
 				rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, -player.moveSpeed);
 				myTransform.rotation = Quaternion.Euler(0, 90, 30);
 				animator.SetBool("Walking", true);
 			}
 
-			if (Input.GetButton("Right")) { //Right movement
+			if (Input.GetButton("Right") || Input.GetKeyDown(KeyCode.D)) { //Right movement
 				rigidBody.velocity = new Vector3(player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
 				myTransform.rotation = Quaternion.Euler(30, 0, 0);
 				animator.SetBool("Walking", true);
