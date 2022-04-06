@@ -64,7 +64,8 @@ public class powerup_script: MonoBehaviour {
 			switch (powerup) {
 			case POWERUPS.BOMB:
 				s = "+1 Bomb";
-				player.bombs++;
+				if (player.bombs < 7)
+					player.bombs++;
 				break;
 			// case POWERUPS.KICK:
 			// 	player.canKick = true;
@@ -75,11 +76,13 @@ public class powerup_script: MonoBehaviour {
 			// 	s = "+1 Life";
 			// 	break;
 			case POWERUPS.POWER:
-				player.explosion_power++;
+				if (player.explosion_power < 7)
+					player.explosion_power++;
 				s = "+1 explosive power";
 				break;
 			case POWERUPS.SPEED:
-				player.moveSpeed++;
+				if (player.moveSpeed < 7)
+					player.moveSpeed++;
 				s = "+1 Speed";
 				break;
 			}
