@@ -48,7 +48,7 @@ public class Player: Photon.MonoBehaviour {
 
 	public GlobalStateManager globalManager;
 
-	public float moveSpeed = 5f;
+	public int moveSpeed = 5;
 
 	public ParticleSystem Explosion;
 
@@ -74,12 +74,13 @@ public class Player: Photon.MonoBehaviour {
 
  
 	public void update_label(POWERUPS powerup) {
+		int childID = 0;
 		switch (powerup) {
 		case POWERUPS.BOMB:
 			bomb_label.text = bombs.ToString();
-			int childID = bombs - 2;
+			childID = bombs - 2;
 			// bomb_label.transform.parent.gameObject.transform.GetChild(childID).GetComponent<Image>().color = new Color32(255,255,255,255);
-			ChangeColor(bomb_label.transform.parent.gameObject.transform.GetChild(childID), childID);
+			ChangeColor(bomb_label.transform.parent.gameObject.transform.GetChild(2).transform.GetChild(childID).transform, childID);
 			break;
 		// case POWERUPS.KICK:
 		// 	if (canKick) {
@@ -93,9 +94,13 @@ public class Player: Photon.MonoBehaviour {
 		// 	break;
 		case POWERUPS.POWER:
 			explosion_label.text = explosion_power.ToString();
+			childID = explosion_power - 2;
+			ChangeColor(explosion_label.transform.parent.gameObject.transform.GetChild(2).transform.GetChild(childID).transform, childID);
 			break;
 		case POWERUPS.SPEED:
 			speed_label.text = moveSpeed.ToString();
+			childID = moveSpeed - 5;
+			ChangeColor(speed_label.transform.parent.gameObject.transform.GetChild(2).transform.GetChild(childID).transform, childID);
 			break;
 		}
 	}
