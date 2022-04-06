@@ -81,7 +81,7 @@ public class powerup_script: MonoBehaviour {
 				s = "+1 explosive power";
 				break;
 			case POWERUPS.SPEED:
-				if (player.moveSpeed < 7)
+				if (player.moveSpeed < 10)
 					player.moveSpeed++;
 				s = "+1 Speed";
 				break;
