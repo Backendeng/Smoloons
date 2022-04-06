@@ -6,6 +6,7 @@
 /[Ll]ogs/
 /[Ll]og/
 /Assets/AssetStoreTools*
+UserSettings/Layouts
 
 # Visual Studio 2015 cache directory
 /.vs/
