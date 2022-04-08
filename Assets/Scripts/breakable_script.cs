@@ -49,12 +49,12 @@ public class breakable_script: Photon.MonoBehaviour {
 
 		// }
 		// Debug.Log(collision.collider.gameObject.tag);
-		if (collision.collider.CompareTag("Explosion") ) {
+		if (collision.collider.CompareTag("Explosion") && animator.enabled == false) {
 			
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			transform.GetComponent <BoxCollider> ().enabled = false;
 			transform.GetChild(0).GetComponent <BoxCollider> ().enabled = true;
-			animator.enabled  = true;
+			animator.enabled = true;
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
 					Debug.Log("hit");
