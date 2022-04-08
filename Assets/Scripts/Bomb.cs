@@ -66,12 +66,12 @@ public class Bomb: Photon.MonoBehaviour {
 			}
 			else { //7
 
-				if (hit.collider.CompareTag("Breakable")) {
+				if (hit.collider.CompareTag("Breakable") || hit.collider.CompareTag("Bomb")) {
 					instantiate_list.Add(transform.position + (i * direction));
 					break;
-				} else if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Bomb")) {
+				} else if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("powerup")) {
 					instantiate_list.Add(transform.position + (i * direction));
-					break;
+					continue;
 				}
 
 				break;
