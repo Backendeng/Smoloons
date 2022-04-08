@@ -54,6 +54,7 @@ MonoBehaviour:
   explosion: {fileID: 3544880814778068290, guid: af5b890dfa954664c8be25d9250e5f9b,
     type: 3}
   animation_status: 0
+  explosion_status: 1
 --- !u!95 &5373602063700100933
 Animator:
   serializedVersion: 4
@@ -110,8 +111,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 8
-  instantiationId: 8
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &4465663092887726409
