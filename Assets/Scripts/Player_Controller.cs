@@ -51,7 +51,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	private Blocks[, ] array_representation;
 	private int start_poses = 10;
-	public float holding_time;
+	public float holding_time, hand_time;
 
 	public bool movement_status, holding_status;
 	public GameObject Map_parent;
@@ -60,6 +60,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public Material ghost_material;
 	public Sprite player_image;
 	public string playername;
+
+
 	private void Awake() {
 		globalKillInc = GameObject.FindGameObjectWithTag("Kills");
 		globalKi = globalKillInc.GetComponent < KillsIncrementer > ();
@@ -83,6 +85,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		movement_status = true;
 		holding_status = false;
 		holding_time = 0.0f;
+		hand_time = 0.0f;
 		player = GetComponent < Player > ();
 		//Cache the attached components for better performance and less typing
 		rigidBody = GetComponent < Rigidbody > ();
@@ -147,6 +150,10 @@ public class Player_Controller: Photon.MonoBehaviour {
 					}
 				}
 			}
+		}
+		hand_time += Time.deltaTime;
+		if (hand_time > 5) {
+			animator.SetBool("Hand", false);
 		}
 	}
 
