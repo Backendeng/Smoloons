@@ -59,27 +59,22 @@ public class breakable_script: Photon.MonoBehaviour {
 			animator.enabled = true;
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
-					if (Random.Range(0.0f, 1.0f) > 0.5f && random == -1f) {
+					if (Random.Range(0.0f, 1.0f) > 0.7f && random == -1f) {
 						Debug.Log("hit");
 						//  photonView.RPC("RPC_Powerup", PhotonTargets.All);
 						random = Random.Range(0, 3);
 						Debug.Log(random);
 						if (random == 0 ) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
-							continue;
 						} 
 						if (random == 1) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp1"), transform.position, Quaternion.identity, 0);
-							continue;
 						}
 						if (random == 2) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp2"), transform.position, Quaternion.identity, 0);
-							continue;
 						}
 						// Powerups.transform.GetComponent<powerup_script>().Starts();
-						continue;
 					}
-					continue;
 				}
 				// if (PhotonNetwork.isMasterClient)
 				Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
