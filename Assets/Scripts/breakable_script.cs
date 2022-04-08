@@ -52,6 +52,7 @@ public class breakable_script: Photon.MonoBehaviour {
 		if (collision.collider.CompareTag("Explosion")) {
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			if (PhotonNetwork.connected == true) {
+				transform.GetComponent <BoxCollider> ().enabled = false;
 				if(photonView.isMine){
 					if (Random.Range(0.0f, 1.0f) > 0.5f) {
 						//  photonView.RPC("RPC_Powerup", PhotonTargets.All);
@@ -67,7 +68,6 @@ public class breakable_script: Photon.MonoBehaviour {
 				}
 				// if (PhotonNetwork.isMasterClient)
 				animator.enabled  = true;
-				transform.GetComponent <BoxCollider> ().enabled = false;
 				Destroy(gameObject, 2.0f);
 			} else {
 				Destroy(gameObject, 0.5f);
