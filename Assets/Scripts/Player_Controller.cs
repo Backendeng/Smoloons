@@ -88,6 +88,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		rigidBody = GetComponent < Rigidbody > ();
 		myTransform = transform.Find("model").transform;
 		animator = transform.Find("model").GetComponent < Animator > ();
+		animator.SetBool("Hand", true);
 		Invoke("changeName", 2f);
 		Invoke("RPC_sendName", 2f);
 	}
