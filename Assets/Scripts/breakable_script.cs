@@ -60,12 +60,14 @@ public class breakable_script: Photon.MonoBehaviour {
 					if (Random.Range(0.0f, 1.0f) > 0.5f) {
 						//  photonView.RPC("RPC_Powerup", PhotonTargets.All);
 						float random = Random.Range(0, 3);
-						if (random < 1 )
+						Debug.Log(random);
+						if (random < 1 ) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
-						else if (random < 2 && random > 1)
+						} else if (random < 2 && random > 1) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp1"), transform.position, Quaternion.identity, 0);
-						else if (random > 2 && random < 3)
+						} else if (random > 2 && random < 3) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp2"), transform.position, Quaternion.identity, 0);
+						}
 						// Powerups.transform.GetComponent<powerup_script>().Starts();
 					}
 				}
