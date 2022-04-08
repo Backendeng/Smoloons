@@ -13,6 +13,7 @@ public class breakable_script: Photon.MonoBehaviour {
 	public bool animation_status;
 	private float liveTimer;
 	private Animator animator;
+	private float random;
 
 	// Use this for initialization
 	void Start() {
@@ -21,6 +22,7 @@ public class breakable_script: Photon.MonoBehaviour {
 		animation_status = false;
 		liveTimer = 0.0f;
 		animator = transform.GetComponent < Animator > ();
+		random = 0f;
 	}
 
 	// Update is called once per frame
@@ -49,7 +51,7 @@ public class breakable_script: Photon.MonoBehaviour {
 
 		// }
 		// Debug.Log(collision.collider.gameObject.tag);
-		if (collision.collider.CompareTag("Explosion") && animator.enabled == false) {
+		if (collision.collider.CompareTag("Explosion")) {
 			
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			transform.GetComponent <BoxCollider> ().enabled = false;
@@ -57,10 +59,10 @@ public class breakable_script: Photon.MonoBehaviour {
 			animator.enabled = true;
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
-					Debug.Log("hit");
-					if (Random.Range(0.0f, 1.0f) > 0.5f) {
+					if (Random.Range(0.0f, 1.0f) > 0.5f && random == 0.0f) {
+						Debug.Log("hit");
 						//  photonView.RPC("RPC_Powerup", PhotonTargets.All);
-						float random = Random.Range(0, 3);
+						random = Random.Range(0, 3);
 						Debug.Log(random);
 						if (random == 0 ) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
