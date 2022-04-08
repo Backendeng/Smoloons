@@ -51,8 +51,8 @@ public class breakable_script: Photon.MonoBehaviour {
 		// Debug.Log(collision.collider.gameObject.tag);
 		if (collision.collider.CompareTag("Explosion")) {
 			Instantiate(explosion, transform.position, Quaternion.identity);
-			transform.GetChild(0).GetComponent <BoxCollider> ().enabled = true;
 			transform.GetComponent <BoxCollider> ().enabled = false;
+			transform.GetChild(0).GetComponent <BoxCollider> ().enabled = true;
 			animator.enabled  = true;
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
