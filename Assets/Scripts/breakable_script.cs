@@ -66,15 +66,20 @@ public class breakable_script: Photon.MonoBehaviour {
 						Debug.Log(random);
 						if (random == 0 ) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
+							break;
 						} 
 						if (random == 1) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp1"), transform.position, Quaternion.identity, 0);
+							break;
 						}
 						if (random == 2) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp2"), transform.position, Quaternion.identity, 0);
+							break;
 						}
 						// Powerups.transform.GetComponent<powerup_script>().Starts();
+						break;
 					}
+					break;
 				}
 				// if (PhotonNetwork.isMasterClient)
 				Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
