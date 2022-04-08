@@ -51,9 +51,9 @@ public class breakable_script: Photon.MonoBehaviour {
 		// Debug.Log(collision.collider.gameObject.tag);
 		if (collision.collider.CompareTag("Explosion")) {
 			Instantiate(explosion, transform.position, Quaternion.identity);
+			transform.GetChild(0).GetComponent <BoxCollider> ().enabled = true;
 			transform.GetComponent <BoxCollider> ().enabled = false;
 			animator.enabled  = true;
-			transform.GetChild(0).GetComponent <BoxCollider> ().enabled = true;
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
 					if (Random.Range(0.0f, 1.0f) > 0.5f) {
@@ -69,7 +69,7 @@ public class breakable_script: Photon.MonoBehaviour {
 					}
 				}
 				// if (PhotonNetwork.isMasterClient)
-				Destroy(gameObject.transform.GetChild(0).gameObject, 0.5f);
+				Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
 				Destroy(gameObject, 2.0f);
 			} else {
 				Destroy(gameObject, 0.5f);
