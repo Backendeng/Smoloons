@@ -22,7 +22,7 @@ public class breakable_script: Photon.MonoBehaviour {
 		animation_status = false;
 		liveTimer = 0.0f;
 		animator = transform.GetComponent < Animator > ();
-		random = 0f;
+		random = -1f;
 	}
 
 	// Update is called once per frame
@@ -59,7 +59,7 @@ public class breakable_script: Photon.MonoBehaviour {
 			animator.enabled = true;
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
-					if (Random.Range(0.0f, 1.0f) > 0.5f && random == 0.0f) {
+					if (Random.Range(0.0f, 1.0f) > 0.5f && random == -1f) {
 						Debug.Log("hit");
 						//  photonView.RPC("RPC_Powerup", PhotonTargets.All);
 						random = Random.Range(0, 3);
