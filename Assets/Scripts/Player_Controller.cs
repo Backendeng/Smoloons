@@ -153,7 +153,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		}
 		hand_time += Time.deltaTime;
 		if (hand_time > 5) {
-			animator.SetBool("Hand", false);
+			animator.SetBool("Hand", false );
 		}
 	}
 
@@ -246,7 +246,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	public void RPC_SpawnPlayer(Transform spawnPoint, string shape, string name) {
 
-		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
+		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.Euler(-30, 180, 0), 0);
+		playerObject.transform.GetChild(0).rotation = Quaternion.Euler(0, 90, 30);
 		playerObject.name = "Monkey";
 		playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
 		playername = name;
