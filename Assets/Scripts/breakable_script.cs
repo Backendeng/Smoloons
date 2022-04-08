@@ -10,7 +10,7 @@ public class breakable_script: Photon.MonoBehaviour {
 	Player_Controller pm = new Player_Controller();
 	public ParticleSystem explosion;
 	PhotonView photonView;
-	public bool animation_status, explosion_status;
+	public bool animation_status;
 	private float liveTimer;
 	private Animator animator;
 
@@ -19,7 +19,6 @@ public class breakable_script: Photon.MonoBehaviour {
 		// powerup_prefab = (GameObject) Resources.Load("PowerUp", typeof(GameObject));
 		photonView = GetComponent < PhotonView > ();
 		animation_status = false;
-		explosion_status = true;
 		liveTimer = 0.0f;
 		animator = transform.GetComponent < Animator > ();
 	}
@@ -50,8 +49,8 @@ public class breakable_script: Photon.MonoBehaviour {
 
 		// }
 		// Debug.Log(collision.collider.gameObject.tag);
-		if (collision.collider.CompareTag("Explosion") && explosion_status) {
-			explosion_status = false;
+		if (collision.collider.CompareTag("Explosion") ) {
+			
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			transform.GetComponent <BoxCollider> ().enabled = false;
 			transform.GetChild(0).GetComponent <BoxCollider> ().enabled = true;
@@ -63,9 +62,9 @@ public class breakable_script: Photon.MonoBehaviour {
 						float random = Random.Range(0, 3);
 						if (random < 1 )
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
-						else if (random < 2)
+						if (random < 2 && random > 1)
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp1"), transform.position, Quaternion.identity, 0);
-						else
+						if (random > 2)
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp2"), transform.position, Quaternion.identity, 0);
 						// Powerups.transform.GetComponent<powerup_script>().Starts();
 					}
