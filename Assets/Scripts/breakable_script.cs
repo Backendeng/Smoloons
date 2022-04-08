@@ -53,6 +53,7 @@ public class breakable_script: Photon.MonoBehaviour {
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			transform.GetComponent <BoxCollider> ().enabled = false;
 			animator.enabled  = true;
+			transform.GetChild(0).GetComponent <BoxCollider> ().enabled = true;
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
 					if (Random.Range(0.0f, 1.0f) > 0.5f) {
@@ -68,7 +69,7 @@ public class breakable_script: Photon.MonoBehaviour {
 					}
 				}
 				// if (PhotonNetwork.isMasterClient)
-				animator.enabled  = true;
+				Destroy(gameObject.transform.GetChild(0).gameObject, 0.5f);
 				Destroy(gameObject, 2.0f);
 			} else {
 				Destroy(gameObject, 0.5f);
