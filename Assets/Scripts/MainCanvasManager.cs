@@ -40,8 +40,8 @@ public class MainCanvasManager: MonoBehaviour {
 	}
 
 	[SerializeField]
-	private LobbyCanvas _roomList;
-	public LobbyCanvas RoomList {
+	private RoomList _roomList;
+	public RoomList RoomList {
 		get {
 			return _roomList;
 		}

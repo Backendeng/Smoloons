@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LobbyCanvas : MonoBehaviour {
+public class RoomList : MonoBehaviour {
 
     public InputField PlayerName;
     //public string playerName;
@@ -26,6 +26,7 @@ public class LobbyCanvas : MonoBehaviour {
         else {
             Debug.Log("Join room failed");
         }
+
     }
 
     private void Awake()
@@ -50,6 +51,6 @@ public class LobbyCanvas : MonoBehaviour {
     }
     
     public void OnAppear() {
-		// MainCanvasManager.Instance.RoomList.transform.SetAsLastSibling();
+		MainCanvasManager.Instance.RoomList.transform.SetAsLastSibling();
 	}
 }
