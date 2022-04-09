@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class RoomCanvas: MonoBehaviour {
 
@@ -53,10 +55,9 @@ public class RoomCanvas: MonoBehaviour {
 				return;
 			}
 			
-				Debug.Log("All Players are not Ready!");
-				PhotonNetwork.room.IsOpen = true;
-				PhotonNetwork.room.IsVisible = false;
-				PhotonNetwork.LoadLevel(2);
+			StartCoroutine (WaitAllReady ());  
+
+				
 
 			// foreach (var photonPlayer in PhotonNetwork.playerList)
 			// {
@@ -83,6 +84,16 @@ public class RoomCanvas: MonoBehaviour {
 			}
 		}
 		return true;
+	}
+
+	private IEnumerator WaitAllReady()
+	{
+		yield return new WaitUntil (() => AllPlayersReady);
+
+		Debug.Log("All Players are not Ready!");
+		PhotonNetwork.room.IsOpen = true;
+		PhotonNetwork.room.IsVisible = false;
+		PhotonNetwork.LoadLevel(2);
 	}
 
      private void Update()
