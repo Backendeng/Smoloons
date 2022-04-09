@@ -51,8 +51,8 @@ public class RoomCanvas: MonoBehaviour {
 		if (PhotonNetwork.isMasterClient) {
 			ready_status = true;
 			
-			StartCoroutine (WaitAllReady ());  
-			StartCoroutine (WaitAllReady ());  
+			// StartCoroutine (WaitAllReady ());  
+			// StartCoroutine (WaitAllReady ());  
 
 			for (int i =0; i < PlayerLayoutGroup.transform.childCount; i++ ) {
 				if (!PlayerLayoutGroup.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf)
