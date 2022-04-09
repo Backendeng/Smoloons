@@ -11,21 +11,20 @@ public class RoomCanvas: MonoBehaviour {
 	private PhotonView PV;
 	private bool PlayerReady = false;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
+	private bool ready_status;
 
-	private bool AllPlayersReady
+	private bool AllPlayersReady ()
 	{
-		get
-		{
 			foreach (var photonPlayer in PhotonNetwork.playerList)
 			{
 				if(photonPlayer.CustomProperties["PlayerReady"] == null){
 					Debug.Log("All Players are not Ready!");
+					ready_status = false;
 					return false;
 				} 
 			}
 
-			return true;
-		}
+			return false;
 	}
 	// private bool AllPlayersReady
 	// {
@@ -50,23 +49,19 @@ public class RoomCanvas: MonoBehaviour {
 
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
+			ready_status = true;
 			
 			StartCoroutine (WaitAllReady ());  
+			StartCoroutine (WaitAllReady ());  
 
-			Debug.Log(StartCoroutine (WaitAllReady ()));
-
-			if(!AllPlayersReady)
+			if(ready_status)
 			{
-				return;
-			}
-			
-			
-
 				
-			Debug.Log("All Players are not Ready!");
-			PhotonNetwork.room.IsOpen = true;
-			PhotonNetwork.room.IsVisible = false;
-			PhotonNetwork.LoadLevel(2);
+				Debug.Log("All Players are not Ready!");
+				PhotonNetwork.room.IsOpen = true;
+				PhotonNetwork.room.IsVisible = false;
+				PhotonNetwork.LoadLevel(2);
+			}
 
 			// foreach (var photonPlayer in PhotonNetwork.playerList)
 			// {
@@ -97,7 +92,7 @@ public class RoomCanvas: MonoBehaviour {
 
 	private IEnumerator WaitAllReady()
 	{
-		yield return new WaitUntil (() => AllPlayersReady);
+		yield return new WaitUntil (() => AllPlayersReady ());
 	}
 
      private void Update()
