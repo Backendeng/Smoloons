@@ -71,9 +71,6 @@ public class CreateRoom: MonoBehaviour {
 			Debug.Log("Request for room creation failed.");
 		}
 
-		//  con = true;
-		//  if (con == true)
-		//     idf();
 	}
 
 	public void OnPrivateCreateRoom() {
