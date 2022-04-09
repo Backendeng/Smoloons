@@ -50,14 +50,23 @@ public class RoomCanvas: MonoBehaviour {
 
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
+			
+			StartCoroutine (WaitAllReady ());  
+
+			Debug.Log(StartCoroutine (WaitAllReady ()));
+
 			if(!AllPlayersReady)
 			{
 				return;
 			}
 			
-			StartCoroutine (WaitAllReady ());  
+			
 
 				
+			Debug.Log("All Players are not Ready!");
+			PhotonNetwork.room.IsOpen = true;
+			PhotonNetwork.room.IsVisible = false;
+			PhotonNetwork.LoadLevel(2);
 
 			// foreach (var photonPlayer in PhotonNetwork.playerList)
 			// {
@@ -89,11 +98,6 @@ public class RoomCanvas: MonoBehaviour {
 	private IEnumerator WaitAllReady()
 	{
 		yield return new WaitUntil (() => AllPlayersReady);
-
-		Debug.Log("All Players are not Ready!");
-		PhotonNetwork.room.IsOpen = true;
-		PhotonNetwork.room.IsVisible = false;
-		PhotonNetwork.LoadLevel(2);
 	}
 
      private void Update()
