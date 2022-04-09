@@ -54,6 +54,11 @@ public class RoomCanvas: MonoBehaviour {
 			StartCoroutine (WaitAllReady ());  
 			StartCoroutine (WaitAllReady ());  
 
+			for (int i =0; i < PlayerLayoutGroup.transform.childCount; i++ ) {
+				if (!PlayerLayoutGroup.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf)
+					ready_status = false;
+			}
+			
 			if(ready_status)
 			{
 				
