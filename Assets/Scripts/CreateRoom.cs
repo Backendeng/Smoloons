@@ -40,6 +40,8 @@ public class CreateRoom: MonoBehaviour {
 		// passCopyToBrowser(GUIUtility.systemCopyBuffer);
 		#if UNITY_WEBGL        
             WebGLCopyAndPasteAPI.GetCopyClipboard(RoomName.text);
+		#else
+			GUIUtility.systemCopyBuffer = RoomName.text;
     	#endif        
 	}
 
