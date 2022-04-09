@@ -54,9 +54,9 @@ public class CreateRoom: MonoBehaviour {
 	public void OnCreateRoom() {
 
 
-		if (PhotonNetwork.IsMasterClient)
+		if (PhotonNetwork.isMasterClient)
         {
-			if(PhotonNetwork.PlayerList.All(p => p.CustomProperties.ContainsKey("Ready") && (bool)p.CustomProperties["Ready"]))
+			if(PhotonNetwork.Playerlist.All(p => p.CustomProperties.ContainsKey("Ready") && (bool)p.CustomProperties["Ready"]))
 			{
 				arenaCreationStatus = "All Players are Ready!";
 				Debug.Log("All Players are Ready!");
