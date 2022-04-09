@@ -53,23 +53,37 @@ public class CreateRoom: MonoBehaviour {
 
 	public void OnCreateRoom() {
 
-		RoomOptions roomOptions = new RoomOptions() {
-			IsVisible = true,
-			IsOpen = true,
-			MaxPlayers = 6
-		};
 
-		roomOptions.PlayerTtl = 3000;
-		roomOptions.EmptyRoomTtl = 3000;
+		if (PhotonNetwork.IsMasterClient)
+        {
+			if(PhotonNetwork.PlayerList.All(p => p.CustomProperties.ContainsKey("Ready") && (bool)p.CustomProperties["Ready"]))
+			{
+				arenaCreationStatus = "All Players are Ready!";
+				Debug.Log("All Players are Ready!");
+			} else {
+				arenaCreationStatus = "All Players are not Ready!";
+				Debug.Log("All Players are not Ready!");
+			}
+        }
 
-		if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default)) {
-			arenaCreationStatus = "Arena creation request sent successfully.";
-			Debug.Log("Request for room creation sent successfully.");
-		}
-		else {
-			arenaCreationStatus = "Arena creation request failed";
-			Debug.Log("Request for room creation failed.");
-		}
+
+		// RoomOptions roomOptions = new RoomOptions() {
+		// 	IsVisible = true,
+		// 	IsOpen = true,
+		// 	MaxPlayers = 6
+		// };
+
+		// roomOptions.PlayerTtl = 3000;
+		// roomOptions.EmptyRoomTtl = 3000;
+
+		// if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default)) {
+		// 	arenaCreationStatus = "Arena creation request sent successfully.";
+		// 	Debug.Log("Request for room creation sent successfully.");
+		// }
+		// else {
+		// 	arenaCreationStatus = "Arena creation request failed";
+		// 	Debug.Log("Request for room creation failed.");
+		// }
 
 		//  con = true;
 		//  if (con == true)
