@@ -253,11 +253,11 @@ public class KillsIncrementer: MonoBehaviour {
 		if (eachPlayerKillOrder[0] != "" && GameObject.FindGameObjectsWithTag("Player").Length < 2 ) {
 			int order = 0;
 			WinLosePanel.SetActive(true);
-			string temp = "\n";
+			string temp = "";
 			for (int i = eachPlayerKillOrder.Length - 1; i > -1; i--) {
 				if(eachPlayerKillOrder[i] != "") {
 					order++;
-					temp += order.ToString() + ". " + eachPlayerKillOrder[i] +"\n"; 
+					temp += order.ToString() + ". " + eachPlayerKillOrder[i]; 
 				}
 			}
 			WinLoseText.text = temp;

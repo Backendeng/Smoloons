@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class RoomCanvas1: MonoBehaviour {
 
@@ -10,18 +12,21 @@ public class RoomCanvas1: MonoBehaviour {
 	private bool PlayerReady = false;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 
-	// private bool AllPlayersReady
-	// {
-	// 	get
-	// 	{
-	// 		foreach (var photonPlayer in PhotonNetwork.playerList)
-	// 		{
-	// 			if(photonPlayer.CustomProperties["Ping"] == false) return false;
-	// 		}
+	private bool ready_status;
 
-	// 		return true;
-	// 	}
-	// }
+	private bool AllPlayersReady ()
+	{
+			foreach (var photonPlayer in PhotonNetwork.playerList)
+			{
+				if(photonPlayer.CustomProperties["PlayerReady"] == null){
+					Debug.Log("All Players are not Ready!");
+					ready_status = false;
+					return false;
+				} 
+			}
+
+			return false;
+	}
 	public string character = "";
 
 	public GameObject PlayerLayoutGroup;
@@ -32,20 +37,43 @@ public class RoomCanvas1: MonoBehaviour {
 
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
-			foreach (var photonPlayer in PhotonNetwork.playerList)
-			{
-				if((bool)photonPlayer.CustomProperties["PlayerReady"] == false) {
-					Debug.Log("All Players are not Ready!");
-					return;
+			ready_status = true;
+			
+			// StartCoroutine (WaitAllReady ());  
+			// StartCoroutine (WaitAllReady ());  
+
+			for (int i =0; i < PlayerLayoutGroup.transform.childCount; i++ ) {
+				// Debug.Log(PlayerLayoutGroup.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf);
+				if (PlayerLayoutGroup.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf)
+				{
+					// Debug.Log(false);
+					ready_status = false;
 				}
+					
 			}
-			Debug.Log("All Players are not Ready!");
-			PhotonNetwork.room.IsOpen = true;
-			PhotonNetwork.room.IsVisible = false;
-			// PhotonNetwork.LoadLevel(2);
+			// StartCoroutine (WaitAllReady ());
+			// Debug.Log(ready_status);
+			if(ready_status)
+			{
+				
+				Debug.Log("All Players are Ready!");
+				PhotonNetwork.room.IsOpen = true;
+				PhotonNetwork.room.IsVisible = false;
+				PhotonNetwork.LoadLevel(2);
+			}
+
+			// foreach (var photonPlayer in PhotonNetwork.playerList)
+			// {
+			// 	if(photonPlayer.CustomProperties["PlayerReady"] == null) {
+			// 		Debug.Log("All Players are not Ready!");
+			// 		return;
+			// 	}
+			// }
+			
 		}
 
 	}
+
 
 	public void Dragon() {
 		PlayerNetwork.Instance.cha = "Player";
