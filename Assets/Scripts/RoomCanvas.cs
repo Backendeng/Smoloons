@@ -35,12 +35,10 @@ public class RoomCanvas: MonoBehaviour {
 			foreach (var photonPlayer in PhotonNetwork.playerList)
 			{
 				if((bool)photonPlayer.CustomProperties["PlayerReady"] == false) {
-					arenaCreationStatus = "All Players are not Ready!";
 					Debug.Log("All Players are not Ready!");
 					return;
 				}
 			}
-			arenaCreationStatus = "All Players are not Ready!";
 			Debug.Log("All Players are not Ready!");
 			PhotonNetwork.room.IsOpen = true;
 			PhotonNetwork.room.IsVisible = false;
