@@ -258,6 +258,7 @@ public class KillsIncrementer: MonoBehaviour {
 
 			if (GameObject.FindGameObjectsWithTag("Player").Length == 0) {
 				if ( allPlayers.Length > 2 ){
+					Debug.Log(1);
 					if (winnerTime < 5){
 						WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 3];
 						WinLosePanel.transform.GetChild(4).gameObject.SetActive(true);
@@ -274,6 +275,7 @@ public class KillsIncrementer: MonoBehaviour {
 					}
 				}
 				if (allPlayers.Length == 2) {
+					Debug.Log(2);
 					if (winnerTime < 5){
 						WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 2];
 						WinLosePanel.transform.GetChild(3).gameObject.SetActive(true);
@@ -285,6 +287,7 @@ public class KillsIncrementer: MonoBehaviour {
 					}
 				}
 				if (allPlayers.Length == 1) {
+					Debug.Log(3);
 					if (winnerTime < 5){
 						WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 1];
 						WinLosePanel.transform.GetChild(2).gameObject.SetActive(true);
@@ -295,6 +298,7 @@ public class KillsIncrementer: MonoBehaviour {
 			} else {
 
 				if ( allPlayers.Length > 2 ){
+					Debug.Log(4);
 					if (winnerTime < 5){
 						WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 2];
 						WinLosePanel.transform.GetChild(4).gameObject.SetActive(true);
@@ -311,6 +315,7 @@ public class KillsIncrementer: MonoBehaviour {
 					}
 				}
 				if (allPlayers.Length == 2) {
+					Debug.Log(5);
 					if (winnerTime < 5){
 						WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 1];
 						WinLosePanel.transform.GetChild(3).gameObject.SetActive(true);
@@ -322,6 +327,7 @@ public class KillsIncrementer: MonoBehaviour {
 					}
 				}
 				if (allPlayers.Length == 1) {
+					Debug.Log(6);
 					if (winnerTime < 5){
 						WinLoseText.text = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
 						WinLosePanel.transform.GetChild(2).gameObject.SetActive(true);
