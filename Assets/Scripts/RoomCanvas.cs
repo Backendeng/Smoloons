@@ -55,14 +55,20 @@ public class RoomCanvas: MonoBehaviour {
 			// StartCoroutine (WaitAllReady ());  
 
 			for (int i =0; i < PlayerLayoutGroup.transform.childCount; i++ ) {
-				if (!PlayerLayoutGroup.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf)
+				// Debug.Log(PlayerLayoutGroup.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf);
+				if (PlayerLayoutGroup.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf)
+				{
+					// Debug.Log(false);
 					ready_status = false;
+				}
+					
 			}
-			
+			// StartCoroutine (WaitAllReady ());
+			// Debug.Log(ready_status);
 			if(ready_status)
 			{
 				
-				Debug.Log("All Players are not Ready!");
+				Debug.Log("All Players are Ready!");
 				PhotonNetwork.room.IsOpen = true;
 				PhotonNetwork.room.IsVisible = false;
 				PhotonNetwork.LoadLevel(2);
@@ -97,7 +103,9 @@ public class RoomCanvas: MonoBehaviour {
 
 	private IEnumerator WaitAllReady()
 	{
-		yield return new WaitUntil (() => AllPlayersReady ());
+		// yield return new WaitUntil (() => AllPlayersReady ());
+		Debug.Log("Started Coroutine at timestamp : " + Time.time);
+		yield return new WaitForSeconds(5);
 	}
 
      private void Update()
