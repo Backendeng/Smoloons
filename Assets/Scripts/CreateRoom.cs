@@ -53,46 +53,23 @@ public class CreateRoom: MonoBehaviour {
 
 	public void OnCreateRoom() {
 
+		RoomOptions roomOptions = new RoomOptions() {
+			IsVisible = true,
+			IsOpen = true,
+			MaxPlayers = 6
+		};
 
-		if (PhotonNetwork.isMasterClient)
-        {
-			// if(PhotonNetwork.playerList.All(p => p.CustomProperties.ContainsKey("Ready") && (bool)p.CustomProperties["Ready"]))
-			// {
-			// 	arenaCreationStatus = "All Players are Ready!";
-			// 	Debug.Log("All Players are Ready!");
-			// } else {
-				
-			// }
-			foreach (var photonPlayer in PhotonNetwork.playerList)
-			{
-				if((bool)photonPlayer.CustomProperties["PlayerReady"] == false) {
-					arenaCreationStatus = "All Players are not Ready!";
-					Debug.Log("All Players are not Ready!");
-					return;
-				}
-			}
-			arenaCreationStatus = "All Players are not Ready!";
-			Debug.Log("All Players are not Ready!");
-        }
+		roomOptions.PlayerTtl = 3000;
+		roomOptions.EmptyRoomTtl = 3000;
 
-
-		// RoomOptions roomOptions = new RoomOptions() {
-		// 	IsVisible = true,
-		// 	IsOpen = true,
-		// 	MaxPlayers = 6
-		// };
-
-		// roomOptions.PlayerTtl = 3000;
-		// roomOptions.EmptyRoomTtl = 3000;
-
-		// if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default)) {
-		// 	arenaCreationStatus = "Arena creation request sent successfully.";
-		// 	Debug.Log("Request for room creation sent successfully.");
-		// }
-		// else {
-		// 	arenaCreationStatus = "Arena creation request failed";
-		// 	Debug.Log("Request for room creation failed.");
-		// }
+		if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default)) {
+			arenaCreationStatus = "Arena creation request sent successfully.";
+			Debug.Log("Request for room creation sent successfully.");
+		}
+		else {
+			arenaCreationStatus = "Arena creation request failed";
+			Debug.Log("Request for room creation failed.");
+		}
 
 		//  con = true;
 		//  if (con == true)
@@ -118,5 +95,5 @@ public class CreateRoom: MonoBehaviour {
 	//private void idf() {
 	//    PlayerNetwork.Instance.eachPlayerName[((PhotonNetwork.player.ID) - 1) % 5] = PhotonNetwork.playerName;
 	//}
-	
+
 }
