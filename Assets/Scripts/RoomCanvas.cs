@@ -84,6 +84,6 @@ public class RoomCanvas: MonoBehaviour {
 	
 	[PunRPC]
 	private void RPC_Ready(int PlayerID) {
-		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("PlayerNameText").GetComponent<Text>().text = "Ready";
+		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("Pointer").gameObject.SetActive(false);
 	}
 }
