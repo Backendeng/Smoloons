@@ -10,6 +10,21 @@ public class RoomCanvas: MonoBehaviour {
 	private bool PlayerReady = false;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 
+	private bool AllPlayersReady
+	{
+		get
+		{
+			foreach (var photonPlayer in PhotonNetwork.playerList)
+			{
+				if(photonPlayer.CustomProperties["PlayerReady"] == null){
+					Debug.Log("All Players are not Ready!");
+					return false;
+				} 
+			}
+
+			return true;
+		}
+	}
 	// private bool AllPlayersReady
 	// {
 	// 	get
@@ -33,13 +48,16 @@ public class RoomCanvas: MonoBehaviour {
 
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
-			if (AllReady())
+			if(!AllPlayersReady)
 			{
+				return;
+			}
+			
 				Debug.Log("All Players are not Ready!");
 				PhotonNetwork.room.IsOpen = true;
 				PhotonNetwork.room.IsVisible = false;
 				PhotonNetwork.LoadLevel(2);
-			}
+
 			// foreach (var photonPlayer in PhotonNetwork.playerList)
 			// {
 			// 	if(photonPlayer.CustomProperties["PlayerReady"] == null) {
