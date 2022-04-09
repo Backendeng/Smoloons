@@ -246,8 +246,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	public void RPC_SpawnPlayer(Transform spawnPoint, string shape, string name) {
 
-		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.Euler(-30, 180, 0), 0);
-		playerObject.transform.GetChild(0).rotation = Quaternion.Euler(0, 90, 30);
+		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
+		playerObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 90, 30);
 		playerObject.name = "Monkey";
 		playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
 		playername = name;
