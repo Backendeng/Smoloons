@@ -33,17 +33,21 @@ public class RoomCanvas: MonoBehaviour {
 
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
-			foreach (var photonPlayer in PhotonNetwork.playerList)
+			if (AllReady())
 			{
-				if(photonPlayer.CustomProperties["PlayerReady"] == null) {
-					Debug.Log("All Players are not Ready!");
-					return;
-				}
+				Debug.Log("All Players are not Ready!");
+				PhotonNetwork.room.IsOpen = true;
+				PhotonNetwork.room.IsVisible = false;
+				PhotonNetwork.LoadLevel(2);
 			}
-			Debug.Log("All Players are not Ready!");
-			PhotonNetwork.room.IsOpen = true;
-			PhotonNetwork.room.IsVisible = false;
-			PhotonNetwork.LoadLevel(2);
+			// foreach (var photonPlayer in PhotonNetwork.playerList)
+			// {
+			// 	if(photonPlayer.CustomProperties["PlayerReady"] == null) {
+			// 		Debug.Log("All Players are not Ready!");
+			// 		return;
+			// 	}
+			// }
+			
 		}
 
 	}
@@ -51,14 +55,17 @@ public class RoomCanvas: MonoBehaviour {
 	public void Dragon() {
 		PlayerNetwork.Instance.cha = "Player";
 	}
-	public void Condor() {
-		PlayerNetwork.Instance.cha = "CondorM";
-	}
-	public void Chicken() {
-		PlayerNetwork.Instance.cha = "ChickenM";
-	}
 
-	
+	private bool AllReady(){
+		foreach (var photonPlayer in PhotonNetwork.playerList)
+		{
+			if(photonPlayer.CustomProperties["PlayerReady"] == null) {
+				Debug.Log("All Players are not Ready!");
+				return false;
+			}
+		}
+		return true;
+	}
 
      private void Update()
      {
