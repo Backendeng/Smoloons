@@ -20,7 +20,7 @@ public class KillsIncrementer: MonoBehaviour {
 	public Text WinLoseText;
 	public float[] eachPlayerHealth = new float[6];
 	public GameObject[] allPlayers = new GameObject[6];
-	public float startTime,
+	public float startTime, winnerTime,
 	timer;
 	public Text timerText;
 	// Use this for initialization
@@ -87,6 +87,7 @@ public class KillsIncrementer: MonoBehaviour {
 		Debug.Log(PhotonNetwork.countOfPlayers);
 
 		WinLosePanel.SetActive(false);
+		winnerTime = 0;
 
 
 	}
@@ -251,16 +252,51 @@ public class KillsIncrementer: MonoBehaviour {
 
 	public void EndGame() {
 		if (eachPlayerKillOrder[0] != "" && GameObject.FindGameObjectsWithTag("Player").Length < 2 ) {
-			int order = 0;
+			winnerTime += Time.deltaTime;
 			WinLosePanel.SetActive(true);
-			string temp = "";
-			for (int i = eachPlayerKillOrder.Length - 1; i > -1; i--) {
-				if(eachPlayerKillOrder[i] != "") {
-					order++;
-					temp += order.ToString() + ". " + eachPlayerKillOrder[i]; 
+			
+
+			if (GameObject.FindGameObjectsWithTag("Player").Length == 0) {
+				if (winnerTime < 5 && allPlayers.Length > 2){
+					WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 3];
+				}
+				if (winnerTime > 5  && winnerTime < 10 && allPlayers.Length > 1){
+					WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 2];
+					WinLosePanel.transform.Find("3").gameObject.SetActive(false);
+					WinLosePanel.transform.Find("2").gameObject.SetActive(true);
+				}
+				if (winnerTime > 10  && allPlayers.Length > 0){
+					WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 1];
+					WinLosePanel.transform.Find("2").gameObject.SetActive(false);
+					WinLosePanel.transform.Find("1").gameObject.SetActive(true);
+				}
+			} else {
+				if (winnerTime < 5  && allPlayers.Length > 2){
+					WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 2];
+				}
+				if (winnerTime > 5  && winnerTime < 10 && allPlayers.Length > 1){
+					WinLoseText.text = eachPlayerKillOrder[eachPlayerKillOrder.Length - 1];
+					WinLosePanel.transform.Find("3").gameObject.SetActive(false);
+					WinLosePanel.transform.Find("2").gameObject.SetActive(true);
+				}
+				if (winnerTime > 10 && allPlayers.Length > 0){
+					WinLoseText.text = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+					WinLosePanel.transform.Find("2").gameObject.SetActive(false);
+					WinLosePanel.transform.Find("1").gameObject.SetActive(true);
 				}
 			}
-			WinLoseText.text = temp;
+
+			
+			// int order = 0;
+			// WinLosePanel.SetActive(true);
+			// string temp = "";
+			// for (int i = eachPlayerKillOrder.Length - 1; i > -1; i--) {
+			// 	if(eachPlayerKillOrder[i] != "") {
+			// 		order++;
+			// 		temp += order.ToString() + ". " + eachPlayerKillOrder[i]; 
+			// 	}
+			// }
+			// WinLoseText.text = temp;
 		}
 	}
 }

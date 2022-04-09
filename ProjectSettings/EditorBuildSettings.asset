@@ -12,18 +12,21 @@ EditorBuildSettings:
     path: Assets/Scenes/LobbyEntry.unity
     guid: e3d33a26126514242ba7503805345b10
   - enabled: 0
-    path: Assets/Scenes/Game3.unity
-    guid: 7671496f49660d14c9ca43fd73ef4059
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
-    guid: fa4884e366b197147b6e2bd5a5adb102
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 540dafe025ed54d4081012a2026efa16
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LobbyEntry2.unity
     guid: 82d36ad70e93e7b47929f5a359c12683
+  - enabled: 1
+    path: Assets/Scenes/LobbyEntry 1.unity
+    guid: 53248b9436042c747a9609f61b24663a
   m_configObjects: {}
