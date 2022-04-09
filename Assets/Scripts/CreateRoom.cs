@@ -76,6 +76,28 @@ public class CreateRoom: MonoBehaviour {
 		//     idf();
 	}
 
+	public void OnPrivateCreateRoom() {
+
+		RoomOptions roomOptions = new RoomOptions() {
+			IsVisible = false,
+			IsOpen = true,
+			MaxPlayers = 6
+		};
+
+		roomOptions.PlayerTtl = 3000;
+		roomOptions.EmptyRoomTtl = 3000;
+
+		if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default)) {
+			arenaCreationStatus = "Arena creation request sent successfully.";
+			Debug.Log("Request for room creation sent successfully.");
+		}
+		else {
+			arenaCreationStatus = "Arena creation request failed";
+			Debug.Log("Request for room creation failed.");
+		}
+
+	}
+
 	private void OnPhotonCreateRoomFailed(object[] codeAndMessage) {
 		arenaCreationStatus = "Arena creation failed";
 		Debug.Log("Room creation failed : " + codeAndMessage);

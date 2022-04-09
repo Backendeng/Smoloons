@@ -49,5 +49,8 @@ public class LobbyCanvas : MonoBehaviour {
       //  if(sceneName == "Game")
        // PlayerNetwork.Instance.eachPlayerName[(PhotonNetwork.player.ID - 1) % 5] = PhotonNetwork.playerName;
     }
-
+    
+    public void OnAppear() {
+		MainCanvasManager.Instance.RoomList.transform.SetAsLastSibling();
+	}
 }

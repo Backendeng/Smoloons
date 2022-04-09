@@ -823,6 +823,7 @@ MonoBehaviour:
   curr_health: 0
   health: 0
   holding_time: 0
+  hand_time: 0
   movement_status: 0
   holding_status: 0
   Map_parent: {fileID: 0}
@@ -856,8 +857,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7933672334899697954}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 8
-  instantiationId: 8
+  viewIdField: 2
+  instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!65 &65248457951335556

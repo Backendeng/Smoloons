@@ -257,7 +257,7 @@ public class KillsIncrementer: MonoBehaviour {
 			for (int i = eachPlayerKillOrder.Length - 1; i > -1; i--) {
 				if(eachPlayerKillOrder[i] != "") {
 					order++;
-					 temp += order.ToString() + ". " + eachPlayerKillOrder[i] +"\n"; 
+					temp += order.ToString() + ". " + eachPlayerKillOrder[i] +"\n"; 
 				}
 			}
 			WinLoseText.text = temp;

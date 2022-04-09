@@ -39,7 +39,13 @@ public class MainCanvasManager: MonoBehaviour {
 		}
 	}
 
-
+	[SerializeField]
+	private LobbyCanvas _roomList;
+	public LobbyCanvas RoomList {
+		get {
+			return _roomList;
+		}
+	}
 
 	private void Awake() {
 
