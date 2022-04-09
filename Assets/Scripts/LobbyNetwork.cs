@@ -45,6 +45,7 @@ public class LobbyNetwork: MonoBehaviour {
 
 	private void Update() {
 		lobbyStatusText.text = status;
+		Debug.Log(PhotonNetwork.connected)
 	}
 
 }
