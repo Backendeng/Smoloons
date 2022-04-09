@@ -30,11 +30,12 @@ public class RoomCanvas: MonoBehaviour {
 		PV = GetComponent < PhotonView > ();
 	}
 
+
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
 			foreach (var photonPlayer in PhotonNetwork.playerList)
 			{
-				if((bool)photonPlayer.CustomProperties["PlayerReady"] == false) {
+				if(photonPlayer.CustomProperties["PlayerReady"] == null) {
 					Debug.Log("All Players are not Ready!");
 					return;
 				}
@@ -42,7 +43,7 @@ public class RoomCanvas: MonoBehaviour {
 			Debug.Log("All Players are not Ready!");
 			PhotonNetwork.room.IsOpen = true;
 			PhotonNetwork.room.IsVisible = false;
-			// PhotonNetwork.LoadLevel(2);
+			PhotonNetwork.LoadLevel(2);
 		}
 
 	}
@@ -68,8 +69,8 @@ public class RoomCanvas: MonoBehaviour {
      {
         PlayerReady = true;    
         selectedHero = "PlayerTest";
-        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
         _playerCustomProperties["PlayerReady"] = PlayerReady;
+        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		// PlayerLayoutGroup.transform.Find(PhotonNetwork.player.ID.ToString()).transform.Find("PlayerNameText").GetComponent<Text>().text = "Ready";
 		// Debug.Log("Player Ready = " + _playerCustomProperties["PlayerReady"]);
 		PV.RPC("RPC_Ready", PhotonTargets.All, PhotonNetwork.player.ID);
