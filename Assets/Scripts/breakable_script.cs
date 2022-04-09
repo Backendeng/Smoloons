@@ -59,7 +59,7 @@ public class breakable_script: Photon.MonoBehaviour {
 			animator.enabled = true;
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
-					if (Random.Range(0.0f, 1.0f) > 0.7f && random == -1f) {
+					if (Random.Range(0.0f, 1.0f) > 0.5f && random == -1f) {
 						Debug.Log("hit");
 						//  photonView.RPC("RPC_Powerup", PhotonTargets.All);
 						random = Random.Range(0, 3);

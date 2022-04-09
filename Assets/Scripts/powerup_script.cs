@@ -102,5 +102,8 @@ public class powerup_script: MonoBehaviour {
 			}
 
 		}
+		if (collider.CompareTag("powerup")) {
+			Destroy(gameObject);
+		}
 	}
 }
