@@ -50,7 +50,7 @@ public class powerup_script: MonoBehaviour {
 	void OnTriggerEnter(Collider collider)
 
 	{
-
+		Debug.Log(collider.gameObject);
 		if (collider.CompareTag("Player")) {
 			powerup_audio.enabled = true;
 			transform.GetComponent <BoxCollider> ().enabled = false;
@@ -103,6 +103,7 @@ public class powerup_script: MonoBehaviour {
 
 		}
 		if (collider.CompareTag("powerup")) {
+			Debug.Log("powerup");
 			Destroy(gameObject);
 		}
 	}
