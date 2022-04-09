@@ -56,14 +56,23 @@ public class CreateRoom: MonoBehaviour {
 
 		if (PhotonNetwork.isMasterClient)
         {
-			if(PhotonNetwork.Playerlist.All(p => p.CustomProperties.ContainsKey("Ready") && (bool)p.CustomProperties["Ready"]))
+			// if(PhotonNetwork.playerList.All(p => p.CustomProperties.ContainsKey("Ready") && (bool)p.CustomProperties["Ready"]))
+			// {
+			// 	arenaCreationStatus = "All Players are Ready!";
+			// 	Debug.Log("All Players are Ready!");
+			// } else {
+				
+			// }
+			foreach (var photonPlayer in PhotonNetwork.playerList)
 			{
-				arenaCreationStatus = "All Players are Ready!";
-				Debug.Log("All Players are Ready!");
-			} else {
-				arenaCreationStatus = "All Players are not Ready!";
-				Debug.Log("All Players are not Ready!");
+				if((bool)photonPlayer.CustomProperties["PlayerReady"] == false) {
+					arenaCreationStatus = "All Players are not Ready!";
+					Debug.Log("All Players are not Ready!");
+					return;
+				}
 			}
+			arenaCreationStatus = "All Players are not Ready!";
+			Debug.Log("All Players are not Ready!");
         }
 
 
@@ -109,5 +118,5 @@ public class CreateRoom: MonoBehaviour {
 	//private void idf() {
 	//    PlayerNetwork.Instance.eachPlayerName[((PhotonNetwork.player.ID) - 1) % 5] = PhotonNetwork.playerName;
 	//}
-
+	
 }
