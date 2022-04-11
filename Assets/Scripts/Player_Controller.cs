@@ -82,7 +82,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		} else {
 			mobile = true;
 		}
-		movement_status = true;
+		movement_status = false;
 		holding_status = false;
 		holding_time = 0.0f;
 		hand_time = 0.0f;
@@ -154,6 +154,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		hand_time += Time.deltaTime;
 		if (hand_time > 5) {
 			animator.SetBool("Hand", false );
+			movement_status = true;
 		}
 	}
 
