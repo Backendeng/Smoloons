@@ -7,11 +7,12 @@ public class Camera_animation : MonoBehaviour
 
     public static Transform current_monkey_postion;
     public Vector3 target_camera_postion;
-    public float speed = 1.0f;
+    public float speed = 5.0f;
+    public bool zoom;
     // Start is called before the first frame update
     void Start()
     {
-        
+        zoom= false;
     }
 
     // Update is called once per frame
@@ -19,8 +20,10 @@ public class Camera_animation : MonoBehaviour
     {
         if (current_monkey_postion) 
         {
-            float step =  speed * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, current_monkey_postion.position, step);
+            if (!zoom){
+                float step =  speed * Time.deltaTime; // calculate distance to move
+                transform.position = Vector3.MoveTowards(transform.position, current_monkey_postion.position, step);
+            }
         }
     }
 }
