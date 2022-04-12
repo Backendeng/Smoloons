@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
+
+
 public class Player_Controller: Photon.MonoBehaviour {
 
 	private string FireAxis = "Fire 1";
@@ -247,7 +249,9 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	public void RPC_SpawnPlayer(Transform spawnPoint, string shape, string name) {
 		
-		Camera_animation.current_monkey_postion = spawnPoint;
+		float y = Mathf.Sin(20)*Mathf.Sin(20)*20;
+		float z = Mathf.Sin(20)*Mathf.Cos(20)*20;
+		Camera_animation.current_monkey_postion.position = new Vector3 (spawnPoint.position.x, y, spawnPoint.position.z-z);
 
 		
 		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
