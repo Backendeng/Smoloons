@@ -5,8 +5,9 @@ using UnityEngine;
 public class Camera_animation : MonoBehaviour
 {
 
-    public Transform current_monkey_postion;
-    public Vector3 target_camera_postion;
+    public static Transform current_monkey_postion;
+    public static Vector3 target_camera_postion;
+    public float speed = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,10 @@ public class Camera_animation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (current_monkey_postion) 
+        {
+            float step =  speed * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, current_monkey_postion.position, step);
+        }
     }
 }

@@ -251,7 +251,7 @@ public class KillsIncrementer: MonoBehaviour {
 	}
 
 	public void EndGame() {
-		if (eachPlayerKillOrder[0] != "" && GameObject.FindGameObjectsWithTag("Player").Length < 2 || GameObject.FindGameObjectsWithTag("Player").Length == 0 ) {
+		if (eachPlayerKillOrder[0] != "" && GameObject.FindGameObjectsWithTag("Player").Length < 2 ) {
 			winnerTime += Time.deltaTime;
 			WinLosePanel.SetActive(true);
 			
