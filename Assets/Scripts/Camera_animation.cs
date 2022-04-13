@@ -26,7 +26,7 @@ public class Camera_animation : MonoBehaviour
                 if (m_OrthographicCamera.orthographicSize > 3)
                     m_OrthographicCamera.orthographicSize -= zoom_speed;
                 float step =  speed * Time.deltaTime; // calculate distance to move
-                transform.position = Vector3.MoveTowards(transform.position, current_monkey_postion1.position, step);
+                transform.position = Vector3.MoveTowards(transform.position, current_monkey_postion.position, step);
             } else {
                 if (m_OrthographicCamera.orthographicSize < 9.2)
                     m_OrthographicCamera.orthographicSize += zoom_speed;
