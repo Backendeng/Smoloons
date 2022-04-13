@@ -7,7 +7,7 @@ public class Camera_animation : MonoBehaviour
 
     public static Transform current_monkey_postion;
     public Vector3 target_camera_postion;
-    public float speed = 5.0f;
+    public float speed = 10.0f;
     public bool zoom;
     // Start is called before the first frame update
     void Start()
