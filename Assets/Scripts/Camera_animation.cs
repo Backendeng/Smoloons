@@ -9,7 +9,8 @@ public class Camera_animation : MonoBehaviour
     public Camera m_OrthographicCamera;
     public Vector3 target_camera_postion;
     public float speed = 10.0f;
-    public float zoom_speed = 0.3f;
+    public float zoom_in_speed = 0.3f;
+    public float zoom_out_speed = 0.1f;
     public static bool zoom;
     // Start is called before the first frame update
     void Start()
@@ -24,12 +25,12 @@ public class Camera_animation : MonoBehaviour
         {
             if (!zoom){
                 if (m_OrthographicCamera.orthographicSize > 3)
-                    m_OrthographicCamera.orthographicSize -= zoom_speed;
+                    m_OrthographicCamera.orthographicSize -= zoom_in_speed;
                 float step =  speed * Time.deltaTime; // calculate distance to move
                 transform.position = Vector3.MoveTowards(transform.position, current_monkey_postion.position, step);
             } else {
                 if (m_OrthographicCamera.orthographicSize < 9.2)
-                    m_OrthographicCamera.orthographicSize += zoom_speed;
+                    m_OrthographicCamera.orthographicSize += zoom_out_speed;
                 float step =  speed * Time.deltaTime; // calculate distance to move
                 transform.position = Vector3.MoveTowards(transform.position, target_camera_postion, step);
             }
