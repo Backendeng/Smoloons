@@ -252,6 +252,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		// float y = Mathf.Sin(20)*Mathf.Sin(20)*20;
 		// float z = Mathf.Sin(20)*Mathf.Cos(20)*20;
 		// Camera_animation.current_monkey_postion.position = new Vector3 (spawnPoint.position.x, y, spawnPoint.position.z-z);
+		Camera_animation.zoom = false;
 		Camera_animation.current_monkey_postion = cameraPoint;
 
 		
