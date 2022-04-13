@@ -154,8 +154,12 @@ public class Player_Controller: Photon.MonoBehaviour {
 			}
 		}
 		hand_time += Time.deltaTime;
-		if (hand_time > 5) {
+		if (hand_time > 10) {
 			animator.SetBool("Hand", false );
+			Camera_animation.zoom = true;
+			movement_status = true;
+		}
+		if (hand_time > 15) {
 			movement_status = true;
 		}
 	}
