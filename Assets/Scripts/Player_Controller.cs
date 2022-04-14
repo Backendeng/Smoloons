@@ -422,7 +422,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	[PunRPC]
 	private void killIncrease(int viewID){
 		GameObject ghostMonkey = PhotonView.Find(viewID).gameObject;
-		ghostMonkey.transform.GetComponent<Player_Controller>().count_kill++;
+		ghostMonkey.transform.GetComponent<Player_Controller>().count_kill += 1;
 	}
 
 	private void FurtherRespawn() {
