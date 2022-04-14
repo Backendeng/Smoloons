@@ -239,7 +239,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 			if (bombPrefab) { //Check if bomb prefab is assigned first
 				GameObject go = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Bomb"), new Vector3(Mathf.RoundToInt(myTransform.position.x), bombPrefab.transform.position.y, Mathf.RoundToInt(myTransform.position.z)), bombPrefab.transform.rotation, 0);
-
+				
+				go.name = PhotonView.viewID;
 				go.GetComponent < Bomb > ().explode_size = player.explosion_power;
 				go.GetComponent < Bomb > ().player = player;
 				if (player.canKick) {

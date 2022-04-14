@@ -87,12 +87,9 @@ public class Bomb: Photon.MonoBehaviour {
 		}
 
 		foreach(Vector3 v in instantiate_list) {
-			Instantiate(explosionPrefab, v,
-			//5 
-			explosionPrefab.transform.rotation);
-			//8
-			yield
-			return new WaitForSeconds(.05f);
+			GameObject go = Instantiate(explosionPrefab, v, explosionPrefab.transform.rotation);
+			go.name = gameObject.name;
+			yield return new WaitForSeconds(.1f);
 		}
 	}
 
