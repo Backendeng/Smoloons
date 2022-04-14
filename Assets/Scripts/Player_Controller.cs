@@ -62,6 +62,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public Material ghost_material;
 	public Sprite player_image;
 	public string playername;
+	public int count_kill, count_hit;
 
 
 	private void Awake() {
@@ -88,6 +89,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 		holding_status = false;
 		holding_time = 0.0f;
 		hand_time = 0.0f;
+		count_kill = 0;
+		count_hit = 0;
 		player = GetComponent < Player > ();
 		//Cache the attached components for better performance and less typing
 		rigidBody = GetComponent < Rigidbody > ();
@@ -154,7 +157,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 			}
 		}
 		hand_time += Time.deltaTime;
-		if (hand_time > 10) {
+		if (hand_time > 7) {
 			animator.SetBool("Hand", false );
 			Camera_animation.zoom = true;
 		}
@@ -384,10 +387,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 		bubbleMonkey.transform.Find("model").GetComponent < Animator > ().SetBool("holding", true);
 		bubbleMonkey.transform.Find("bubble").gameObject.SetActive(true);
 	}
+
 	[PunRPC]
-	private void GhostMonkey(int viewID, string name) {
+	private void GhostMonkey(int viewID, string killID) {
 		// canDropBombs = false;
-		Debug.Log(name);
+		
 		GameObject ghostMonkey = PhotonView.Find(viewID).gameObject;
 		ghostMonkey.transform.GetComponent<Player_Controller>().canDropBombs = false;
 		// transform.GetComponent<CapsuleCollider>().enabled = false;
@@ -399,6 +403,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 		ghostMonkey.transform.Find("bubble").gameObject.SetActive(false);
 		ghostMonkey.transform.GetComponent<Player_Controller>().holding_time = 10;
 		ghostMonkey.transform.GetComponent<AudioSource>().enabled = true;
+
+		if (viewID.ToString() != killID) {
+			int killid = int.Parse(killID);
+			PhotonView.RPC("killIncrease", PhotonTargets.All, killid);
+		}
 		
 		GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
 		KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
@@ -408,6 +417,12 @@ public class Player_Controller: Photon.MonoBehaviour {
 				break;
 			}
 		}
+	}
+	
+	[PunRPC]
+	private void killIncrease(int viewID){
+		GameObject ghostMonkey = PhotonView.Find(viewID).gameObject;
+		ghostMonkey.transform.GetComponent<Player_Controller>().count_kill++;
 	}
 
 	private void FurtherRespawn() {
