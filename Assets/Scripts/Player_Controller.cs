@@ -405,7 +405,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		ghostMonkey.transform.GetComponent<AudioSource>().enabled = true;
 
 		if (viewID.ToString() != killID) {
-			int killid = int.Parse(killID);
+			int killid = Convert.ToInt32(killID);
 			PhotonView.RPC("killIncrease", PhotonTargets.All, killid);
 		}
 		
