@@ -157,9 +157,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 		if (hand_time > 10) {
 			animator.SetBool("Hand", false );
 			Camera_animation.zoom = true;
-			movement_status = true;
 		}
-		if (hand_time > 15) {
+		if (hand_time > 15 && hand_time < 20) {
 			movement_status = true;
 		}
 	}
