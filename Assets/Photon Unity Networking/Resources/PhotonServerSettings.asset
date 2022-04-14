@@ -54,4 +54,5 @@ MonoBehaviour:
   - setDeaths
   - setName
   - SetRank
+  - killIncrease
   DisableAutoOpenWizard: 1
