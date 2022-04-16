@@ -14,9 +14,9 @@ public class MainScreen : MonoBehaviour
         //creator.canvasRenderer.SetAlpha(0.0f);
 
         //FadeIn();
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
         FadeOut();
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
         PhotonNetwork.LoadLevel(1);
     }
 
@@ -28,6 +28,6 @@ public class MainScreen : MonoBehaviour
 
     void FadeOut()
     {
-        creator.CrossFadeAlpha(0.0f, 2.5f, false);
+        creator.CrossFadeAlpha(0.0f, 1.5f, false);
     }
 }

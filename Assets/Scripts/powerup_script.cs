@@ -59,24 +59,18 @@ public class powerup_script: MonoBehaviour {
 			
 			Player player = collider.GetComponent < Player > ();
 			Debug.Log(collider.gameObject.name);
+			Debug.Log(PhotonNetwork.player);
+			// Debug.Log(PhotonNetwork.Equals(collider.gameObject));
+			
 			string s = "";
-			Debug.Log(collider.GetComponent <PhotonView> ().viewID);
-			Debug.Log(PhotonNetwork.player.ID);
-			if (collider.GetComponent <PhotonView> ().viewID == PhotonNetwork.player.ID) {
+			
+			// if (collider.GetComponent <PhotonView> ().viewID == PhotonNetwork.player.ID) {
 				switch (powerup) {
 				case POWERUPS.BOMB:
 					s = "+1 Bomb";
 					if (player.bombs < 7)
 						player.bombs++;
 					break;
-				// case POWERUPS.KICK:
-				// 	player.canKick = true;
-				// 	s = "Kick unlocked";
-				// 	break;
-				// case POWERUPS.LIFE:
-				// 	player.lifes++;
-				// 	s = "+1 Life";
-				// 	break;
 				case POWERUPS.POWER:
 					if (player.explosion_power < 7)
 						player.explosion_power++;
@@ -102,7 +96,7 @@ public class powerup_script: MonoBehaviour {
 						go.transform.SetParent(c.transform);
 					}
 				}
-			}
+			// }
 
 		}
 		if (collider.CompareTag("powerup")) {
