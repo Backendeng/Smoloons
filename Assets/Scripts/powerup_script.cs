@@ -50,54 +50,57 @@ public class powerup_script: MonoBehaviour {
 	void OnTriggerEnter(Collider collider)
 
 	{
-		Debug.Log(collider.gameObject);
+		
 		if (collider.CompareTag("Player")) {
 			powerup_audio.enabled = true;
 			transform.GetComponent <BoxCollider> ().enabled = false;
 			Destroy(transform.GetChild(0).gameObject); // 3  
 			Destroy(gameObject, 1f);
-
+			
 			Player player = collider.GetComponent < Player > ();
-
+			Debug.Log(collider.gameObject.name);
 			string s = "";
+			Debug.Log(collider.GetComponent <PhotonView> ().viewID);
+			Debug.Log(PhotonNetwork.player.ID);
+			if (collider.GetComponent <PhotonView> ().viewID == PhotonNetwork.player.ID) {
+				switch (powerup) {
+				case POWERUPS.BOMB:
+					s = "+1 Bomb";
+					if (player.bombs < 7)
+						player.bombs++;
+					break;
+				// case POWERUPS.KICK:
+				// 	player.canKick = true;
+				// 	s = "Kick unlocked";
+				// 	break;
+				// case POWERUPS.LIFE:
+				// 	player.lifes++;
+				// 	s = "+1 Life";
+				// 	break;
+				case POWERUPS.POWER:
+					if (player.explosion_power < 7)
+						player.explosion_power++;
+					s = "+1 explosive power";
+					break;
+				case POWERUPS.SPEED:
+					if (player.moveSpeed < 10)
+						player.moveSpeed++;
+					s = "+1 Speed";
+					break;
+				}
 
-			switch (powerup) {
-			case POWERUPS.BOMB:
-				s = "+1 Bomb";
-				if (player.bombs < 7)
-					player.bombs++;
-				break;
-			// case POWERUPS.KICK:
-			// 	player.canKick = true;
-			// 	s = "Kick unlocked";
-			// 	break;
-			// case POWERUPS.LIFE:
-			// 	player.lifes++;
-			// 	s = "+1 Life";
-			// 	break;
-			case POWERUPS.POWER:
-				if (player.explosion_power < 7)
-					player.explosion_power++;
-				s = "+1 explosive power";
-				break;
-			case POWERUPS.SPEED:
-				if (player.moveSpeed < 10)
-					player.moveSpeed++;
-				s = "+1 Speed";
-				break;
-			}
+				if (player.GetComponent < Player_Controller > ().isActiveAndEnabled) { // if human controlled
+					player.update_label(powerup);
+				}
 
-			if (player.GetComponent < Player_Controller > ().isActiveAndEnabled) { // if human controlled
-				player.update_label(powerup);
-			}
+				GameObject go = Instantiate(text, collider.transform.position, Quaternion.identity) as GameObject;
 
-			GameObject go = Instantiate(text, collider.transform.position, Quaternion.identity) as GameObject;
+				go.GetComponent < FloatingText > ().setText(s, new Color());
 
-			go.GetComponent < FloatingText > ().setText(s, new Color());
-
-			foreach(Canvas c in FindObjectsOfType < Canvas > ()) {
-				if (c.tag == "world_canvas") {
-					go.transform.SetParent(c.transform);
+				foreach(Canvas c in FindObjectsOfType < Canvas > ()) {
+					if (c.tag == "world_canvas") {
+						go.transform.SetParent(c.transform);
+					}
 				}
 			}
 
