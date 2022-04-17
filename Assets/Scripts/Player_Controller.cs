@@ -55,7 +55,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	private int start_poses = 10;
 	public float holding_time, hand_time;
 
-	public bool movement_status, holding_status;
+	public bool movement_status, holding_status, animation_status, Target_animation_status;
 	public GameObject Map_parent;
 	public GameObject floor_prefab;
 	public GameObject wall_prefab;
@@ -87,6 +87,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		}
 		movement_status = false;
 		holding_status = false;
+		animation_status = false;
 		holding_time = 0.0f;
 		hand_time = 0.0f;
 		count_kill = 0;
@@ -163,12 +164,13 @@ public class Player_Controller: Photon.MonoBehaviour {
 		}
 		if (hand_time > 12 && hand_time < 13) {
 			movement_status = true;
+			
 		}
 	}
 
 	private void UpdateMovement() {
 		animator.SetBool("Walking", false);
-
+		animation_status = false;
 		//Depending on the player number, use different input for moving
 		UpdatePlayer2Movement();
 
@@ -187,24 +189,28 @@ public class Player_Controller: Photon.MonoBehaviour {
 				rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, player.moveSpeed);
 				myTransform.rotation = Quaternion.Euler(0, -90, -30);
 				animator.SetBool("Walking", true);
+				animation_status = true;
 			}
 
 			if (Input.GetButton("Left") || Input.GetKey(KeyCode.A)) { //Left movement
 				rigidBody.velocity = new Vector3( - player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
 				myTransform.rotation = Quaternion.Euler(-30, 180, 0);
 				animator.SetBool("Walking", true);
+				animation_status = true;
 			}
 
 			if (Input.GetButton("Down") || Input.GetKey(KeyCode.S)) { //Down movement
 				rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, -player.moveSpeed);
 				myTransform.rotation = Quaternion.Euler(0, 90, 30);
 				animator.SetBool("Walking", true);
+				animation_status = true;
 			}
 
 			if (Input.GetButton("Right") || Input.GetKey(KeyCode.D)) { //Right movement
 				rigidBody.velocity = new Vector3(player.moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
 				myTransform.rotation = Quaternion.Euler(30, 0, 0);
 				animator.SetBool("Walking", true);
+				animation_status = true;
 			}
 
 			if (mobile) {
@@ -213,6 +219,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 					rigidBody.velocity = vel;
 					myTransform.rotation = Quaternion.Euler(0, FindDegree(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")), 0);
 					animator.SetBool("Walking", true);
+					animation_status = true;
 				}
 			}
 
@@ -284,12 +291,14 @@ public class Player_Controller: Photon.MonoBehaviour {
 			stream.SendNext(myTransform.rotation);
 			stream.SendNext(curr_health);
 			stream.SendNext(deaths);
+			stream.SendNext(animation_status);
 		}
 		else {
 			TargetPosition = (Vector3) stream.ReceiveNext();
 			TargetRotation = (Quaternion) stream.ReceiveNext();
 			curr_health = (float) stream.ReceiveNext();
 			deaths = (int) stream.ReceiveNext();
+			Target_animation_status = (bool) stream.ReceiveNext();
 		}
 
 	}
@@ -298,7 +307,10 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 		transform.position = Vector3.Lerp(transform.position, TargetPosition, 0.2f);
 		transform.Find("model").transform.rotation = Quaternion.RotateTowards(transform.Find("model").transform.rotation, TargetRotation, 500 * Time.deltaTime);
-
+		if (Target_animation_status) 
+			transform.Find("model").GetComponent < Animator > ().SetBool("Walking", true);
+		else
+			transform.Find("model").GetComponent < Animator > ().SetBool("Walking", false);
 	}
 
 	private void CheckInput() {
@@ -404,7 +416,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		ghostMonkey.transform.GetComponent<Player_Controller>().holding_time = 10;
 		ghostMonkey.transform.GetComponent<AudioSource>().enabled = true;
 
-		if (viewID.ToString() != killID) {
+		if (PhotonView.isMine) {
 			Debug.Log(killID);
 			PhotonView.RPC("killIncrease", PhotonTargets.All, killID);
 		}
