@@ -161,7 +161,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 			animator.SetBool("Hand", false );
 			Camera_animation.zoom = true;
 		}
-		if (hand_time > 15 && hand_time < 20) {
+		if (hand_time > 12 && hand_time < 13) {
 			movement_status = true;
 		}
 	}
@@ -267,7 +267,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		playerObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 90, 30);
 		playerObject.name = "Monkey";
 		playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
-		playername = name;
+		playerObject.transform.GetComponent<Player_Controller>().playername = name;
 	}
 
 	[PunRPC]
@@ -405,8 +405,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 		ghostMonkey.transform.GetComponent<AudioSource>().enabled = true;
 
 		if (viewID.ToString() != killID) {
-			int killid = Convert.ToInt32(killID);
-			PhotonView.RPC("killIncrease", PhotonTargets.All, killid);
+			Debug.Log(killID);
+			PhotonView.RPC("killIncrease", PhotonTargets.All, killID);
 		}
 		
 		GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
@@ -420,10 +420,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 	}
 	
 	[PunRPC]
-	private void killIncrease(int viewID){
-		if (PhotonView.viewID == viewID)
+	private void killIncrease(string viewID){
+		if (PhotonView.viewID.ToString() == viewID)
 			{
-				GameObject ghostMonkey = PhotonView.Find(viewID).gameObject;
+				int photonVieID = Int32.Parse(viewID);
+				GameObject ghostMonkey = PhotonView.Find(photonVieID).gameObject;
 				ghostMonkey.transform.GetComponent<Player_Controller>().count_kill += 1;
 			}
 	}

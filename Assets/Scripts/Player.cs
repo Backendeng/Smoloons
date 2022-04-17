@@ -148,24 +148,25 @@ public class Player: Photon.MonoBehaviour {
 		if (GetComponent < Player_Controller > ().isActiveAndEnabled) {
 			foreach(Text t in FindObjectsOfType < Text > ()) {
 				switch (t.tag) {
-				case "Bomb":
-					bomb_label = t;
-					break;
-				case "life":
-					life_label = t;
-					break;
-				case "power":
-					explosion_label = t;
-					break;
-				case "speed":
-					speed_label = t;
-					break;
-				case "kick":
-					kick_label = t;
-					break;
+					case "Bomb":
+						bomb_label = t;
+						break;
+					case "life":
+						life_label = t;
+						break;
+					case "power":
+						explosion_label = t;
+						break;
+					case "speed":
+						speed_label = t;
+						break;
+					case "kick":
+						kick_label = t;
+						break;
 				}
 			}
 		}
+
 		//Cache the attached components for better performance and less typing
 		playername = gameObject.name;
 	}

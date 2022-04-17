@@ -11,7 +11,7 @@ public class PlayerLayoutGroup: MonoBehaviour {
 			return _playerListingPrefab;
 		}
 	}
-
+	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 	private List < PlayerListing > _playerListings = new List < PlayerListing > ();
 	private List < PlayerListing > PlayerListings {
 		get {
@@ -31,14 +31,13 @@ public class PlayerLayoutGroup: MonoBehaviour {
 		foreach(Transform child in transform) {
 			Destroy(child.gameObject);
 		}
-
+		
 		MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
 
 		PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;
 		for (int i = 0; i < photonPlayers.Length; i++) {
 			PlayerJoinedRoom(photonPlayers[i]);
 		}
-
 	}
 
 	private void OnPhotonPlayerConnected(PhotonPlayer photonPlayer) {
@@ -61,11 +60,18 @@ public class PlayerLayoutGroup: MonoBehaviour {
 
 		GameObject playerListingObject = Instantiate(PlayerListingPrefab);
 		playerListingObject.transform.SetParent(transform, false);
+		Debug.Log(photonPlayer.CustomProperties["PlayerReady"]);
+		
+		if (photonPlayer.CustomProperties["PlayerReady"] != null){
+			playerListingObject.transform.Find("Pointer").gameObject.SetActive(false);
+		} 
 
 		PlayerListing playerListing = playerListingObject.GetComponent < PlayerListing > ();
 		playerListing.ApplyPhotonPlayer(photonPlayer);
 
 		PlayerListings.Add(playerListing);
+
+		
 
 	}
 
@@ -90,7 +96,9 @@ public class PlayerLayoutGroup: MonoBehaviour {
 	}
 
 	public void OnLeaveRoom() {
-
+		
+		_playerCustomProperties["PlayerReady"] = null;
+        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		PhotonNetwork.LeaveRoom();
 		PhotonNetwork.LoadLevel(1);
 

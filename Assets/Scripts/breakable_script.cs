@@ -10,19 +10,21 @@ public class breakable_script: Photon.MonoBehaviour {
 	Player_Controller pm = new Player_Controller();
 	public ParticleSystem explosion;
 	PhotonView photonView;
-	public bool animation_status;
+	public bool animation_status, delete_status;
 	private float liveTimer;
 	private Animator animator;
-	private float random;
+	private float random, delete_time;
 
 	// Use this for initialization
 	void Start() {
 		// powerup_prefab = (GameObject) Resources.Load("PowerUp", typeof(GameObject));
 		photonView = GetComponent < PhotonView > ();
 		animation_status = false;
+		delete_status = false;
 		liveTimer = 0.0f;
 		animator = transform.GetComponent < Animator > ();
 		random = -1f;
+		delete_time = 0;
 	}
 
 	// Update is called once per frame
@@ -33,6 +35,10 @@ public class breakable_script: Photon.MonoBehaviour {
 		// 	if (liveTimer > 1.0f )
 		// 		Destory(gameObject);
 		// }
+
+		if (delete_status) {
+			delete_time += Time.deltaTime;
+		}
 	}
 
 	void OnCollisionEnter(Collision collision)
@@ -78,7 +84,12 @@ public class breakable_script: Photon.MonoBehaviour {
 				}
 				// if (PhotonNetwork.isMasterClient)
 				Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
+				Debug.Log("start");
+				delete_status = true;
+				if (delete_time > 2)
+					Debug.Log("2s");
 				Destroy(gameObject, 2.0f);
+				// PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
 			} else {
 				Destroy(gameObject, 0.5f);
 				// int viewID =  photonView.viewID;
@@ -89,6 +100,7 @@ public class breakable_script: Photon.MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
+
 
 	// [PunRPC]
     // private void DeleteBlock(int viewID)

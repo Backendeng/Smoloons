@@ -32,7 +32,7 @@ public class PlayerNetwork: Photon.MonoBehaviour {
 		PhotonView = GetComponent < PhotonView > ();
 		wasAlreadyConnected = false;
 
-		PlayerName = "Player" + Random.Range(10000, 99999);
+		PlayerName = "P" + Random.Range(1000000, 9999999);
 
 		PhotonNetwork.sendRate = 200;
 		PhotonNetwork.sendRateOnSerialize = 60;

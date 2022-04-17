@@ -58,13 +58,11 @@ public class powerup_script: MonoBehaviour {
 			Destroy(gameObject, 1f);
 			
 			Player player = collider.GetComponent < Player > ();
-			Debug.Log(collider.gameObject.name);
-			Debug.Log(PhotonNetwork.player);
-			// Debug.Log(PhotonNetwork.Equals(collider.gameObject));
+			Player_Controller playerController = collider.GetComponent <Player_Controller> ();
 			
 			string s = "";
 			
-			// if (collider.GetComponent <PhotonView> ().viewID == PhotonNetwork.player.ID) {
+			if (playerController.playername == PhotonNetwork.player.NickName) {
 				switch (powerup) {
 				case POWERUPS.BOMB:
 					s = "+1 Bomb";
@@ -96,7 +94,7 @@ public class powerup_script: MonoBehaviour {
 						go.transform.SetParent(c.transform);
 					}
 				}
-			// }
+			}
 
 		}
 		if (collider.CompareTag("powerup")) {

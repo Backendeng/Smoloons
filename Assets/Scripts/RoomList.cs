@@ -22,6 +22,7 @@ public class RoomList : MonoBehaviour {
     public void OnJoinRoom(string roomName) {
 
         if (PhotonNetwork.JoinRoom(roomName)) {
+
         }
         else {
             Debug.Log("Join room failed");
@@ -36,16 +37,20 @@ public class RoomList : MonoBehaviour {
 
     private void Start()
     {
-        //if (sceneName == "Game") {
-        //    go = GameObject.FindGameObjectWithTag("Kills");
-        //    ki = go.GetComponent<KillsIncrementer>();
-        //}
-        
+        PlayerName.text = PhotonNetwork.playerName;
+    }
+
+    public void changeName() {
+        if (PlayerName.text.ToString() != null && PlayerName.text.ToString() != "") {
+            PhotonNetwork.playerName = PlayerName.text.ToString();
+        } else {
+            PhotonNetwork.playerName = "P" + Random.Range(1000000, 9999999);
+        }
     }
 
     public void Update()
     {
-        PhotonNetwork.playerName = PlayerName.text.ToString();
+        // PhotonNetwork.playerName = PlayerName.text.ToString();
       //  if(sceneName == "Game")
        // PlayerNetwork.Instance.eachPlayerName[(PhotonNetwork.player.ID - 1) % 5] = PhotonNetwork.playerName;
     }

@@ -83,7 +83,7 @@ public class KillsIncrementer: MonoBehaviour {
 	}
 
 	void Start() {
-		rankCalcInstance = rankCalc.GetComponent < RankCalc > ();
+		// rankCalcInstance = rankCalc.GetComponent < RankCalc > ();
 		Debug.Log(PhotonNetwork.countOfPlayers);
 
 		WinLosePanel.SetActive(false);
