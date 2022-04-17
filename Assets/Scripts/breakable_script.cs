@@ -83,7 +83,9 @@ public class breakable_script: Photon.MonoBehaviour {
 				}
 				// if (PhotonNetwork.isMasterClient)
 				// Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
-				PhotonNetwork.Destroy(PhotonView.Find(photonView.viewID).gameObject);
+				// DestroySceneObject(photonView);
+				photonView.RPC("LocalDestroy", PhotonTargets.AllBuffered, photonView.viewID); 
+				// PhotonNetwork.Destroy(PhotonView.Find(photonView.viewID).gameObject);
 			} else {
 				Destroy(gameObject, 0.5f);
 				// int viewID =  photonView.viewID;
@@ -95,16 +97,16 @@ public class breakable_script: Photon.MonoBehaviour {
 		}
 	}
 
-
-	// [PunRPC]
-    // private void DeleteBlock(int viewID)
-    // {
-    //     PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
-    // }
 	[PunRPC]
 	private void RPC_Powerup() {
 		if (Random.Range(0.0f, 1.0f) > 0.5f) {
 			PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
 		}
 	}
+	
+    [PunRPC]
+    private void LocalDestroy(int viewId)
+    {
+        GameObject.Destroy(PhotonView.Find(viewId).gameObject);
+    }
 }

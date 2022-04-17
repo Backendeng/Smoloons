@@ -55,4 +55,5 @@ MonoBehaviour:
   - setName
   - SetRank
   - killIncrease
+  - LocalDestroy
   DisableAutoOpenWizard: 1
