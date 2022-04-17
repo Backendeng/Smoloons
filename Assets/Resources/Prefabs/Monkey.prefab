@@ -826,6 +826,8 @@ MonoBehaviour:
   hand_time: 0
   movement_status: 0
   holding_status: 0
+  animation_status: 0
+  Target_animation_status: 0
   Map_parent: {fileID: 0}
   floor_prefab: {fileID: 1806082955396458, guid: 9163a489b47d42845a921103260a5a1e,
     type: 3}
@@ -834,6 +836,11 @@ MonoBehaviour:
   ghost_material: {fileID: 2100000, guid: 6b06f1722a149d345b311b4872e4dca8, type: 2}
   player_image: {fileID: 21300000, guid: 6549fe6daeb8c4742955410c9b88eef3, type: 3}
   playername: 
+  count_kill: 0
+  count_hit: 0
+  shape: 
+  hand_status: 1
+  dance_status: 0
 --- !u!114 &3869557111389439470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,7 +893,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8612a05ebc4e0b84689c4a53fa03322b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.55108064
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1899,7 +1906,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0cb6c606fcf8ad7469e5d580f341c207, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.55108064
   m_Pitch: 1
   Loop: 0
   Mute: 0

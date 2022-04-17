@@ -54,7 +54,6 @@ public class Player_Controller: Photon.MonoBehaviour {
 	private Blocks[, ] array_representation;
 	private int start_poses = 10;
 	public float holding_time, hand_time;
-
 	public bool movement_status, holding_status, animation_status, Target_animation_status;
 	public GameObject Map_parent;
 	public GameObject floor_prefab;
@@ -63,6 +62,9 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public Sprite player_image;
 	public string playername;
 	public int count_kill, count_hit;
+	public string shape;
+	public bool hand_status = true;
+	public bool dance_status = false;
 
 
 	private void Awake() {
@@ -97,7 +99,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		rigidBody = GetComponent < Rigidbody > ();
 		myTransform = transform.Find("model").transform;
 		animator = transform.Find("model").GetComponent < Animator > ();
-		animator.SetBool("Hand", true);
+		// animator.SetBool("Hand", true);
 		Invoke("changeName", 2f);
 		Invoke("RPC_sendName", 2f);
 	}
@@ -147,8 +149,10 @@ public class Player_Controller: Photon.MonoBehaviour {
 				if ( gameObject.tag == "Ghost"){
 					globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(true);
 					globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(true);
-					GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(false);
-					GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(true);
+					if (!globalKi.EndGame_status){
+						GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(false);
+						GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(true);
+					}
 				} else {
 					if (globalKi.allPlayers[i].tag == "Ghost") {
 						globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(false);
@@ -157,7 +161,14 @@ public class Player_Controller: Photon.MonoBehaviour {
 				}
 			}
 		}
+
 		hand_time += Time.deltaTime;
+		if (dance_status) {
+			animator.SetBool("Dance", true );
+		}
+		if (hand_time < 7 && hand_status) {
+			animator.SetBool("Hand", true );
+		}
 		if (hand_time > 7) {
 			animator.SetBool("Hand", false );
 			Camera_animation.zoom = true;
@@ -268,13 +279,13 @@ public class Player_Controller: Photon.MonoBehaviour {
 		// Camera_animation.current_monkey_postion.position = new Vector3 (spawnPoint.position.x, y, spawnPoint.position.z-z);
 		Camera_animation.zoom = false;
 		Camera_animation.current_monkey_postion = cameraPoint;
-
-		
 		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
 		playerObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 90, 30);
 		playerObject.name = "Monkey";
 		playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
 		playerObject.transform.GetComponent<Player_Controller>().playername = name;
+		playerObject.transform.GetComponent<Player_Controller>().shape = shape;
+	
 	}
 
 	[PunRPC]
@@ -426,6 +437,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		for ( int i = 0 ; i < 6 ; i++ ){
 			if (ki.eachPlayerKillOrder[i] == ""){
 				ki.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
+				ki.eachPlayerOrderName[i] = ghostMonkey.transform.GetComponent<Player_Controller>().shape;
 				break;
 			}
 		}

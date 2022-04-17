@@ -13,6 +13,7 @@ public class KillsIncrementer: MonoBehaviour {
 	public int[] eachPlayerDeaths = new int[6];
 	public int[] eachPlayerScore = new int[6];
 	public string[] eachPlayerName = new string[6];
+	public string[] eachPlayerOrderName = new string[6];
 	public string[] ePN = new string[6];
 	public string[] fePN = new string[6];
 	public string[] winLose = new string[6];
@@ -36,6 +37,10 @@ public class KillsIncrementer: MonoBehaviour {
 	public GameObject [] playerstatus;
 	public Transform UI_Parent;
 	public GameObject SummaryListingPrefab;
+	public GameObject PlayerStatus;
+	public bool EndGame_status;
+	public string PlayerObjectName = "";
+	public Transform PlayerOrderParent;
 
 	PhotonView pv;
 	private void Awake() {
@@ -66,6 +71,7 @@ public class KillsIncrementer: MonoBehaviour {
 		}
 		for (int i = 0; i < eachPlayerName.Length; i++) {
 			eachPlayerName[i] = "";
+			eachPlayerOrderName[i] = "";
 		}
 
 		for (int i = 0; i < eachPlayerName.Length; i++) {
@@ -96,6 +102,7 @@ public class KillsIncrementer: MonoBehaviour {
 
 		WinLosePanel.SetActive(false);
 		winnerTime = 0;
+		EndGame_status = false;
 
 
 	}
@@ -119,16 +126,11 @@ public class KillsIncrementer: MonoBehaviour {
 			}
 		}
 
-		// if (allPlayers.Length != PhotonNetwork.room.PlayerCount){
-		// 	foreach (Transform child in UI_Parent) {
-		// 		GameObject.Destroy(child.gameObject);
-		// 	}
-		// 	for (int i  = 0; i < PhotonNetwork.room.PlayerCount; i++ ){
-		// 		playerstatus[i] = Instantiate(SummaryListingPrefab);
-		// 		playerstatus[i].transform.SetParent(UI_Parent, false);
-		// 	}
-		// }
-		// Array.Reverse(ePN);
+		if (EndGame_status) {
+			for (int i = 0; i < allPlayers.Length; i++) {
+				allPlayers[i].transform.position = new Vector3 (50, 50, 50);
+			}
+		}
 
 		timer = startTime - Time.timeSinceLevelLoad;
 
@@ -145,77 +147,6 @@ public class KillsIncrementer: MonoBehaviour {
 		    // WinLosePanel.SetActive(true);
 		}
 
-		// if (createStonestats) {
-		// 	StartStone();
-		// }
-
-		// Array.Sort(eachPlayerName);
-
-		// for (int i = 0; i < PhotonNetwork.countOfPlayers; i++) {
-		//     ePN[i] = eachPlayerName[4 - i];
-		// }
-		// Array.Reverse(ePN);
-
-		// for (int i = 0; i < PhotonNetwork.countOfPlayers; i++) {
-		//     // fePN[i] = ePN[i].Remove(0,2);
-		// }
-
-		// for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
-		// {
-		//     GameObject go = scroller.transform.GetChild(i).gameObject;
-		//     go.transform.GetChild(2).GetComponent<Text>().text = fePN[i];
-		// }
-
-		// for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
-		// {
-		//     GameObject go = scroller.transform.GetChild(i).gameObject;
-		//     go.transform.GetChild(3).GetComponent<Text>().text = eachPlayerScore[i].ToString();
-		// }
-
-		// for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
-		// {
-		//     GameObject go = scroller.transform.GetChild(i).gameObject;
-		//     go.transform.GetChild(1).GetComponent<Text>().text = rankCalcInstance.fs[i];
-		// }
-
-		// for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
-		// {
-		//     GameObject go = scroller.transform.GetChild(i).gameObject;
-		//     go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[i]/100;
-
-		//if (allPlayers[i].GetComponent<PhotonView>().ownerId == 1) {
-		//    eachPlayerHealth[0] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-		//    GameObject go = scroller.transform.GetChild(i).gameObject;
-		//    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[0];
-		//}
-		//if (allPlayers[i].GetComponent<PhotonView>().ownerId == 2)
-		//{
-		//    eachPlayerHealth[1] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-		//    GameObject go = scroller.transform.GetChild(i).gameObject;
-		//    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[1];
-		//}
-		//if (allPlayers[i].GetComponent<PhotonView>().ownerId == 3)
-		//{
-		//    eachPlayerHealth[2] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-		//    GameObject go = scroller.transform.GetChild(i).gameObject;
-		//    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[2];
-		//}
-		//if (allPlayers[i].GetComponent<PhotonView>().ownerId == 4)
-		//{
-		//    eachPlayerHealth[3] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-		//    GameObject go = scroller.transform.GetChild(i).gameObject;
-		//    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[3];
-		//}
-		//if (allPlayers[i].GetComponent<PhotonView>().ownerId == 5)
-		//{
-		//    eachPlayerHealth[4] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-		//    GameObject go = scroller.transform.GetChild(i).gameObject;
-		//    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[4];
-		//}
-		// }
-
-		//rankScore = eachPlayerScore;
-		//Array.Sort(rankScore);
 		EndGame();
 	}
 
@@ -259,6 +190,7 @@ public class KillsIncrementer: MonoBehaviour {
 	}
 
 	public void EndGame() {
+
 		if (eachPlayerKillOrder[0] != "" && GameObject.FindGameObjectsWithTag("Player").Length < 2 ) {
 			winnerTime += Time.deltaTime;
 			WinLosePanel.SetActive(true);
@@ -279,18 +211,21 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[2].SetActive(true);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(false);
+						WinnerAnimation (eachPlayerOrderName[order - 3], eachPlayerKillOrder[order - 3], false);
 					}
 					if (winnerTime > 5){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[0].SetActive(false);
+						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false);
 					}
 					if (winnerTime > 10){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], true);
 					}
 				}
 				if (allPlayers.Length == 2) {
@@ -300,21 +235,25 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[1].SetActive(true);
 						WinNumber[2].SetActive(false);
 						WinNumber[0].SetActive(false);
+						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false);
 					}
 					if (winnerTime > 5){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], true);
 					}
 				}
 				if (allPlayers.Length == 1) {
 					
 					if (winnerTime < 5){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
+						Debug.Log(eachPlayerKillOrder[order - 1]);
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], true);
 					}
 				}
 
@@ -328,18 +267,21 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[2].SetActive(true);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(false);
+						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false);
 					}
 					if (winnerTime > 5){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[0].SetActive(false);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false);
 					}
 					if (winnerTime > 10){
 						WinLoseText.text = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
+						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().shape, false);
 					}
 				}
 				if (allPlayers.Length == 2) {
@@ -349,12 +291,14 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[0].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[2].SetActive(false);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false);
 					}
 					if (winnerTime > 5){
 						WinLoseText.text = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
+						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().shape, true);
 					}
 				}
 				if (allPlayers.Length == 1) {
@@ -364,23 +308,55 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
+						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().shape, true);
 					}
 				}
 
 				
 			}
-
+			AllDeleteObjets();
 			
-			// int order = 0;
-			// WinLosePanel.SetActive(true);
-			// string temp = "";
-			// for (int i = eachPlayerKillOrder.Length - 1; i > -1; i--) {
-			// 	if(eachPlayerKillOrder[i] != "") {
-			// 		order++;
-			// 		temp += order.ToString() + ". " + eachPlayerKillOrder[i]; 
-			// 	}
-			// }
-			// WinLoseText.text = temp;
+		}
+		
+	}
+
+	public void AllDeleteObjets () {
+		if (GameObject.Find("Grand_17") != null)
+			GameObject.Find("Grand_17").SetActive(false);
+		if (GameObject.Find("Grand_13") != null)
+			GameObject.Find("Grand_13").SetActive(false);
+		// if (GameObject.Find("Breakable(Clone)") != null)
+		// 	GameObject.Find("Breakable(Clone)").SetActive(false);
+		if (GameObject.Find("PowerUp2(Clone)") != null)
+			GameObject.Find("PowerUp2(Clone)").SetActive(false);
+		if (GameObject.Find("PowerUp(Clone)") != null)
+			GameObject.Find("PowerUp(Clone)").SetActive(false);
+		if (GameObject.Find("PowerUp1(Clone)") != null)
+			GameObject.Find("PowerUp1(Clone)").SetActive(false);
+
+		GameObject [] blocks = FindGameObjectsWithSameName("Breakable(Clone)");
+		for (int i = 0; i < blocks.Length; i++) {
+			blocks[i].SetActive(false);
+		}
+		PlayerStatus.SetActive(false);
+		EndGame_status = true;
+		GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(true);
+		GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(false);
+		
+	}
+
+	public void WinnerAnimation(string playerObject, string playerOrderName, bool dance) {
+		if (PlayerObjectName != playerObject) {
+			if (PlayerOrderParent.childCount > 0)
+				Destroy(PlayerOrderParent.transform.GetChild(0).gameObject);
+			GameObject temp = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
+			temp.tag = "Untagged";
+			temp.transform.GetComponent<Player_Controller>().hand_status = !dance;
+			temp.transform.GetComponent<Player_Controller>().dance_status = dance;
+			// Destroy(temp.transform.GetComponent<PhotonView>());
+			temp.transform.localScale = new Vector3(5f, 5f, 5f);
+			temp.name = playerOrderName;
+			temp.transform.SetParent(PlayerOrderParent);
 		}
 	}
 }

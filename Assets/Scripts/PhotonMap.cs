@@ -232,6 +232,10 @@ public class PhotonMap: Photon.MonoBehaviour {
 								if (Random.Range(0.0f, 1.0f) > 0.1f) {
 									// GameObject temp_floor1 = Instantiate(breakable_prefab, new Vector3(xx, 0, i_y), Quaternion.identity);
 									GameObject temp_floor1 = PhotonNetwork.InstantiateSceneObject(Path.Combine("Prefabs", "Breakable"), new Vector3(xx, 0, i_y), Quaternion.Euler(0f, 0f, 0f), 0, null);
+									// if (GameObject.Find("Grand_17") != null)
+									// 	temp_floor1.transform.SetParent(GameObject.Find("Grand_17").transform);
+									// if (GameObject.Find("Grand_13") != null)
+									// 	temp_floor1.transform.SetParent(GameObject.Find("Grand_13").transform);
 									// temp_floor1.transform.SetParent(Map_parent.transform);
 								}
 								// GameObject temp_floor1 = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Breakable"), new Vector3(i_x, 0, i_y), Quaternion.Euler(-90f, 0f, -90f), 0);

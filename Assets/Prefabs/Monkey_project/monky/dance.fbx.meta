@@ -1,83 +1,227 @@
 fileFormatVersion: 2
 guid: 6a36c0af459abad418e7ab6b63ca1177
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Armature
-    100002: arms
-    100004: body
-    100006: Body1
-    100008: Body2
-    100010: //RootNode
-    100012: ear
-    100014: ear.001
-    100016: Head
-    100018: head
-    100020: LArm1
-    100022: LArm2
-    100024: legs
-    100026: LFinger1
-    100028: LFinger2
-    100030: LFingers1
-    100032: LFingers2
-    100034: LLeg1
-    100036: LLeg2
-    100038: RArm1
-    100040: RArm2
-    100042: RFinger1
-    100044: RFinger2
-    100046: RFingers1
-    100048: RFingers2
-    100050: RLeg1
-    100052: RLeg2
-    100054: root
-    400000: Armature
-    400002: arms
-    400004: body
-    400006: Body1
-    400008: Body2
-    400010: //RootNode
-    400012: ear
-    400014: ear.001
-    400016: Head
-    400018: head
-    400020: LArm1
-    400022: LArm2
-    400024: legs
-    400026: LFinger1
-    400028: LFinger2
-    400030: LFingers1
-    400032: LFingers2
-    400034: LLeg1
-    400036: LLeg2
-    400038: RArm1
-    400040: RArm2
-    400042: RFinger1
-    400044: RFinger2
-    400046: RFingers1
-    400048: RFingers2
-    400050: RLeg1
-    400052: RLeg2
-    400054: root
-    2100000: Material.001
-    4300000: head
-    4300002: body
-    4300004: legs
-    4300006: arms
-    4300008: ear
-    4300010: ear.001
-    7400000: Armature|Armature.001|Armature|ArmatureAction
-    7400002: Armature|ArmatureAction
-    9500000: //RootNode
-    13700000: arms
-    13700002: body
-    13700004: ear
-    13700006: ear.001
-    13700008: head
-    13700010: legs
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Armature
+  - first:
+      1: 100002
+    second: arms
+  - first:
+      1: 100004
+    second: body
+  - first:
+      1: 100006
+    second: Body1
+  - first:
+      1: 100008
+    second: Body2
+  - first:
+      1: 100010
+    second: //RootNode
+  - first:
+      1: 100012
+    second: ear
+  - first:
+      1: 100014
+    second: ear.001
+  - first:
+      1: 100016
+    second: Head
+  - first:
+      1: 100018
+    second: head
+  - first:
+      1: 100020
+    second: LArm1
+  - first:
+      1: 100022
+    second: LArm2
+  - first:
+      1: 100024
+    second: legs
+  - first:
+      1: 100026
+    second: LFinger1
+  - first:
+      1: 100028
+    second: LFinger2
+  - first:
+      1: 100030
+    second: LFingers1
+  - first:
+      1: 100032
+    second: LFingers2
+  - first:
+      1: 100034
+    second: LLeg1
+  - first:
+      1: 100036
+    second: LLeg2
+  - first:
+      1: 100038
+    second: RArm1
+  - first:
+      1: 100040
+    second: RArm2
+  - first:
+      1: 100042
+    second: RFinger1
+  - first:
+      1: 100044
+    second: RFinger2
+  - first:
+      1: 100046
+    second: RFingers1
+  - first:
+      1: 100048
+    second: RFingers2
+  - first:
+      1: 100050
+    second: RLeg1
+  - first:
+      1: 100052
+    second: RLeg2
+  - first:
+      1: 100054
+    second: root
+  - first:
+      4: 400000
+    second: Armature
+  - first:
+      4: 400002
+    second: arms
+  - first:
+      4: 400004
+    second: body
+  - first:
+      4: 400006
+    second: Body1
+  - first:
+      4: 400008
+    second: Body2
+  - first:
+      4: 400010
+    second: //RootNode
+  - first:
+      4: 400012
+    second: ear
+  - first:
+      4: 400014
+    second: ear.001
+  - first:
+      4: 400016
+    second: Head
+  - first:
+      4: 400018
+    second: head
+  - first:
+      4: 400020
+    second: LArm1
+  - first:
+      4: 400022
+    second: LArm2
+  - first:
+      4: 400024
+    second: legs
+  - first:
+      4: 400026
+    second: LFinger1
+  - first:
+      4: 400028
+    second: LFinger2
+  - first:
+      4: 400030
+    second: LFingers1
+  - first:
+      4: 400032
+    second: LFingers2
+  - first:
+      4: 400034
+    second: LLeg1
+  - first:
+      4: 400036
+    second: LLeg2
+  - first:
+      4: 400038
+    second: RArm1
+  - first:
+      4: 400040
+    second: RArm2
+  - first:
+      4: 400042
+    second: RFinger1
+  - first:
+      4: 400044
+    second: RFinger2
+  - first:
+      4: 400046
+    second: RFingers1
+  - first:
+      4: 400048
+    second: RFingers2
+  - first:
+      4: 400050
+    second: RLeg1
+  - first:
+      4: 400052
+    second: RLeg2
+  - first:
+      4: 400054
+    second: root
+  - first:
+      21: 2100000
+    second: Material.001
+  - first:
+      43: 4300000
+    second: head
+  - first:
+      43: 4300002
+    second: body
+  - first:
+      43: 4300004
+    second: legs
+  - first:
+      43: 4300006
+    second: arms
+  - first:
+      43: 4300008
+    second: ear
+  - first:
+      43: 4300010
+    second: ear.001
+  - first:
+      74: 7400000
+    second: Armature|Armature.001|Armature|ArmatureAction
+  - first:
+      74: 7400002
+    second: Armature|ArmatureAction
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: arms
+  - first:
+      137: 13700002
+    second: body
+  - first:
+      137: 13700004
+    second: ear
+  - first:
+      137: 13700006
+    second: ear.001
+  - first:
+      137: 13700008
+    second: head
+  - first:
+      137: 13700010
+    second: legs
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -86,6 +230,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -102,7 +247,65 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|Armature.001|Armature|ArmatureAction
+      takeName: Armature|Armature.001|Armature|ArmatureAction
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 179
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|ArmatureAction
+      takeName: Armature|ArmatureAction
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 340
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -110,25 +313,34 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -137,10 +349,10 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -150,13 +362,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
