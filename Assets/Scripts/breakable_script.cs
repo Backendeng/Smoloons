@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class breakable_script: Photon.MonoBehaviour {
 
 	public GameObject powerup_prefab;
+	public GameObject blockAnimation;
 	Player_Controller pm = new Player_Controller();
 	public ParticleSystem explosion;
 	PhotonView photonView;
@@ -36,9 +37,6 @@ public class breakable_script: Photon.MonoBehaviour {
 		// 		Destory(gameObject);
 		// }
 
-		if (delete_status) {
-			delete_time += Time.deltaTime;
-		}
 	}
 
 	void OnCollisionEnter(Collision collision)
@@ -62,6 +60,7 @@ public class breakable_script: Photon.MonoBehaviour {
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			transform.GetComponent <BoxCollider> ().enabled = false;
 			transform.GetChild(0).GetComponent <BoxCollider> ().enabled = true;
+			Instantiate(blockAnimation, transform.position, Quaternion.identity);
 			animator.enabled = true;
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
@@ -83,13 +82,8 @@ public class breakable_script: Photon.MonoBehaviour {
 					}
 				}
 				// if (PhotonNetwork.isMasterClient)
-				Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
-				Debug.Log("start");
-				delete_status = true;
-				if (delete_time > 2)
-					Debug.Log("2s");
-				Destroy(gameObject, 2.0f);
-				// PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
+				// Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
+				PhotonNetwork.Destroy(PhotonView.Find(photonView.viewID).gameObject);
 			} else {
 				Destroy(gameObject, 0.5f);
 				// int viewID =  photonView.viewID;
