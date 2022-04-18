@@ -281,7 +281,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
-						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().shape, false);
+						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text, false);
 					}
 				}
 				if (allPlayers.Length == 2) {
@@ -298,7 +298,9 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
-						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().shape, true);
+						string playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+						string playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
+						WinnerAnimation (playername, playerObjectname, true);
 					}
 				}
 				if (allPlayers.Length == 1) {
@@ -308,7 +310,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
-						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().shape, true);
+						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text, true);
 					}
 				}
 
@@ -349,14 +351,16 @@ public class KillsIncrementer: MonoBehaviour {
 		if (PlayerObjectName != playerObject) {
 			if (PlayerOrderParent.childCount > 0)
 				Destroy(PlayerOrderParent.transform.GetChild(0).gameObject);
-			GameObject temp = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
-			temp.tag = "Untagged";
-			temp.transform.GetComponent<Player_Controller>().hand_status = !dance;
-			temp.transform.GetComponent<Player_Controller>().dance_status = dance;
-			// Destroy(temp.transform.GetComponent<PhotonView>());
-			temp.transform.localScale = new Vector3(5f, 5f, 5f);
-			temp.name = playerOrderName;
-			temp.transform.SetParent(PlayerOrderParent);
+			Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
+			// GameObject temp = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
+			// temp.tag = "Untagged";
+			// temp.transform.GetComponent<Player_Controller>().hand_status = !dance;
+			// temp.transform.GetComponent<Player_Controller>().dance_status = dance;
+			// // Destroy(temp.transform.GetComponent<PhotonView>());
+			// temp.transform.localScale = new Vector3(5f, 5f, 5f);
+			// temp.name = playerOrderName;
+			// temp.transform.SetParent(PlayerOrderParent);
+			// PlayerObjectName = playerObject;
 		}
 	}
 }

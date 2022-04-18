@@ -10,7 +10,6 @@ using TMPro;
 public class Player_Controller: Photon.MonoBehaviour {
 
 	private string FireAxis = "Fire 1";
-
 	public bool canDropBombs = true;
 	//Can the player drop bombs?
 	public bool canMove = true;
@@ -60,9 +59,9 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public GameObject wall_prefab;
 	public Material ghost_material;
 	public Sprite player_image;
-	public string playername;
+	public string playername = "";
 	public int count_kill, count_hit;
-	public string shape;
+	public string shape = "";
 	public bool hand_status = true;
 	public bool dance_status = false;
 
@@ -94,11 +93,15 @@ public class Player_Controller: Photon.MonoBehaviour {
 		hand_time = 0.0f;
 		count_kill = 0;
 		count_hit = 0;
+		playername = "";
 		player = GetComponent < Player > ();
 		//Cache the attached components for better performance and less typing
 		rigidBody = GetComponent < Rigidbody > ();
 		myTransform = transform.Find("model").transform;
 		animator = transform.Find("model").GetComponent < Animator > ();
+		// transform.GetComponent<AudioSource>().volume = FXSlider.GetComponent <Slider> ().value;
+		// transform.GetChild(2).GetComponent<AudioSource>().volume = FXSlider.GetComponent <Slider> ().value;
+		
 		// animator.SetBool("Hand", true);
 		Invoke("changeName", 2f);
 		Invoke("RPC_sendName", 2f);
@@ -131,13 +134,13 @@ public class Player_Controller: Photon.MonoBehaviour {
 		if (holding_status){
 			holding_time += Time.deltaTime;
 	
-			if(holding_time > 5)
+			if(holding_time > 4)
 			{
 				transform.Find("bubble").gameObject.SetActive(false);
 				animator.SetBool("holding", false);
 				animator.SetBool("hitup", false);
 			}
-			if(holding_time > 6)
+			if(holding_time > 5)
 			{
 				holding_time = 0.0f;
 				holding_status = false;
@@ -152,6 +155,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 					if (!globalKi.EndGame_status){
 						GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(false);
 						GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(true);
+						movement_status = false;
+						holding_status = false;
+						animation_status = false;
+						holding_time = 0.0f;
+						hand_time = 0.0f;
 					}
 				} else {
 					if (globalKi.allPlayers[i].tag == "Ghost") {
@@ -282,9 +290,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
 		playerObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 90, 30);
 		playerObject.name = "Monkey";
+		playerObject.transform.GetChild(3).GetComponent<TextMesh>().text = shape;
 		playerObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
-		playerObject.transform.GetComponent<Player_Controller>().playername = name;
-		playerObject.transform.GetComponent<Player_Controller>().shape = shape;
+		// Debug.Log(playerObject.transform.GetComponent<Player_Controller>().hand_status);
+		// playerObject.transform.GetComponent<Player_Controller>().playername = name;
+		
 	
 	}
 
@@ -437,7 +447,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		for ( int i = 0 ; i < 6 ; i++ ){
 			if (ki.eachPlayerKillOrder[i] == ""){
 				ki.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
-				ki.eachPlayerOrderName[i] = ghostMonkey.transform.GetComponent<Player_Controller>().shape;
+				ki.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
 				break;
 			}
 		}
@@ -565,13 +575,15 @@ public class Player_Controller: Photon.MonoBehaviour {
 		if (PhotonView.isMine) {
 			int viewID =  PhotonView.viewID;
 			string name = transform.GetChild(1).GetComponent<TextMeshPro>().text;
-			PhotonView.RPC("sendName", PhotonTargets.All, viewID, name);
+			string shape = transform.GetChild(3).GetComponent<TextMesh>().text;
+			PhotonView.RPC("sendName", PhotonTargets.All, viewID, name, shape);
 		}
 	}
 
 	[PunRPC]
-	private void sendName (int viewID, string name){
+	private void sendName (int viewID, string name, string shape){
 		PhotonView.Find(viewID).gameObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
+		PhotonView.Find(viewID).gameObject.transform.GetChild(3).GetComponent<TextMesh>().text = shape;
 	}
 
 	[PunRPC]
