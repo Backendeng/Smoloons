@@ -25,7 +25,6 @@ public class Audio_volumn : MonoBehaviour
     public void OnValueChanged()
     {
         float VolumeSliderGet = slider.GetComponent <Slider> ().value;
-        Debug.Log(VolumeSliderGet);
         gameObject.GetComponent<AudioSource>().volume = VolumeSliderGet;
         powerupSound.GetComponent<AudioSource>().volume = VolumeSliderGet;
         bombSound.GetComponent<AudioSource>().volume = VolumeSliderGet;

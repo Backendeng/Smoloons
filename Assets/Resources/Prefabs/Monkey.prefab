@@ -458,6 +458,103 @@ Transform:
   m_Father: {fileID: 274831717616939472}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2998181739451519992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2082709405387930236}
+  - component: {fileID: 1341844171777014866}
+  - component: {fileID: 1502699461853655311}
+  m_Layer: 0
+  m_Name: shape
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2082709405387930236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2998181739451519992}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.023119628, y: 0.4348046, z: -0.12893003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7126821856503840614}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1341844171777014866
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2998181739451519992}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!102 &1502699461853655311
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2998181739451519992}
+  m_Text: 
+  m_OffsetZ: 0
+  m_CharacterSize: 1
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 0
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Color:
+    serializedVersion: 2
+    rgba: 16777215
 --- !u!1 &3078324872971000686
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +826,7 @@ Transform:
   - {fileID: 5270890385779961181}
   - {fileID: 610528261513207684}
   - {fileID: 8405192988450879777}
+  - {fileID: 2082709405387930236}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -781,7 +879,7 @@ MonoBehaviour:
   bombs: 2
   canKick: 0
   lifes: 1
-  explosion_power: 2
+  explosion_power: 1
   dead: 0
   respawning: 0
   max_health: 0
@@ -824,16 +922,28 @@ MonoBehaviour:
   health: 0
   holding_time: 0
   hand_time: 0
+  delete_time: 0
   movement_status: 0
   holding_status: 0
+  delete_status: 0
+  animation_status: 0
+  Target_animation_status: 0
   Map_parent: {fileID: 0}
   floor_prefab: {fileID: 1806082955396458, guid: 9163a489b47d42845a921103260a5a1e,
     type: 3}
   wall_prefab: {fileID: 2794135261344442598, guid: 0df0610b3a37da34ebffb4c7338c4106,
     type: 3}
+  DeletePlayerObject: {fileID: 0}
   ghost_material: {fileID: 2100000, guid: 6b06f1722a149d345b311b4872e4dca8, type: 2}
   player_image: {fileID: 21300000, guid: 6549fe6daeb8c4742955410c9b88eef3, type: 3}
   playername: 
+  count_kill: 0
+  count_hit: 0
+  shape: 
+  hand_status: 1
+  dance_status: 0
+  PlayerKillID: 0
+  PlayerViewID: 0
 --- !u!114 &3869557111389439470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,8 +967,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7933672334899697954}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 8
+  instantiationId: 8
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!65 &65248457951335556
@@ -886,7 +996,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8612a05ebc4e0b84689c4a53fa03322b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.55108064
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1899,7 +2009,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0cb6c606fcf8ad7469e5d580f341c207, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.55108064
   m_Pitch: 1
   Loop: 0
   Mute: 0

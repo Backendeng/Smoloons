@@ -96,7 +96,11 @@ public class RoomCanvas: MonoBehaviour {
 			if(photonPlayer.CustomProperties["PlayerReady"] == null) {
 				Debug.Log("All Players are not Ready!");
 				return false;
-			}
+			} else if ((bool) photonPlayer.CustomProperties["PlayerReady"] == false) {
+				Debug.Log("All Players are not Ready!");
+				return false;
+			} 
+			
 		}
 		return true;
 	}
