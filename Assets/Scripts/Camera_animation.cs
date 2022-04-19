@@ -8,9 +8,9 @@ public class Camera_animation : MonoBehaviour
     public static Transform current_monkey_postion;
     public Camera m_OrthographicCamera;
     public Vector3 target_camera_postion;
-    public float speed = 10.0f;
-    public float zoom_in_speed = 0.3f;
-    public float zoom_out_speed = 0.1f;
+    public float speed = 12.0f;
+    public float zoom_in_speed = 0.5f;
+    public float zoom_out_speed = 0.2f;
     public static bool zoom;
     // Start is called before the first frame update
     void Start()

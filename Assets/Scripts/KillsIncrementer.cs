@@ -216,7 +216,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[2].SetActive(true);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(false);
-						WinnerAnimation (eachPlayerOrderName[order - 3], eachPlayerKillOrder[order - 3], false);
+						WinnerAnimation (eachPlayerOrderName[order - 3], eachPlayerKillOrder[order - 3], false, false, true);
 					}
 					if (winnerTime > 5 && winnerTime < 10){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
@@ -224,7 +224,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[0].SetActive(false);
-						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false);
+						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false, true, false);
 					}
 					if (winnerTime > 10 && winnerTime < 11 ){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
@@ -232,7 +232,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
-						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], true);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], true, false, false);
 					}
 				}
 				if (allPlayers.Length == 2) {
@@ -243,7 +243,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[1].SetActive(true);
 						WinNumber[2].SetActive(false);
 						WinNumber[0].SetActive(false);
-						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false);
+						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false, false, true);
 					}
 					if (winnerTime > 5 && winnerTime < 6 ){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
@@ -251,7 +251,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
-						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], true);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], true, false, false);
 					}
 				}
 				if (allPlayers.Length == 1) {
@@ -262,7 +262,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
-						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], true);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], true, false,false);
 					}
 				}
 
@@ -280,7 +280,7 @@ public class KillsIncrementer: MonoBehaviour {
 						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
 						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
 						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
-						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false);
+						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false, false, true);
 					}
 					if (winnerTime > 5 && winnerTime < 10){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
@@ -288,7 +288,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[0].SetActive(false);
-						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false, true, false);
 					}
 					if (winnerTime > 10 && winnerTime < 11){
 						WinLoseText.text = playername;
@@ -297,7 +297,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
 						
-						WinnerAnimation (playerObjectname, playername, true);
+						WinnerAnimation (playerObjectname, playername, true, false, false);
 					}
 				}
 				if (allPlayers.Length == 2) {
@@ -311,7 +311,7 @@ public class KillsIncrementer: MonoBehaviour {
 						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
 						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
 						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
-						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false);
+						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false, false, true);
 					}
 					if (winnerTime > 5 && winnerTime < 6 ){
 						WinLoseText.text = playername;
@@ -319,7 +319,7 @@ public class KillsIncrementer: MonoBehaviour {
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
-						WinnerAnimation (playerObjectname, playername, true);
+						WinnerAnimation (playerObjectname, playername, true, false, false);
 						
 					}
 				}
@@ -334,7 +334,7 @@ public class KillsIncrementer: MonoBehaviour {
 						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
 						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
 						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
-						WinnerAnimation (playerObjectname, playername, true);
+						WinnerAnimation (playerObjectname, playername, true, false, false);
 					}
 				}
 				if (winnerTime > 11) {
@@ -379,15 +379,17 @@ public class KillsIncrementer: MonoBehaviour {
 		// PlayerOrderParent.position = new Vector3 (PlayerOrderParent.position.x, 5, 5.15f);
 	}
 
-	public void WinnerAnimation(string playerObject, string playerOrderName, bool dance) {
+	public void WinnerAnimation(string playerObject, string playerOrderName, bool dance, bool clap, bool cry) {
 		if (PlayerObjectName != playerObject) {
 			if (PlayerOrderParent.childCount > 0)
 				Destroy(PlayerOrderParent.transform.GetChild(0).gameObject);
 			// Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
 			GameObject temp = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
 			temp.tag = "Untagged";
-			temp.transform.GetComponent<Player_Controller>().hand_status = !dance;
+			temp.transform.GetComponent<Player_Controller>().hand_status = false;
 			temp.transform.GetComponent<Player_Controller>().dance_status = dance;
+			temp.transform.GetComponent<Player_Controller>().cry_status = cry;
+			temp.transform.GetComponent<Player_Controller>().clap_status = clap;
 			temp.transform.localScale = new Vector3(5f, 5f, 5f);
 			temp.name = playerOrderName;
 			temp.transform.SetParent(PlayerOrderParent);

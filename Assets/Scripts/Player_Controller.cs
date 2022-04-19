@@ -65,6 +65,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public string shape = "";
 	public bool hand_status = true;
 	public bool dance_status = false;
+	public bool cry_status = false;
+	public bool clap_status = false;
 	public int PlayerKillID = 0;
 	public int PlayerViewID = 0;
 
@@ -170,20 +172,36 @@ public class Player_Controller: Photon.MonoBehaviour {
 					}
 				}
 			}
+		} else {
+			movement_status = false;
+			holding_status = false;
+			animation_status = false;
+			delete_status = false;
+			transform.Find("bubble").gameObject.SetActive(false);
+			animator.SetBool("holding", false);
+			animator.SetBool("hitup", false);
 		}
 		
 			hand_time += Time.deltaTime;
 			if (dance_status) {
 				animator.SetBool("Dance", true );
 			}
-			if (hand_time < 7 && hand_status) {
+			if (cry_status) {
+				animator.SetBool("crying", true );
+			}
+			if (clap_status) {
+				animator.SetBool("clap", true );
+			}
+			if (hand_time < 2 && hand_status) {
 				animator.SetBool("Hand", true );
 			}
-			if (hand_time > 7) {
+			if (hand_time > 2) {
 				animator.SetBool("Hand", false );
+			}
+			if (hand_time > 3) {
 				Camera_animation.zoom = true;
 			}
-			if (hand_time > 12 && hand_time < 13) {
+			if (hand_time > 5 && hand_time < 6) {
 				movement_status = true;
 				
 			}

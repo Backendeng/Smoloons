@@ -879,7 +879,7 @@ MonoBehaviour:
   bombs: 2
   canKick: 0
   lifes: 1
-  explosion_power: 1
+  explosion_power: 2
   dead: 0
   respawning: 0
   max_health: 0
@@ -967,8 +967,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7933672334899697954}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 8
-  instantiationId: 8
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!65 &65248457951335556
