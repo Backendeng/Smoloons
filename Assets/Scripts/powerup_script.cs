@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class powerup_script: MonoBehaviour {
 
@@ -58,11 +59,10 @@ public class powerup_script: MonoBehaviour {
 			Destroy(gameObject, 1f);
 			
 			Player player = collider.GetComponent < Player > ();
-			Player_Controller playerController = collider.GetComponent <Player_Controller> ();
+			string playername = collider.transform.GetChild(1).GetComponent<TextMeshPro>().text;
 			
 			string s = "";
-			
-			if (playerController.playername == PhotonNetwork.player.NickName) {
+			if (playername == PhotonNetwork.player.NickName) {
 				switch (powerup) {
 				case POWERUPS.BOMB:
 					s = "+1 Bomb";
@@ -98,7 +98,6 @@ public class powerup_script: MonoBehaviour {
 
 		}
 		if (collider.CompareTag("powerup")) {
-			Debug.Log("powerup");
 			Destroy(gameObject);
 		}
 	}

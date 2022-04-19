@@ -879,7 +879,7 @@ MonoBehaviour:
   bombs: 2
   canKick: 0
   lifes: 1
-  explosion_power: 2
+  explosion_power: 1
   dead: 0
   respawning: 0
   max_health: 0
@@ -922,8 +922,10 @@ MonoBehaviour:
   health: 0
   holding_time: 0
   hand_time: 0
+  delete_time: 0
   movement_status: 0
   holding_status: 0
+  delete_status: 0
   animation_status: 0
   Target_animation_status: 0
   Map_parent: {fileID: 0}
@@ -931,6 +933,7 @@ MonoBehaviour:
     type: 3}
   wall_prefab: {fileID: 2794135261344442598, guid: 0df0610b3a37da34ebffb4c7338c4106,
     type: 3}
+  DeletePlayerObject: {fileID: 0}
   ghost_material: {fileID: 2100000, guid: 6b06f1722a149d345b311b4872e4dca8, type: 2}
   player_image: {fileID: 21300000, guid: 6549fe6daeb8c4742955410c9b88eef3, type: 3}
   playername: 
@@ -939,6 +942,8 @@ MonoBehaviour:
   shape: 
   hand_status: 1
   dance_status: 0
+  PlayerKillID: 0
+  PlayerViewID: 0
 --- !u!114 &3869557111389439470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,8 +967,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7933672334899697954}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 8
+  instantiationId: 8
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!65 &65248457951335556

@@ -54,7 +54,6 @@ public class breakable_script: Photon.MonoBehaviour {
 		// // 	 Destroy(gameObject); // 3  
 
 		// }
-		// Debug.Log(collision.collider.gameObject.tag);
 		if (collision.collider.CompareTag("Explosion")) {
 			
 			Instantiate(explosion, transform.position, Quaternion.identity);
@@ -65,10 +64,8 @@ public class breakable_script: Photon.MonoBehaviour {
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
 					if (Random.Range(0.0f, 1.0f) > 0.5f && random == -1f) {
-						Debug.Log("hit");
 						//  photonView.RPC("RPC_Powerup", PhotonTargets.All);
 						random = Random.Range(0, 3);
-						Debug.Log(random);
 						if (random == 0 ) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
 						} 

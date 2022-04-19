@@ -52,11 +52,12 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	private Blocks[, ] array_representation;
 	private int start_poses = 10;
-	public float holding_time, hand_time;
-	public bool movement_status, holding_status, animation_status, Target_animation_status;
+	public float holding_time, hand_time, delete_time;
+	public bool movement_status, holding_status, delete_status, animation_status, Target_animation_status;
 	public GameObject Map_parent;
 	public GameObject floor_prefab;
 	public GameObject wall_prefab;
+	public GameObject DeletePlayerObject;
 	public Material ghost_material;
 	public Sprite player_image;
 	public string playername = "";
@@ -64,7 +65,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public string shape = "";
 	public bool hand_status = true;
 	public bool dance_status = false;
-
+	public int PlayerKillID = 0;
+	public int PlayerViewID = 0;
 
 	private void Awake() {
 		globalKillInc = GameObject.FindGameObjectWithTag("Kills");
@@ -89,8 +91,10 @@ public class Player_Controller: Photon.MonoBehaviour {
 		movement_status = false;
 		holding_status = false;
 		animation_status = false;
+		delete_status = false;
 		holding_time = 0.0f;
 		hand_time = 0.0f;
+		delete_time = .0f;
 		count_kill = 0;
 		count_hit = 0;
 		playername = "";
@@ -103,8 +107,10 @@ public class Player_Controller: Photon.MonoBehaviour {
 		// transform.GetChild(2).GetComponent<AudioSource>().volume = FXSlider.GetComponent <Slider> ().value;
 		
 		// animator.SetBool("Hand", true);
-		Invoke("changeName", 2f);
-		Invoke("RPC_sendName", 2f);
+		if (!globalKi.EndGame_status){
+			Invoke("changeName", 2f);
+			Invoke("RPC_sendName", 2f);
+		}
 	}
 
 	// Update is called once per frame
@@ -118,73 +124,103 @@ public class Player_Controller: Photon.MonoBehaviour {
 		// }
 		// else
 		//     globalKi.WinLoseText.text = "Loser";
-
-		if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected) {
-			UpdateMovement();
-		} else {
-			SmoothMovement();
-		}
-		if (PhotonView.isMine) {
-			GameUI.Instance.playerHealth.text = curr_health.ToString();
-			setKills();
-			setDeaths();
-			// GameUI.Instance.playerKills.text = 
-			//  PhotonView.RPC("RPC_PlayerUICameraFollow", PhotonTargets.OthersBuffered);
-		}
-		if (holding_status){
-			holding_time += Time.deltaTime;
-	
-			if(holding_time > 4)
-			{
-				transform.Find("bubble").gameObject.SetActive(false);
-				animator.SetBool("holding", false);
-				animator.SetBool("hitup", false);
+		if (!globalKi.EndGame_status){
+			if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected) {
+				UpdateMovement();
+			} else {
+				SmoothMovement();
 			}
-			if(holding_time > 5)
-			{
-				holding_time = 0.0f;
-				holding_status = false;
-				movement_status = true;
-			}
-		}
-		for (int i = 0; i < globalKi.allPlayers.Length; i++) {
 			if (PhotonView.isMine) {
-				if ( gameObject.tag == "Ghost"){
-					globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(true);
-					globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(true);
-					if (!globalKi.EndGame_status){
-						GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(false);
-						GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(true);
-						movement_status = false;
-						holding_status = false;
-						animation_status = false;
-						holding_time = 0.0f;
-						hand_time = 0.0f;
-					}
-				} else {
-					if (globalKi.allPlayers[i].tag == "Ghost") {
-						globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(false);
-						globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(false);
+				GameUI.Instance.playerHealth.text = curr_health.ToString();
+				setKills();
+				setDeaths();
+				// GameUI.Instance.playerKills.text = 
+				//  PhotonView.RPC("RPC_PlayerUICameraFollow", PhotonTargets.OthersBuffered);
+			}
+			if (holding_status){
+				holding_time += Time.deltaTime;
+		
+				if(holding_time > 4)
+				{
+					transform.Find("bubble").gameObject.SetActive(false);
+					animator.SetBool("holding", false);
+					animator.SetBool("hitup", false);
+				}
+				if(holding_time > 5)
+				{
+					holding_time = 0.0f;
+					holding_status = false;
+					movement_status = true;
+				}
+			}
+			for (int i = 0; i < globalKi.allPlayers.Length; i++) {
+				if (PhotonView.isMine) {
+					if ( gameObject.tag == "Ghost"){
+						globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(true);
+						globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(true);
+						if (!globalKi.EndGame_status){
+							GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(false);
+							GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(true);
+						}
+					} else {
+						if (globalKi.allPlayers[i].tag == "Ghost") {
+							globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(false);
+							globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(false);
+						}
 					}
 				}
 			}
 		}
+		
+			hand_time += Time.deltaTime;
+			if (dance_status) {
+				animator.SetBool("Dance", true );
+			}
+			if (hand_time < 7 && hand_status) {
+				animator.SetBool("Hand", true );
+			}
+			if (hand_time > 7) {
+				animator.SetBool("Hand", false );
+				Camera_animation.zoom = true;
+			}
+			if (hand_time > 12 && hand_time < 13) {
+				movement_status = true;
+				
+			}
 
-		hand_time += Time.deltaTime;
-		if (dance_status) {
-			animator.SetBool("Dance", true );
-		}
-		if (hand_time < 7 && hand_status) {
-			animator.SetBool("Hand", true );
-		}
-		if (hand_time > 7) {
-			animator.SetBool("Hand", false );
-			Camera_animation.zoom = true;
-		}
-		if (hand_time > 12 && hand_time < 13) {
-			movement_status = true;
-			
-		}
+			if (PlayerKillID != 0) {
+				
+				// if (PlayerKillID != PlayerViewID)
+				// 	PhotonView.Find(PlayerKillID).transform.GetComponent<Player_Controller>().count_kill += 1;
+
+				GameObject ghostMonkey = PhotonView.Find(PlayerViewID).gameObject;
+				for ( int i = 0 ; i < 6 ; i++ ){
+					if (globalKi.eachPlayerKillOrder[i] == "" || globalKi.eachPlayerKillOrder[i] == ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text){
+						if (globalKi.eachPlayerKillOrder[i] == ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text) {
+							break;
+						} else {
+							if (PlayerKillID != PlayerViewID)
+								PhotonView.Find(PlayerKillID).transform.GetComponent<Player_Controller>().count_kill += 1;
+							globalKi.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
+							globalKi.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
+							globalKi.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
+							break;
+						}
+					}
+				}
+				PlayerKillID = 0;
+				PlayerViewID = 0;
+			}
+
+			if (delete_status) {
+				delete_time += Time.deltaTime;
+				if (delete_time > 2) {
+					DeletePlayerObject.transform.position = new Vector3 (50, 50, 50);
+					delete_time = .0f;
+					delete_status = false;
+				}
+			}
+		
 	}
 
 	private void UpdateMovement() {
@@ -269,8 +305,9 @@ public class Player_Controller: Photon.MonoBehaviour {
 			if (bombPrefab) { //Check if bomb prefab is assigned first
 				GameObject go = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Bomb"), new Vector3(Mathf.RoundToInt(myTransform.position.x), bombPrefab.transform.position.y, Mathf.RoundToInt(myTransform.position.z)), bombPrefab.transform.rotation, 0);
 				
-				go.name = PhotonView.viewID.ToString();
-				go.GetComponent < Bomb > ().explode_size = player.explosion_power;
+				PhotonView.RPC("setBomb", PhotonTargets.All, go.GetComponent < PhotonView > ().viewID, PhotonView.viewID, player.explosion_power);
+				// go.name = PhotonView.viewID.ToString();
+				// go.GetComponent < Bomb > ().explode_size = player.explosion_power;
 				go.GetComponent < Bomb > ().player = player;
 				if (player.canKick) {
 					go.GetComponent < Rigidbody > ().isKinematic = false; // make bomb kickable
@@ -278,6 +315,13 @@ public class Player_Controller: Photon.MonoBehaviour {
 				canDropBombs = false;
 			}
 		}
+	}
+
+	[PunRPC]
+	private void setBomb(int bombViewID, int playerViewID, int power) {
+		GameObject bombObject = PhotonView.Find(bombViewID).gameObject;
+		bombObject.name = playerViewID.ToString();
+		bombObject.GetComponent < Bomb > ().explode_size = power;
 	}
 
 	public void RPC_SpawnPlayer(Transform spawnPoint, Transform cameraPoint, string shape, string name) {
@@ -307,19 +351,21 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 
-		if (stream.isWriting) {
-			stream.SendNext(transform.position);
-			stream.SendNext(myTransform.rotation);
-			stream.SendNext(curr_health);
-			stream.SendNext(deaths);
-			stream.SendNext(animation_status);
-		}
-		else {
-			TargetPosition = (Vector3) stream.ReceiveNext();
-			TargetRotation = (Quaternion) stream.ReceiveNext();
-			curr_health = (float) stream.ReceiveNext();
-			deaths = (int) stream.ReceiveNext();
-			Target_animation_status = (bool) stream.ReceiveNext();
+		if (!globalKi.EndGame_status) {
+			if (stream.isWriting ) {
+				stream.SendNext(transform.position);
+				stream.SendNext(myTransform.rotation);
+				stream.SendNext(curr_health);
+				stream.SendNext(deaths);
+				stream.SendNext(animation_status);
+			}
+			else {
+				TargetPosition = (Vector3) stream.ReceiveNext();
+				TargetRotation = (Quaternion) stream.ReceiveNext();
+				curr_health = (float) stream.ReceiveNext();
+				deaths = (int) stream.ReceiveNext();
+				Target_animation_status = (bool) stream.ReceiveNext();
+			}
 		}
 
 	}
@@ -368,14 +414,13 @@ public class Player_Controller: Photon.MonoBehaviour {
 			}
 		}
 		if (collision.collider.CompareTag("LastStone")) {
-			Debug.Log("laststone");
 			int viewID =  PhotonView.viewID;
 			PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 		}
 		if (collision.collider.CompareTag("Player")) {
 			if (holding_time > 0.4 && holding_status) {
 				int viewID =  PhotonView.viewID;
-				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.name);
+				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.transform.GetComponent<PhotonView>().viewID.ToString());
 			}
 		}
 
@@ -386,7 +431,6 @@ public class Player_Controller: Photon.MonoBehaviour {
 		if (collision.gameObject.tag == "weapon") {
 			Debug.Log("Touched");
 			// Health -= 10;
-			//  Debug.Log(collider.gameObject.GetPhotonView());
 			if (PhotonView != null && PhotonView.isMine) {
 				curr_health -= health;
 
@@ -397,7 +441,6 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 			if (collision.gameObject.GetPhotonView() != null && PhotonView.isMine) {
 				pv = collision.gameObject.GetPhotonView();
-				Debug.Log(pv.viewID);
 			}
 
 			if (curr_health <= 0) {
@@ -436,31 +479,43 @@ public class Player_Controller: Photon.MonoBehaviour {
 		ghostMonkey.transform.Find("bubble").gameObject.SetActive(false);
 		ghostMonkey.transform.GetComponent<Player_Controller>().holding_time = 10;
 		ghostMonkey.transform.GetComponent<AudioSource>().enabled = true;
+		// if (killID != viewID.ToString()){
+			PlayerViewID = viewID;
+			int.TryParse(killID, out PlayerKillID);
+		// }
+		// if (PhotonView.isMine) {
+		// 	PhotonView.RPC("killIncrease", PhotonTargets.All, viewID, killID);
+		// }
 
-		if (PhotonView.isMine) {
-			Debug.Log(killID);
-			PhotonView.RPC("killIncrease", PhotonTargets.All, killID);
-		}
+		// GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
+		// KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
+		// for ( int i = 0 ; i < 6 ; i++ ){
+		// 	if (ki.eachPlayerKillOrder[i] == ""){
+		// 		ki.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
+		// 		ki.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
+		// 		ki.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
+		// 		break;
+		// 	}
+		// }
 		
-		GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
-		KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
-		for ( int i = 0 ; i < 6 ; i++ ){
-			if (ki.eachPlayerKillOrder[i] == ""){
-				ki.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
-				ki.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
-				break;
-			}
-		}
+		
 	}
 	
 	[PunRPC]
-	private void killIncrease(string viewID){
-		if (PhotonView.viewID.ToString() == viewID)
-			{
-				int photonVieID = Int32.Parse(viewID);
-				GameObject ghostMonkey = PhotonView.Find(photonVieID).gameObject;
-				ghostMonkey.transform.GetComponent<Player_Controller>().count_kill += 1;
-			}
+	private void killIncrease(string killID){
+		// GameObject killMonkey = PhotonView.Find(photonkillID).gameObject;
+		// killMonkey.transform.GetComponent<Player_Controller>().count_kill += 1;
+		// GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
+		// KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
+		// for ( int i = 0 ; i < 6 ; i++ ){
+		// 	if (ki.eachPlayerKillOrder[i] == ""){
+		// 		ki.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
+		// 		ki.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
+		// 		ki.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
+		// 		break;
+		// 	}
+		// }
+		
 	}
 
 	private void FurtherRespawn() {
@@ -522,12 +577,17 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	private void DeathAnimation(GameObject DeathPlayer)
 	{
+		if (DeathPlayer.tag == "Player") {
+			PhotonView.RPC("GhostMonkey", PhotonTargets.All, DeathPlayer.transform.GetComponent<PhotonView>().viewID, DeathPlayer.transform.GetComponent<PhotonView>().viewID.ToString());
+		}
 		DeathPlayer.transform.Find("model").transform.rotation = Quaternion.Euler(0, 90, 30);
 		DeathPlayer.transform.Find("model").GetComponent < Animator > ().SetBool("die", true);
 		DeathPlayer.transform.GetComponent<CapsuleCollider>().enabled = false;
 		DeathPlayer.transform.GetComponent<Player_Controller>().movement_status = false;
 		DeathPlayer.transform.position = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
-		Destroy(DeathPlayer, 2);
+		DeletePlayerObject = DeathPlayer;
+		delete_status = true;
+		// Destroy(DeathPlayer, 2);
 	}
 
 	[PunRPC]
@@ -576,14 +636,16 @@ public class Player_Controller: Photon.MonoBehaviour {
 			int viewID =  PhotonView.viewID;
 			string name = transform.GetChild(1).GetComponent<TextMeshPro>().text;
 			string shape = transform.GetChild(3).GetComponent<TextMesh>().text;
-			PhotonView.RPC("sendName", PhotonTargets.All, viewID, name, shape);
+			string player_name = transform.GetComponent<Player_Controller>().playername;
+			PhotonView.RPC("sendName", PhotonTargets.All, viewID, name, shape, player_name);
 		}
 	}
 
 	[PunRPC]
-	private void sendName (int viewID, string name, string shape){
+	private void sendName (int viewID, string name, string shape, string player_name){
 		PhotonView.Find(viewID).gameObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = name;
 		PhotonView.Find(viewID).gameObject.transform.GetChild(3).GetComponent<TextMesh>().text = shape;
+		PhotonView.Find(viewID).gameObject.transform.GetComponent<Player_Controller>().playername = player_name;
 	}
 
 	[PunRPC]
@@ -639,14 +701,12 @@ public class Player_Controller: Photon.MonoBehaviour {
 	}
 
 	public void RPC_DeleteBlock (int viewID) {
-		Debug.Log(viewID);
 		PhotonView.RPC("DeleteBlock", PhotonTargets.All, viewID);
 	}
 
 	[PunRPC]
     private void DeleteBlock(int viewID)
     {
-		Debug.Log(viewID);
         PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
     }
 

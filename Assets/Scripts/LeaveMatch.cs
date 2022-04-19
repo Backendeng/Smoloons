@@ -20,15 +20,15 @@ public class LeaveMatch: MonoBehaviour {
 	}
 
 	public void OnLeaveMatch() {
-		if (PhotonNetwork.isMasterClient) PlayerNetwork.Instance.PlayersInGame--;
-		_playerCustomProperties["PlayerReady"] = null;
+		// if (PhotonNetwork.isMasterClient) PlayerNetwork.Instance.PlayersInGame--;
+		_playerCustomProperties["PlayerReady"] = false;
         PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		PhotonNetwork.LeaveRoom();
 		PhotonNetwork.LoadLevel(1);
 
 	}
 	public void OnRestart() {
-		_playerCustomProperties["PlayerReady"] = null;
+		_playerCustomProperties["PlayerReady"] = false;
         PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		PhotonNetwork.room.IsVisible = true;
 		PhotonNetwork.LoadLevel(3);

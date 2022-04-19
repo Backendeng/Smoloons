@@ -11,7 +11,6 @@ public class RoomCanvas1: MonoBehaviour {
 	private PhotonView PV;
 	private bool PlayerReady = false;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
-
 	private bool ready_status;
 
 	private bool AllPlayersReady ()
@@ -27,6 +26,18 @@ public class RoomCanvas1: MonoBehaviour {
 
 			return false;
 	}
+	// private bool AllPlayersReady
+	// {
+	// 	get
+	// 	{
+	// 		foreach (var photonPlayer in PhotonNetwork.playerList)
+	// 		{
+	// 			if(photonPlayer.CustomProperties["Ping"] == false) return false;
+	// 		}
+
+	// 		return true;
+	// 	}
+	// }
 	public string character = "";
 
 	public GameObject PlayerLayoutGroup;
@@ -34,6 +45,7 @@ public class RoomCanvas1: MonoBehaviour {
 	private void Awake() {
 		PV = GetComponent < PhotonView > ();
 	}
+
 
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
@@ -74,18 +86,31 @@ public class RoomCanvas1: MonoBehaviour {
 
 	}
 
-
 	public void Dragon() {
 		PlayerNetwork.Instance.cha = "Player";
 	}
-	public void Condor() {
-		PlayerNetwork.Instance.cha = "CondorM";
-	}
-	public void Chicken() {
-		PlayerNetwork.Instance.cha = "ChickenM";
+
+	private bool AllReady(){
+		foreach (var photonPlayer in PhotonNetwork.playerList)
+		{
+			if(photonPlayer.CustomProperties["PlayerReady"] == null) {
+				Debug.Log("All Players are not Ready!");
+				return false;
+			} else if ((bool) photonPlayer.CustomProperties["PlayerReady"] == false) {
+				Debug.Log("All Players are not Ready!");
+				return false;
+			} 
+			
+		}
+		return true;
 	}
 
-	
+	private IEnumerator WaitAllReady()
+	{
+		// yield return new WaitUntil (() => AllPlayersReady ());
+		Debug.Log("Started Coroutine at timestamp : " + Time.time);
+		yield return new WaitForSeconds(5);
+	}
 
      private void Update()
      {
@@ -96,8 +121,8 @@ public class RoomCanvas1: MonoBehaviour {
      {
         PlayerReady = true;    
         selectedHero = "PlayerTest";
-        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
         _playerCustomProperties["PlayerReady"] = PlayerReady;
+        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		// PlayerLayoutGroup.transform.Find(PhotonNetwork.player.ID.ToString()).transform.Find("PlayerNameText").GetComponent<Text>().text = "Ready";
 		// Debug.Log("Player Ready = " + _playerCustomProperties["PlayerReady"]);
 		PV.RPC("RPC_Ready", PhotonTargets.All, PhotonNetwork.player.ID);

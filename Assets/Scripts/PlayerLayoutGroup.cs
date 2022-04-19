@@ -60,9 +60,12 @@ public class PlayerLayoutGroup: MonoBehaviour {
 
 		GameObject playerListingObject = Instantiate(PlayerListingPrefab);
 		playerListingObject.transform.SetParent(transform, false);
-		Debug.Log(photonPlayer.CustomProperties["PlayerReady"]);
 		
-		if (photonPlayer.CustomProperties["PlayerReady"] != null){
+		if (photonPlayer.CustomProperties["PlayerReady"] == null){
+
+		} else if ((bool) photonPlayer.CustomProperties["PlayerReady"] == false) {
+
+		} else {
 			playerListingObject.transform.Find("Pointer").gameObject.SetActive(false);
 		} 
 
@@ -97,7 +100,7 @@ public class PlayerLayoutGroup: MonoBehaviour {
 
 	public void OnLeaveRoom() {
 		
-		_playerCustomProperties["PlayerReady"] = null;
+		_playerCustomProperties["PlayerReady"] = false;
         PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		PhotonNetwork.LeaveRoom();
 		PhotonNetwork.LoadLevel(1);

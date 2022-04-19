@@ -20,6 +20,7 @@ public class KillsIncrementer: MonoBehaviour {
 	public GameObject WinLosePanel;
 	public GameObject [] WinNumber = new GameObject[3];
 	public Text WinLoseText;
+	public Text WinLoseKillCount;
 	public float[] eachPlayerHealth = new float[6];
 	public GameObject[] allPlayers = new GameObject[6];
 	public float startTime, winnerTime,
@@ -41,6 +42,11 @@ public class KillsIncrementer: MonoBehaviour {
 	public bool EndGame_status;
 	public string PlayerObjectName = "";
 	public Transform PlayerOrderParent;
+	public string playerObjectname = "";
+	public string playername = "";
+	public int playerkillCount = 0;
+	
+	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 
 	PhotonView pv;
 	private void Awake() {
@@ -97,14 +103,9 @@ public class KillsIncrementer: MonoBehaviour {
 	}
 
 	void Start() {
-		// rankCalcInstance = rankCalc.GetComponent < RankCalc > ();
-		Debug.Log(PhotonNetwork.countOfPlayers);
-
 		WinLosePanel.SetActive(false);
 		winnerTime = 0;
 		EndGame_status = false;
-
-
 	}
 
 	// Update is called once per frame
@@ -142,7 +143,6 @@ public class KillsIncrementer: MonoBehaviour {
 		if (timer <= 0 && !createStonestats) {
 		    
 		    timerText.text = "0" + " : " + "0"; 
-		    Debug.Log("start");
 			pv.RPC("CreateStone", PhotonTargets.All);
 		    // WinLosePanel.SetActive(true);
 		}
@@ -190,15 +190,19 @@ public class KillsIncrementer: MonoBehaviour {
 	}
 
 	public void EndGame() {
-
-		if (eachPlayerKillOrder[0] != "" && GameObject.FindGameObjectsWithTag("Player").Length < 2 ) {
+		if (eachPlayerKillOrder[0] != "" && GameObject.FindGameObjectsWithTag("Player").Length < 2 || EndGame_status) {
 			winnerTime += Time.deltaTime;
 			WinLosePanel.SetActive(true);
+			// if (winnerTime < 1){
+			// 	_playerCustomProperties["PlayerReady"] = false;
+        	// 	PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+			// }
 			
-			int order = 0;
-			for (int i = eachPlayerKillOrder.Length - 1; i > -1; i--) {
-				if(eachPlayerKillOrder[i] != "") {
-					order = i+1;
+			
+			int order = 6;
+			for (int i = eachPlayerKillOrder.Length; i > 0; i--) {
+				if(eachPlayerKillOrder[i-1] != "") {
+					order = i;
 					break;
 				}
 			}
@@ -206,22 +210,25 @@ public class KillsIncrementer: MonoBehaviour {
 			if (GameObject.FindGameObjectsWithTag("Player").Length == 0) {
 				if ( allPlayers.Length > 2 ){
 					
-					if (winnerTime < 5){
+					if (winnerTime < 5 && winnerTime > .1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 3];
+						WinLoseKillCount.text = "Kill : " + eachPlayerKills[order - 3].ToString();
 						WinNumber[2].SetActive(true);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(false);
 						WinnerAnimation (eachPlayerOrderName[order - 3], eachPlayerKillOrder[order - 3], false);
 					}
-					if (winnerTime > 5){
+					if (winnerTime > 5 && winnerTime < 10){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
+						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[0].SetActive(false);
 						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false);
 					}
-					if (winnerTime > 10){
+					if (winnerTime > 10 && winnerTime < 11 ){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
+						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
@@ -230,15 +237,17 @@ public class KillsIncrementer: MonoBehaviour {
 				}
 				if (allPlayers.Length == 2) {
 					
-					if (winnerTime < 5){
+					if (winnerTime < 5 && winnerTime > .1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
+						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
 						WinNumber[1].SetActive(true);
 						WinNumber[2].SetActive(false);
 						WinNumber[0].SetActive(false);
 						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false);
 					}
-					if (winnerTime > 5){
+					if (winnerTime > 5 && winnerTime < 6 ){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
+						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
@@ -249,7 +258,7 @@ public class KillsIncrementer: MonoBehaviour {
 					
 					if (winnerTime < 5){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
-						Debug.Log(eachPlayerKillOrder[order - 1]);
+						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
@@ -262,58 +271,77 @@ public class KillsIncrementer: MonoBehaviour {
 
 				if ( allPlayers.Length > 2 ){
 					
-					if (winnerTime < 5){
+					if (winnerTime < 5 && winnerTime > .1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
+						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
 						WinNumber[2].SetActive(true);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(false);
+						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
+						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
 						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false);
 					}
-					if (winnerTime > 5){
+					if (winnerTime > 5 && winnerTime < 10){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
+						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[0].SetActive(false);
 						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false);
 					}
-					if (winnerTime > 10){
-						WinLoseText.text = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+					if (winnerTime > 10 && winnerTime < 11){
+						WinLoseText.text = playername;
+						WinLoseKillCount.text = "Kill : " +  playerkillCount;
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
-						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text, false);
+						
+						WinnerAnimation (playerObjectname, playername, true);
 					}
 				}
 				if (allPlayers.Length == 2) {
 					
-					if (winnerTime < 5){
+					if (winnerTime < 5 && winnerTime > .1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
+						WinLoseKillCount.text = "Kill : " + eachPlayerKills[order - 1].ToString();
 						WinNumber[0].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[2].SetActive(false);
+						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
+						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
 						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false);
 					}
-					if (winnerTime > 5){
-						WinLoseText.text = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+					if (winnerTime > 5 && winnerTime < 6 ){
+						WinLoseText.text = playername;
+						WinLoseKillCount.text = "Kill : " +  playerkillCount;
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
-						string playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
-						string playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
-						WinnerAnimation (playername, playerObjectname, true);
+						WinnerAnimation (playerObjectname, playername, true);
+						
 					}
 				}
 				if (allPlayers.Length == 1) {
 					
 					if (winnerTime < 5){
-						WinLoseText.text = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+						WinLoseText.text = playername;
+						WinLoseKillCount.text = "Kill : " +  playerkillCount;
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
-						WinnerAnimation (GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text, GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text, true);
+						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
+						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
+						WinnerAnimation (playerObjectname, playername, true);
 					}
 				}
-
+				if (winnerTime > 11) {
+					for (int i = 0; i < allPlayers.Length; i++) {
+						Destroy(allPlayers[i]);
+					}
+				}
 				
 			}
 			AllDeleteObjets();
@@ -338,29 +366,32 @@ public class KillsIncrementer: MonoBehaviour {
 
 		GameObject [] blocks = FindGameObjectsWithSameName("Breakable(Clone)");
 		for (int i = 0; i < blocks.Length; i++) {
-			blocks[i].SetActive(false);
+			Destroy(blocks[i]);
+		}
+		GameObject [] bombs = FindGameObjectsWithSameName("Bomb(Clone)");
+		for (int i = 0; i < bombs.Length; i++) {
+			Destroy(bombs[i]);
 		}
 		PlayerStatus.SetActive(false);
 		EndGame_status = true;
 		GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(true);
 		GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(false);
-		
+		// PlayerOrderParent.position = new Vector3 (PlayerOrderParent.position.x, 5, 5.15f);
 	}
 
 	public void WinnerAnimation(string playerObject, string playerOrderName, bool dance) {
 		if (PlayerObjectName != playerObject) {
 			if (PlayerOrderParent.childCount > 0)
 				Destroy(PlayerOrderParent.transform.GetChild(0).gameObject);
-			Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
-			// GameObject temp = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
-			// temp.tag = "Untagged";
-			// temp.transform.GetComponent<Player_Controller>().hand_status = !dance;
-			// temp.transform.GetComponent<Player_Controller>().dance_status = dance;
-			// // Destroy(temp.transform.GetComponent<PhotonView>());
-			// temp.transform.localScale = new Vector3(5f, 5f, 5f);
-			// temp.name = playerOrderName;
-			// temp.transform.SetParent(PlayerOrderParent);
-			// PlayerObjectName = playerObject;
+			// Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
+			GameObject temp = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
+			temp.tag = "Untagged";
+			temp.transform.GetComponent<Player_Controller>().hand_status = !dance;
+			temp.transform.GetComponent<Player_Controller>().dance_status = dance;
+			temp.transform.localScale = new Vector3(5f, 5f, 5f);
+			temp.name = playerOrderName;
+			temp.transform.SetParent(PlayerOrderParent);
+			PlayerObjectName = playerObject;
 		}
 	}
 }
