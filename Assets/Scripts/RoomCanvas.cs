@@ -13,6 +13,8 @@ public class RoomCanvas: MonoBehaviour {
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 	private bool ready_status;
 
+	public GameObject crown;
+
 	private bool AllPlayersReady ()
 	{
 			foreach (var photonPlayer in PhotonNetwork.playerList)
@@ -45,7 +47,6 @@ public class RoomCanvas: MonoBehaviour {
 	private void Awake() {
 		PV = GetComponent < PhotonView > ();
 	}
-
 
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
@@ -115,6 +116,7 @@ public class RoomCanvas: MonoBehaviour {
      private void Update()
      {
         //  Debug.Log("Player Ready = " + _playerCustomProperties["PlayerReady"]);
+		OnIsMaster();
      }
 
      private void Ready()
@@ -131,17 +133,15 @@ public class RoomCanvas: MonoBehaviour {
     public void OnReady()
      {
          Ready();
-
-        //  if (PhotonNetwork.IsMasterClient)
-        //  {
-        //      foreach (var photonPlayer in PhotonNetwork.PlayerList)
-        //      {
-        //          photonPlayer.CustomProperties["PlayerReady"] = true;
-        //          PhotonNetwork.LoadLevel(3);
-        //      }
-        //  }
-
      }
+
+	 public void OnIsMaster() {
+		 if (PhotonNetwork.isMasterClient) {
+			 crown.SetActive(true);
+		 } else {
+			crown.SetActive(false);
+		 }
+	 }
 	
 	[PunRPC]
 	private void RPC_Ready(int PlayerID) {

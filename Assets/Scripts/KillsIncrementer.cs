@@ -10,6 +10,9 @@ public class KillsIncrementer: MonoBehaviour {
 
 	public string[] eachPlayerKillOrder = new string[6];
 	public int[] eachPlayerKills = new int[6];
+	public int[] eachPlayerBreak = new int[6];
+	public int[] eachPlayerBomb = new int[6];
+	public int[] eachPlayerStep = new int[6];
 	public int[] eachPlayerDeaths = new int[6];
 	public int[] eachPlayerScore = new int[6];
 	public string[] eachPlayerName = new string[6];
@@ -21,6 +24,9 @@ public class KillsIncrementer: MonoBehaviour {
 	public GameObject [] WinNumber = new GameObject[3];
 	public Text WinLoseText;
 	public Text WinLoseKillCount;
+	public Text WinLoseBombCount;
+	public Text WinLoseBreakCount;
+	public Text WinLoseStepCount;
 	public float[] eachPlayerHealth = new float[6];
 	public GameObject[] allPlayers = new GameObject[6];
 	public float startTime, winnerTime,
@@ -45,6 +51,9 @@ public class KillsIncrementer: MonoBehaviour {
 	public string playerObjectname = "";
 	public string playername = "";
 	public int playerkillCount = 0;
+	public int playerBombCount = 0;
+	public int playerBreakCount = 0;
+	public int playerStepCount = 0;
 	
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 
@@ -68,6 +77,9 @@ public class KillsIncrementer: MonoBehaviour {
 		}
 		for (int i = 0; i < eachPlayerKills.Length; i++) {
 			eachPlayerKills[i] = 0;
+			eachPlayerBomb[i] = 0;
+			eachPlayerBreak[i] = 0;
+			eachPlayerStep[i] = 0;
 		}
 		for (int i = 0; i < eachPlayerDeaths.Length; i++) {
 			eachPlayerDeaths[i] = 0;
@@ -140,7 +152,9 @@ public class KillsIncrementer: MonoBehaviour {
 
 		timerText.text = minutes + " : " + seconds;
 
-		if (timer <= 0 && !createStonestats) {
+		GameObject [] blocks = FindGameObjectsWithSameName("Breakable(Clone)");
+
+		if (timer <= 0 && !createStonestats || !createStonestats && blocks.Length == 0) {
 		    
 		    timerText.text = "0" + " : " + "0"; 
 			pv.RPC("CreateStone", PhotonTargets.All);
@@ -213,6 +227,9 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime < 5 && winnerTime > .1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 3];
 						WinLoseKillCount.text = "Kill : " + eachPlayerKills[order - 3].ToString();
+						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 3].ToString();
+						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 3].ToString();
+						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 3].ToString();
 						WinNumber[2].SetActive(true);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(false);
@@ -221,6 +238,9 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime > 5 && winnerTime < 10){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
 						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
+						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 2].ToString();
+						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 2].ToString();
+						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 2].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[0].SetActive(false);
@@ -229,6 +249,9 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime > 10 && winnerTime < 11 ){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
 						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
+						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
+						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 1].ToString();
+						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 1].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
@@ -240,6 +263,9 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime < 5 && winnerTime > .1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
 						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
+						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 2].ToString();
+						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 2].ToString();
+						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 2].ToString();
 						WinNumber[1].SetActive(true);
 						WinNumber[2].SetActive(false);
 						WinNumber[0].SetActive(false);
@@ -248,6 +274,9 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime > 5 && winnerTime < 6 ){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
 						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
+						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
+						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 1].ToString();
+						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 1].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
@@ -259,6 +288,9 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime < 5){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
 						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
+						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
+						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 1].ToString();
+						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 1].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
@@ -274,17 +306,26 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime < 5 && winnerTime > .1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
 						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
+						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 2].ToString();
+						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 2].ToString();
+						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 2].ToString();
 						WinNumber[2].SetActive(true);
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(false);
 						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
 						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
 						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
+						playerBombCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_bomb;
+						playerBreakCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_break;
+						playerStepCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_step;
 						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false, false, true);
 					}
 					if (winnerTime > 5 && winnerTime < 10){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
 						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
+						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
+						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 1].ToString();
+						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 1].ToString();
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[0].SetActive(false);
@@ -293,6 +334,9 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime > 10 && winnerTime < 11){
 						WinLoseText.text = playername;
 						WinLoseKillCount.text = "Kill : " +  playerkillCount;
+						WinLoseBombCount.text = "Bombs placed : " + playerBombCount;
+						WinLoseBreakCount.text = "Boxes broken : " + playerBreakCount;
+						WinLoseStepCount.text = "Steps taken : " + playerStepCount;
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
@@ -305,17 +349,26 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime < 5 && winnerTime > .1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
 						WinLoseKillCount.text = "Kill : " + eachPlayerKills[order - 1].ToString();
+						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
+						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 1].ToString();
+						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 1].ToString();
 						WinNumber[0].SetActive(false);
 						WinNumber[1].SetActive(true);
 						WinNumber[2].SetActive(false);
 						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
 						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
 						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
+						playerBombCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_bomb;
+						playerBreakCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_break;
+						playerStepCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_step;
 						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false, false, true);
 					}
 					if (winnerTime > 5 && winnerTime < 6 ){
 						WinLoseText.text = playername;
 						WinLoseKillCount.text = "Kill : " +  playerkillCount;
+						WinLoseBombCount.text = "Bombs placed : " + playerBombCount;
+						WinLoseBreakCount.text = "Boxes broken : " + playerBreakCount;
+						WinLoseStepCount.text = "Steps taken : " + playerStepCount;
 						WinNumber[1].SetActive(false);
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
@@ -328,12 +381,18 @@ public class KillsIncrementer: MonoBehaviour {
 					if (winnerTime < 5){
 						WinLoseText.text = playername;
 						WinLoseKillCount.text = "Kill : " +  playerkillCount;
+						WinLoseBombCount.text = "Bombs placed : " + playerBombCount;
+						WinLoseBreakCount.text = "Boxes broken : " + playerBreakCount;
+						WinLoseStepCount.text = "Steps taken : " + playerStepCount;
 						WinNumber[0].SetActive(true);
 						WinNumber[2].SetActive(false);
 						WinNumber[1].SetActive(false);
 						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
 						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
 						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
+						playerBombCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_bomb;
+						playerBreakCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_break;
+						playerStepCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_step;
 						WinnerAnimation (playerObjectname, playername, true, false, false);
 					}
 				}

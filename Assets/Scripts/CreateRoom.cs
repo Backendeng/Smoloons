@@ -46,7 +46,7 @@ public class CreateRoom: MonoBehaviour {
 	}
 
 	public void OnExit() {
-		MainCanvasManager.Instance.LobbyCanvas.transform.SetAsLastSibling();
+		MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
 	}
 
 	public void OnAppear() {

@@ -61,7 +61,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public Material ghost_material;
 	public Sprite player_image;
 	public string playername = "";
-	public int count_kill, count_hit;
+	public int count_kill, count_hit, count_bomb, count_break, count_step;
 	public string shape = "";
 	public bool hand_status = true;
 	public bool dance_status = false;
@@ -69,6 +69,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public bool clap_status = false;
 	public int PlayerKillID = 0;
 	public int PlayerViewID = 0;
+	public int order = 1;
+	public int [] orderList;
 
 	private void Awake() {
 		globalKillInc = GameObject.FindGameObjectWithTag("Kills");
@@ -99,6 +101,9 @@ public class Player_Controller: Photon.MonoBehaviour {
 		delete_time = .0f;
 		count_kill = 0;
 		count_hit = 0;
+		count_bomb = 0;
+		count_break = 0;
+		count_step = 0;
 		playername = "";
 		player = GetComponent < Player > ();
 		//Cache the attached components for better performance and less typing
@@ -222,6 +227,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 							globalKi.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
 							globalKi.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
 							globalKi.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
+							globalKi.eachPlayerBomb[i] = ghostMonkey.GetComponent<Player_Controller>().count_bomb;
+							globalKi.eachPlayerBreak[i] = ghostMonkey.GetComponent<Player_Controller>().count_break;
 							break;
 						}
 					}
@@ -322,7 +329,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 			if (bombPrefab) { //Check if bomb prefab is assigned first
 				GameObject go = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Bomb"), new Vector3(Mathf.RoundToInt(myTransform.position.x), bombPrefab.transform.position.y, Mathf.RoundToInt(myTransform.position.z)), bombPrefab.transform.rotation, 0);
-				
+				count_bomb++;
 				PhotonView.RPC("setBomb", PhotonTargets.All, go.GetComponent < PhotonView > ().viewID, PhotonView.viewID, player.explosion_power);
 				// go.name = PhotonView.viewID.ToString();
 				// go.GetComponent < Bomb > ().explode_size = player.explosion_power;
@@ -440,6 +447,9 @@ public class Player_Controller: Photon.MonoBehaviour {
 				int viewID =  PhotonView.viewID;
 				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.transform.GetComponent<PhotonView>().viewID.ToString());
 			}
+		}
+		if (collision.collider.CompareTag("step")) {
+			count_step++;
 		}
 
 	}
@@ -669,9 +679,19 @@ public class Player_Controller: Photon.MonoBehaviour {
 	[PunRPC]
 	private void setName(int id) {
 
+		orderList = new int[PhotonNetwork.playerList.Length];
+		for (int i = 0; i < PhotonNetwork.playerList.Length ; i++) {
+			orderList[i] = PhotonNetwork.playerList[i].ID;
+		}
+		for (int i = 0; i < orderList.Length ; i++) {
+			if (id > orderList[i] ){
+				order++;
+			}
+		}
+
 		GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
 		KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
-		if (PhotonView.isMine) switch (id % 5) {
+		if (PhotonView.isMine) switch (order % 6) {
 		case 1:
 			ki.eachPlayerName[0] = PhotonNetwork.playerList[0].ID + " " + PhotonNetwork.playerList[0].NickName;
 			break;

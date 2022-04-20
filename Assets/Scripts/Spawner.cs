@@ -19,6 +19,8 @@ public class Spawner: MonoBehaviour {
 	public int playerID = 0;
 	public string character;
 	public string playername;
+	public int order = 0;
+	public int [] orderList;
 	// public bool summaryOpen;
 
 	private void Awake() {
@@ -26,13 +28,25 @@ public class Spawner: MonoBehaviour {
 		playerID = PhotonNetwork.player.ID;
 		playername = PhotonNetwork.playerName;
 		character = "Monkey";
+		// foreach (PhotonPlayer players in PhotonNetwork.playerList)
+		// {
+		// 	orderList[]
+		// }
+		orderList = new int[PhotonNetwork.playerList.Length];
+		for (int i = 0; i < PhotonNetwork.playerList.Length ; i++) {
+			orderList[i] = PhotonNetwork.playerList[i].ID;
+		}
+		for (int i = 0; i < orderList.Length ; i++) {
+			if (playerID > orderList[i] ){
+				order++;
+			}
+		}
 	}
 
 	private void Start() {
 
 		Debug.Log(PhotonNetwork.player.ID);
-
-		Invoke("CreatePlayer", 2f);
+		Invoke("CreatePlayer", 1f);
 		if (PhotonNetwork.room.PlayerCount < 5)
 		{
 			spawnPoint = spawnPoint_13;
@@ -48,8 +62,10 @@ public class Spawner: MonoBehaviour {
 			Grand_13.SetActive(false);
 			SpawnPoints_13.SetActive(false);
 			SpawnPoints_17.SetActive(true);
-			
 		}
+
+		
+		
 	}
 
 	public void OnDis() {
@@ -57,28 +73,28 @@ public class Spawner: MonoBehaviour {
 	}
 
 	public void CreatePlayer() {
-		switch (playerID % 6) {
-		case 1:
+		switch (order % 6) {
+		case 0:
 			pm.RPC_SpawnPlayer(spawnPoint[0],cameraPoint[0], "Monkey", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[0];
 			break;
-		case 2:
+		case 1:
 			pm.RPC_SpawnPlayer(spawnPoint[1],cameraPoint[1], "Monkey1", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[1];
 			break;
-		case 3:
+		case 2:
 			pm.RPC_SpawnPlayer(spawnPoint[2],cameraPoint[2], "Monkey2", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[2];
 			break;
-		case 4:
+		case 3:
 			pm.RPC_SpawnPlayer(spawnPoint[3],cameraPoint[3], "Monkey3", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[3];
 			break;
-		case 5:
+		case 4:
 			pm.RPC_SpawnPlayer(spawnPoint[4],cameraPoint[4], "Monkey4", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[4];
 			break;
-		case 0:
+		case 5:
 			pm.RPC_SpawnPlayer(spawnPoint[5],cameraPoint[5], "Monkey5", playername);
 			// Player_Controller.Instance.selfSpawnTransform = spawnPoint[4];
 			break;

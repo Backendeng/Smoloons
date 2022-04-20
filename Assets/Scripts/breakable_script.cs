@@ -15,6 +15,8 @@ public class breakable_script: Photon.MonoBehaviour {
 	private float liveTimer;
 	private Animator animator;
 	private float random, delete_time;
+	private int PlayerID = 0;
+	public bool flag;
 
 	// Use this for initialization
 	void Start() {
@@ -26,6 +28,7 @@ public class breakable_script: Photon.MonoBehaviour {
 		animator = transform.GetComponent < Animator > ();
 		random = -1f;
 		delete_time = 0;
+		flag = false;
 	}
 
 	// Update is called once per frame
@@ -36,6 +39,12 @@ public class breakable_script: Photon.MonoBehaviour {
 		// 	if (liveTimer > 1.0f )
 		// 		Destory(gameObject);
 		// }
+		if (flag) {
+			
+			PhotonView.Find(PlayerID).GetComponent<Player_Controller> ().count_break++;
+			photonView.RPC("LocalDestroy", PhotonTargets.AllBuffered, photonView.viewID); 
+			flag = false;
+		}
 
 	}
 
@@ -81,7 +90,9 @@ public class breakable_script: Photon.MonoBehaviour {
 				// if (PhotonNetwork.isMasterClient)
 				// Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
 				// DestroySceneObject(photonView);
-				photonView.RPC("LocalDestroy", PhotonTargets.AllBuffered, photonView.viewID); 
+				flag = true;
+				int.TryParse(collision.gameObject.name, out PlayerID);
+				
 				// PhotonNetwork.Destroy(PhotonView.Find(photonView.viewID).gameObject);
 			} else {
 				Destroy(gameObject, 0.5f);
