@@ -71,6 +71,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public int PlayerViewID = 0;
 	public int order = 1;
 	public int [] orderList;
+	public Vector3 prevPosition;
 
 	private void Awake() {
 		globalKillInc = GameObject.FindGameObjectWithTag("Kills");
@@ -229,6 +230,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 							globalKi.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
 							globalKi.eachPlayerBomb[i] = ghostMonkey.GetComponent<Player_Controller>().count_bomb;
 							globalKi.eachPlayerBreak[i] = ghostMonkey.GetComponent<Player_Controller>().count_break;
+							globalKi.eachPlayerStep[i] = ghostMonkey.GetComponent<Player_Controller>().count_step;
 							break;
 						}
 					}
@@ -309,6 +311,15 @@ public class Player_Controller: Photon.MonoBehaviour {
 				DropBomb();
 
 			}
+			if (Mathf.Abs(transform.position.x - prevPosition.x) > 1 ){
+				prevPosition = new Vector3 (Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), Mathf.RoundToInt(transform.position.z));
+				count_step++;
+			}
+			if (Mathf.Abs(transform.position.z - prevPosition.z) > 1 ){
+				prevPosition = new Vector3 (Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), Mathf.RoundToInt(transform.position.z));
+				count_step++;
+			}
+			
 		}
 	}
 
@@ -357,6 +368,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		Camera_animation.zoom = false;
 		Camera_animation.current_monkey_postion = cameraPoint;
 		GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
+		prevPosition = spawnPoint.position;
 		playerObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 90, 30);
 		playerObject.name = "Monkey";
 		playerObject.transform.GetChild(3).GetComponent<TextMesh>().text = shape;
