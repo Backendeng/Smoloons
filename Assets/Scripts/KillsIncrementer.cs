@@ -54,6 +54,7 @@ public class KillsIncrementer: MonoBehaviour {
 	public int playerBombCount = 0;
 	public int playerBreakCount = 0;
 	public int playerStepCount = 0;
+	public GameObject DanceObject;
 	
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 
@@ -162,6 +163,8 @@ public class KillsIncrementer: MonoBehaviour {
 		}
 
 		EndGame();
+
+
 	}
 
 	private void WinLose() {
@@ -435,6 +438,7 @@ public class KillsIncrementer: MonoBehaviour {
 		EndGame_status = true;
 		GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(true);
 		GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(false);
+		DanceObject.transform.rotation = Quaternion.Euler(0f, 90f, 70f);
 		// PlayerOrderParent.position = new Vector3 (PlayerOrderParent.position.x, 5, 5.15f);
 	}
 
@@ -443,15 +447,15 @@ public class KillsIncrementer: MonoBehaviour {
 			if (PlayerOrderParent.childCount > 0)
 				Destroy(PlayerOrderParent.transform.GetChild(0).gameObject);
 			// Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
-			GameObject temp = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
-			temp.tag = "Untagged";
-			temp.transform.GetComponent<Player_Controller>().hand_status = false;
-			temp.transform.GetComponent<Player_Controller>().dance_status = dance;
-			temp.transform.GetComponent<Player_Controller>().cry_status = cry;
-			temp.transform.GetComponent<Player_Controller>().clap_status = clap;
-			temp.transform.localScale = new Vector3(5f, 5f, 5f);
-			temp.name = playerOrderName;
-			temp.transform.SetParent(PlayerOrderParent);
+			DanceObject = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
+			DanceObject.tag = "Untagged";
+			DanceObject.transform.GetComponent<Player_Controller>().hand_status = false;
+			DanceObject.transform.GetComponent<Player_Controller>().dance_status = dance;
+			DanceObject.transform.GetComponent<Player_Controller>().cry_status = cry;
+			DanceObject.transform.GetComponent<Player_Controller>().clap_status = clap;
+			DanceObject.transform.localScale = new Vector3(5f, 5f, 5f);
+			DanceObject.name = playerOrderName;
+			DanceObject.transform.SetParent(PlayerOrderParent);
 			PlayerObjectName = playerObject;
 		}
 	}

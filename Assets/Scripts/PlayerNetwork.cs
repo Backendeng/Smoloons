@@ -23,6 +23,9 @@ public class PlayerNetwork: Photon.MonoBehaviour {
 	public Player_Controller CurrentPlayer;
 	public string cha;
 	public string map;
+	public float background_music = .5f;
+	public float FX_music = .5f;
+
 
 	private Coroutine playerPingCoroutine;
 

@@ -11,7 +11,8 @@ public class CreateRoom: MonoBehaviour {
 	public string arenaCreationStatus;
 	public GameObject LobNet;
 	public GameObject CreateDialog;
-	
+	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
+
 	LobbyNetwork LN;
 
 	[SerializeField]

@@ -20,12 +20,20 @@ public class Setting : MonoBehaviour
     void Start()
     {
         globalKi = globalKillInc.GetComponent < KillsIncrementer > ();
+        backSlider.GetComponent <Slider> ().value = PlayerNetwork.Instance.background_music;
+        FXSlider.GetComponent <Slider> ().value = PlayerNetwork.Instance.FX_music;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        backSound.GetComponent<AudioSource>().volume = PlayerNetwork.Instance.background_music;
+        powerupSound.GetComponent<AudioSource>().volume = PlayerNetwork.Instance.FX_music;
+        powerupSound1.GetComponent<AudioSource>().volume = PlayerNetwork.Instance.FX_music;
+        powerupSound2.GetComponent<AudioSource>().volume = PlayerNetwork.Instance.FX_music;
+        bombSound.GetComponent<AudioSource>().volume = PlayerNetwork.Instance.FX_music;
+        bombSound.GetChild(2).GetComponent<AudioSource>().volume = PlayerNetwork.Instance.FX_music;
+        LastStone.GetComponent<AudioSource>().volume = PlayerNetwork.Instance.FX_music;
     }
 
     public void Appear() {
@@ -37,21 +45,22 @@ public class Setting : MonoBehaviour
     }
 
     public void OnBackValueChanged() {
-        float VolumeSliderGet = backSlider.GetComponent <Slider> ().value;
-        backSound.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        PlayerNetwork.Instance.background_music = backSlider.GetComponent <Slider> ().value;
+        // float VolumeSliderGet = backSlider.GetComponent <Slider> ().value;
+        // backSound.GetComponent<AudioSource>().volume = VolumeSliderGet;
     }
     public void OnFXValueChanged() {
-        float VolumeSliderGet = FXSlider.GetComponent <Slider> ().value;
-        Debug.Log(powerupSound.GetComponent<AudioSource>().volume);
-        powerupSound.GetComponent<AudioSource>().volume = VolumeSliderGet;
-        powerupSound1.GetComponent<AudioSource>().volume = VolumeSliderGet;
-        powerupSound2.GetComponent<AudioSource>().volume = VolumeSliderGet;
-        bombSound.GetComponent<AudioSource>().volume = VolumeSliderGet;
-        bombSound.GetChild(2).GetComponent<AudioSource>().volume = VolumeSliderGet;
-        LastStone.GetComponent<AudioSource>().volume = VolumeSliderGet;
-        for (int i = 0; i < globalKi.allPlayers.Length; i++) {
-            globalKi.allPlayers[0].transform.GetComponent<AudioSource>().volume = VolumeSliderGet;
-            globalKi.allPlayers[0].transform.GetChild(2).GetComponent<AudioSource>().volume = VolumeSliderGet;
-        }
+        PlayerNetwork.Instance.FX_music = FXSlider.GetComponent <Slider> ().value;
+        // float VolumeSliderGet = FXSlider.GetComponent <Slider> ().value;
+        // powerupSound.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        // powerupSound1.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        // powerupSound2.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        // bombSound.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        // bombSound.GetChild(2).GetComponent<AudioSource>().volume = VolumeSliderGet;
+        // LastStone.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        // for (int i = 0; i < globalKi.allPlayers.Length; i++) {
+        //     globalKi.allPlayers[0].transform.GetComponent<AudioSource>().volume = VolumeSliderGet;
+        //     globalKi.allPlayers[0].transform.GetChild(2).GetComponent<AudioSource>().volume = VolumeSliderGet;
+        // }
     }
 }

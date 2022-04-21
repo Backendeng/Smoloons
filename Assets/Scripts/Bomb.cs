@@ -21,7 +21,7 @@ public class Bomb: Photon.MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-}
+	}
 
 	void Explode() {
 		// center one
@@ -87,8 +87,9 @@ public class Bomb: Photon.MonoBehaviour {
 		}
 
 		foreach(Vector3 v in instantiate_list) {
+			explosionPrefab.name = gameObject.name;
 			GameObject go = Instantiate(explosionPrefab, v, explosionPrefab.transform.rotation);
-			go.name = gameObject.name;
+			// go.name = gameObject.name;
 			yield return new WaitForSeconds(.05f);
 		}
 	}

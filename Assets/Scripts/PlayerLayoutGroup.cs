@@ -69,6 +69,14 @@ public class PlayerLayoutGroup: MonoBehaviour {
 			playerListingObject.transform.Find("Pointer").gameObject.SetActive(false);
 		} 
 
+		if (photonPlayer.CustomProperties["isMaster"] == null){
+
+		} else if ((bool) photonPlayer.CustomProperties["isMaster"] == false) {
+
+		} else {
+			playerListingObject.transform.Find("Crown").gameObject.SetActive(true);
+		} 
+
 		PlayerListing playerListing = playerListingObject.GetComponent < PlayerListing > ();
 		playerListing.ApplyPhotonPlayer(photonPlayer);
 
@@ -86,7 +94,6 @@ public class PlayerLayoutGroup: MonoBehaviour {
 			Destroy(PlayerListings[index].gameObject);
 			PlayerListings.RemoveAt(index);
 		}
-
 	}
 
 	public void OnRoomState() {

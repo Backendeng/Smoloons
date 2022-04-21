@@ -213,10 +213,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 			}
 
 			if (PlayerKillID != 0) {
-				
 				// if (PlayerKillID != PlayerViewID)
 				// 	PhotonView.Find(PlayerKillID).transform.GetComponent<Player_Controller>().count_kill += 1;
-
 				GameObject ghostMonkey = PhotonView.Find(PlayerViewID).gameObject;
 				for ( int i = 0 ; i < 6 ; i++ ){
 					if (globalKi.eachPlayerKillOrder[i] == "" || globalKi.eachPlayerKillOrder[i] == ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text){
@@ -446,8 +444,8 @@ public class Player_Controller: Photon.MonoBehaviour {
 				int viewID =  PhotonView.viewID;
 				// PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 				// GhostMonkey();
-
-				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.name);
+				if (collision.gameObject.name != "Explosion(Clone)")
+					PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.name);
 			}
 		}
 		if (collision.collider.CompareTag("LastStone")) {

@@ -12,6 +12,7 @@ public class RoomCanvas: MonoBehaviour {
 	private bool PlayerReady = false;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 	private bool ready_status;
+	private bool master_status = true;
 
 	public GameObject crown;
 
@@ -137,14 +138,36 @@ public class RoomCanvas: MonoBehaviour {
 
 	 public void OnIsMaster() {
 		 if (PhotonNetwork.isMasterClient) {
-			 crown.SetActive(true);
+			// _playerCustomProperties["isMaster"] = true;
+        	// PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+			// crown.SetActive(true);
+			if (master_status){
+				_playerCustomProperties["isMaster"] = true;
+        		PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+				PV.RPC("RPC_Crown", PhotonTargets.All, PhotonNetwork.player.ID, true);
+				master_status = false;
+			}
+		
 		 } else {
-			crown.SetActive(false);
+			if (!master_status){
+				_playerCustomProperties["isMaster"] = false;
+        		PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+				PV.RPC("RPC_Crown", PhotonTargets.All, PhotonNetwork.player.ID, false);
+				master_status = true;
+			}
+			// _playerCustomProperties["isMaster"] = false;
+        	// PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+			// crown.SetActive(false);
 		 }
 	 }
 	
 	[PunRPC]
 	private void RPC_Ready(int PlayerID) {
 		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("Pointer").gameObject.SetActive(false);
+	}
+
+	[PunRPC]
+	private void RPC_Crown(int PlayerID, bool flag) {
+		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("Crown").gameObject.SetActive(flag);
 	}
 }
