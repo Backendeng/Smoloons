@@ -67,6 +67,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	public bool dance_status = false;
 	public bool cry_status = false;
 	public bool clap_status = false;
+	public bool death_status = false;
 	public int PlayerKillID = 0;
 	public int PlayerViewID = 0;
 	public int order = 1;
@@ -156,9 +157,11 @@ public class Player_Controller: Photon.MonoBehaviour {
 				}
 				if(holding_time > 5)
 				{
-					holding_time = 0.0f;
+					if (player.bombs != 0)
+						canDropBombs = true;
 					holding_status = false;
 					movement_status = true;
+					holding_time = 0.0f;
 				}
 			}
 			for (int i = 0; i < globalKi.allPlayers.Length; i++) {
@@ -183,6 +186,18 @@ public class Player_Controller: Photon.MonoBehaviour {
 			holding_status = false;
 			animation_status = false;
 			delete_status = false;
+			if (!death_status && gameObject.tag == "Player"){
+
+				// PhotonView.Find(PhotonView.viewID).transform.GetComponent<Player_Controller>().count_kill = count_kill;
+				// PhotonView.Find(PhotonView.viewID).transform.GetComponent<Player_Controller>().count_bomb = count_bomb;
+				// PhotonView.Find(PhotonView.viewID).transform.GetComponent<Player_Controller>().count_break = count_break;
+				// PhotonView.Find(PhotonView.viewID).transform.GetComponent<Player_Controller>().count_step = count_step;
+				PhotonView.RPC("MonkeyInfo", PhotonTargets.All, PhotonView.viewID, count_bomb, count_break, count_step);
+				// count_bomb = 12;
+				death_status = true;
+			}
+
+			// myTransform.rotation = Quaternion.Euler(0, 0, 0);
 			transform.Find("bubble").gameObject.SetActive(false);
 			animator.SetBool("holding", false);
 			animator.SetBool("hitup", false);
@@ -223,6 +238,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 						} else {
 							if (PlayerKillID != PlayerViewID)
 								PhotonView.Find(PlayerKillID).transform.GetComponent<Player_Controller>().count_kill += 1;
+							PhotonView.RPC("DeathMonkeyInfo", PhotonTargets.AllBuffered, i, ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text, ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text, ghostMonkey.transform.GetComponent<Player_Controller>().count_kill, ghostMonkey.transform.GetComponent<Player_Controller>().count_bomb, ghostMonkey.transform.GetComponent<Player_Controller>().count_break,ghostMonkey.transform.GetComponent<Player_Controller>().count_step);
 							globalKi.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
 							globalKi.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
 							globalKi.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
@@ -455,7 +471,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		if (collision.collider.CompareTag("Player")) {
 			if (holding_time > 0.4 && holding_status) {
 				int viewID =  PhotonView.viewID;
-				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.transform.GetComponent<PhotonView>().viewID.ToString());
+				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.transform.GetComponent<PhotonView>().viewID.ToString()+"(clone)");
 			}
 		}
 		if (collision.collider.CompareTag("step")) {
@@ -519,7 +535,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		ghostMonkey.transform.GetComponent<AudioSource>().enabled = true;
 		// if (killID != viewID.ToString()){
 			PlayerViewID = viewID;
-			int.TryParse(killID, out PlayerKillID);
+			int.TryParse(killID.Split(char.Parse("("))[0], out PlayerKillID);
 		// }
 		// if (PhotonView.isMine) {
 		// 	PhotonView.RPC("killIncrease", PhotonTargets.All, viewID, killID);
@@ -758,4 +774,25 @@ public class Player_Controller: Photon.MonoBehaviour {
         PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
     }
 
+	[PunRPC]
+    private void DeathMonkeyInfo(int i, string RPC_KillOrder, string RPC_OrderName, int RPC_count_kill, int RPC_count_bomb, int RPC_count_break, int RPC_count_step)
+    {
+        globalKi.eachPlayerKillOrder[i] = RPC_KillOrder;
+		globalKi.eachPlayerOrderName[i] = RPC_OrderName;
+		globalKi.eachPlayerKills[i] = RPC_count_kill;
+		globalKi.eachPlayerBomb[i] = RPC_count_bomb;
+		globalKi.eachPlayerBreak[i] = RPC_count_break;
+		globalKi.eachPlayerStep[i] = RPC_count_step;
+    }
+
+	[PunRPC]
+    private void MonkeyInfo(int viewID, int RPC_count_bomb, int RPC_count_break, int RPC_count_step)
+    {
+		Debug.Log(PhotonView.viewID);
+		Debug.Log(viewID);
+		Transform WinnerMonkey = PhotonView.Find(viewID).transform;
+		WinnerMonkey.GetComponent<Player_Controller>().count_bomb = RPC_count_bomb;
+		WinnerMonkey.GetComponent<Player_Controller>().count_break = RPC_count_break;
+		WinnerMonkey.GetComponent<Player_Controller>().count_step = RPC_count_step;
+    }
 }

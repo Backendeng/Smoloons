@@ -153,7 +153,7 @@ public class KillsIncrementer: MonoBehaviour {
 
 		timerText.text = minutes + " : " + seconds;
 
-		GameObject [] blocks = FindGameObjectsWithSameName("Breakable(Clone)");
+		GameObject [] blocks = GameObject.FindGameObjectsWithTag("Breakable");
 
 		if (timer <= 0 && !createStonestats || !createStonestats && blocks.Length == 0) {
 		    
@@ -227,7 +227,7 @@ public class KillsIncrementer: MonoBehaviour {
 			if (GameObject.FindGameObjectsWithTag("Player").Length == 0) {
 				if ( allPlayers.Length > 2 ){
 					
-					if (winnerTime < 5 && winnerTime > .1f){
+					if (winnerTime < 5 && winnerTime > 1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 3];
 						WinLoseKillCount.text = "Kill : " + eachPlayerKills[order - 3].ToString();
 						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 3].ToString();
@@ -263,7 +263,7 @@ public class KillsIncrementer: MonoBehaviour {
 				}
 				if (allPlayers.Length == 2) {
 					
-					if (winnerTime < 5 && winnerTime > .1f){
+					if (winnerTime < 5 && winnerTime > 1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
 						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
 						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 2].ToString();
@@ -306,7 +306,7 @@ public class KillsIncrementer: MonoBehaviour {
 
 				if ( allPlayers.Length > 2 ){
 					
-					if (winnerTime < 5 && winnerTime > .1f){
+					if (winnerTime < 5 && winnerTime > 1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 2];
 						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
 						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 2].ToString();
@@ -349,7 +349,7 @@ public class KillsIncrementer: MonoBehaviour {
 				}
 				if (allPlayers.Length == 2) {
 					
-					if (winnerTime < 5 && winnerTime > .1f){
+					if (winnerTime < 5 && winnerTime > 1f){
 						WinLoseText.text = eachPlayerKillOrder[order - 1];
 						WinLoseKillCount.text = "Kill : " + eachPlayerKills[order - 1].ToString();
 						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
@@ -438,8 +438,11 @@ public class KillsIncrementer: MonoBehaviour {
 		EndGame_status = true;
 		GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(true);
 		GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(false);
-		DanceObject.transform.rotation = Quaternion.Euler(0f, 90f, 70f);
+		// DanceObject.transform.GetChild(0).transform.eulerAngles = new Vector3(70, 90, 0);
 		// PlayerOrderParent.position = new Vector3 (PlayerOrderParent.position.x, 5, 5.15f);
+		if (DanceObject)
+			DanceObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0f, 90f, 70f);
+		
 	}
 
 	public void WinnerAnimation(string playerObject, string playerOrderName, bool dance, bool clap, bool cry) {
@@ -447,7 +450,9 @@ public class KillsIncrementer: MonoBehaviour {
 			if (PlayerOrderParent.childCount > 0)
 				Destroy(PlayerOrderParent.transform.GetChild(0).gameObject);
 			// Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
-			DanceObject = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 0, 5), Quaternion.Euler(0f, 90f, 70f));
+			DanceObject = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/"+ playerObject), new Vector3(2, 2, 4), Quaternion.identity);
+			DanceObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0f, 90f, 70f);
+			// DanceObject.transform.GetChild(0).transform.eulerAngles = new Vector3(70, 90, 0);
 			DanceObject.tag = "Untagged";
 			DanceObject.transform.GetComponent<Player_Controller>().hand_status = false;
 			DanceObject.transform.GetComponent<Player_Controller>().dance_status = dance;

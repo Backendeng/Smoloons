@@ -18,9 +18,9 @@ MonoBehaviour:
   HostType: 2
   PreferredRegion: 0
   EnabledRegions: -1
-  Protocol: 4
-  ServerAddress: ws://127.0.0.1
-  ServerPort: 9090
+  Protocol: 0
+  ServerAddress: 127.0.0.1
+  ServerPort: 5055
   VoiceServerPort: 5055
   JoinLobby: 0
   EnableLobbyStatistics: 0
@@ -59,4 +59,6 @@ MonoBehaviour:
   - setBomb
   - BreakBlock
   - RPC_Crown
+  - DeathMonkeyInfo
+  - MonkeyInfo
   DisableAutoOpenWizard: 1

@@ -91,7 +91,7 @@ public class breakable_script: Photon.MonoBehaviour {
 				// Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
 				// DestroySceneObject(photonView);
 				flag = true;
-				int.TryParse(collision.gameObject.name, out PlayerID);
+				int.TryParse(collision.gameObject.name.Split(char.Parse("("))[0], out PlayerID);
 				
 				// PhotonNetwork.Destroy(PhotonView.Find(photonView.viewID).gameObject);
 			} else {
