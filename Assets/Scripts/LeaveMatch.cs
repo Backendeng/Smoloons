@@ -37,22 +37,24 @@ public class LeaveMatch: MonoBehaviour {
         // PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		
 		if (PhotonNetwork.isMasterClient) {
-			GameObject [] blocks = GameObject.FindGameObjectsWithTag("Breakable");
-			foreach (GameObject block in blocks) {
-				PhotonNetwork.Destroy(block);
-			}
-			GameObject [] powerups = GameObject.FindGameObjectsWithTag("powerup");
-			foreach (GameObject powerup in powerups) {
-				PhotonNetwork.Destroy(powerup);
-			}
-			GameObject [] players = GameObject.FindGameObjectsWithTag("Player");
-			foreach (GameObject player in players) {
-				PhotonNetwork.Destroy(player);
-			}
-			GameObject [] ghosts = GameObject.FindGameObjectsWithTag("Ghost");
-			foreach (GameObject ghost in ghosts) {
-				PhotonNetwork.Destroy(ghost);
-			}
+			// GameObject [] blocks = GameObject.FindGameObjectsWithTag("Breakable");
+			// foreach (GameObject block in blocks) {
+			// 	PhotonNetwork.Destroy(block);
+			// }
+			// GameObject [] powerups = GameObject.FindGameObjectsWithTag("powerup");
+			// foreach (GameObject powerup in powerups) {
+			// 	PhotonNetwork.Destroy(powerup);
+			// }
+			// GameObject [] players = GameObject.FindGameObjectsWithTag("Player");
+			// foreach (GameObject player in players) {
+			// 	PhotonNetwork.Destroy(player);
+			// }
+			// GameObject [] ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+			// foreach (GameObject ghost in ghosts) {
+			// 	PhotonNetwork.Destroy(ghost);
+			// }
+
+			PhotonNetwork.DestroyAll();
 
 			PhotonNetwork.automaticallySyncScene = true;
 			if ((bool) PhotonNetwork.room.CustomProperties["PrivateRoom"] == false){

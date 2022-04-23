@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerLayoutGroup: MonoBehaviour {
 
@@ -31,13 +32,14 @@ public class PlayerLayoutGroup: MonoBehaviour {
 		foreach(Transform child in transform) {
 			Destroy(child.gameObject);
 		}
-		
-
-		if ((bool) PhotonNetwork.room.CustomProperties["PrivateRoom"])
-			MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
-		else
-			MainCanvasManager.Instance.RoomCanvas1.transform.SetAsLastSibling();
-
+		Scene scene = SceneManager.GetActiveScene();
+		Debug.Log(scene.name);
+		if (scene.name == "LobbyEntry"){
+			if ((bool) PhotonNetwork.room.CustomProperties["PrivateRoom"])
+				MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
+			else
+				MainCanvasManager.Instance.RoomCanvas1.transform.SetAsLastSibling();
+		}
 		PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;
 		for (int i = 0; i < photonPlayers.Length; i++) {
 			PlayerJoinedRoom(photonPlayers[i]);
