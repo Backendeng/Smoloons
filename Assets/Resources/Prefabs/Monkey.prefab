@@ -904,46 +904,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bb1fb1531b2cb408f8746d6f537489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canDropBombs: 1
-  canMove: 0
+  globalKi: {fileID: 0}
+  ghost_material: {fileID: 2100000, guid: 6b06f1722a149d345b311b4872e4dca8, type: 2}
+  player_image: {fileID: 21300000, guid: 6549fe6daeb8c4742955410c9b88eef3, type: 3}
   bombPrefab: {fileID: 632831788726641091, guid: 73b294f04d869984784cc976c74823b9,
     type: 3}
-  _playerHealth: {fileID: 0}
-  playerKills: {fileID: 0}
-  playerDeaths: {fileID: 0}
-  healthFG: {fileID: 0}
-  selfSpawnTransform: {fileID: 0}
   playerGameObject: {fileID: 4577088387120230896}
   target: {fileID: 0}
-  pm: {fileID: 0}
-  deaths: 0
-  max_health: 0
-  curr_health: 0
-  health: 0
-  holding_time: 0
-  hand_time: 0
-  delete_time: 0
-  movement_status: 0
-  holding_status: 0
-  delete_status: 0
-  animation_status: 0
-  Target_animation_status: 0
+  globalKillInc: {fileID: 0}
   Map_parent: {fileID: 0}
   floor_prefab: {fileID: 1806082955396458, guid: 9163a489b47d42845a921103260a5a1e,
     type: 3}
   wall_prefab: {fileID: 2794135261344442598, guid: 0df0610b3a37da34ebffb4c7338c4106,
     type: 3}
   DeletePlayerObject: {fileID: 0}
-  ghost_material: {fileID: 2100000, guid: 6b06f1722a149d345b311b4872e4dca8, type: 2}
-  player_image: {fileID: 21300000, guid: 6549fe6daeb8c4742955410c9b88eef3, type: 3}
-  playername: 
-  count_kill: 0
-  count_hit: 0
-  shape: 
+  holding_time: 0
+  hand_time: 0
+  delete_time: 0
+  canDropBombs: 1
+  movement_status: 0
+  holding_status: 0
+  delete_status: 0
+  animation_status: 0
+  Target_animation_status: 0
   hand_status: 1
   dance_status: 0
+  cry_status: 0
+  clap_status: 0
+  death_status: 0
+  playername: 
+  shape: 
+  count_kill: 0
+  count_hit: 0
+  count_bomb: 0
+  count_break: 0
+  count_step: 0
   PlayerKillID: 0
   PlayerViewID: 0
+  order: 1
+  orderList: 
+  prevPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &3869557111389439470
 MonoBehaviour:
   m_ObjectHideFlags: 0

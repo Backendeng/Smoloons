@@ -224,7 +224,7 @@ public class KillsIncrementer: MonoBehaviour {
 				}
 			}
 			
-			if (GameObject.FindGameObjectsWithTag("Player").Length == 0) {
+			// if (GameObject.FindGameObjectsWithTag("Player").Length == 0) {
 				if ( allPlayers.Length > 2 ){
 					
 					if (winnerTime < 5 && winnerTime > 1f){
@@ -302,110 +302,110 @@ public class KillsIncrementer: MonoBehaviour {
 				}
 
 				
-			} else {
+			// } else {
 
-				if ( allPlayers.Length > 2 ){
+			// 	if ( allPlayers.Length > 2 ){
 					
-					if (winnerTime < 5 && winnerTime > 1f){
-						WinLoseText.text = eachPlayerKillOrder[order - 2];
-						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
-						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 2].ToString();
-						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 2].ToString();
-						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 2].ToString();
-						WinNumber[2].SetActive(true);
-						WinNumber[1].SetActive(false);
-						WinNumber[0].SetActive(false);
-						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
-						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
-						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
-						playerBombCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_bomb;
-						playerBreakCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_break;
-						playerStepCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_step;
-						WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false, false, true);
-					}
-					if (winnerTime > 5 && winnerTime < 10){
-						WinLoseText.text = eachPlayerKillOrder[order - 1];
-						WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
-						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
-						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 1].ToString();
-						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 1].ToString();
-						WinNumber[2].SetActive(false);
-						WinNumber[1].SetActive(true);
-						WinNumber[0].SetActive(false);
-						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false, true, false);
-					}
-					if (winnerTime > 10 && winnerTime < 11){
-						WinLoseText.text = playername;
-						WinLoseKillCount.text = "Kill : " +  playerkillCount;
-						WinLoseBombCount.text = "Bombs placed : " + playerBombCount;
-						WinLoseBreakCount.text = "Boxes broken : " + playerBreakCount;
-						WinLoseStepCount.text = "Steps taken : " + playerStepCount;
-						WinNumber[1].SetActive(false);
-						WinNumber[0].SetActive(true);
-						WinNumber[2].SetActive(false);
+			// 		if (winnerTime < 5 && winnerTime > 1f){
+			// 			WinLoseText.text = eachPlayerKillOrder[order - 2];
+			// 			WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 2].ToString();
+			// 			WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 2].ToString();
+			// 			WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 2].ToString();
+			// 			WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 2].ToString();
+			// 			WinNumber[2].SetActive(true);
+			// 			WinNumber[1].SetActive(false);
+			// 			WinNumber[0].SetActive(false);
+			// 			playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+			// 			playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
+			// 			playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
+			// 			playerBombCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_bomb;
+			// 			playerBreakCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_break;
+			// 			playerStepCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_step;
+			// 			WinnerAnimation (eachPlayerOrderName[order - 2], eachPlayerKillOrder[order - 2], false, false, true);
+			// 		}
+			// 		if (winnerTime > 5 && winnerTime < 10){
+			// 			WinLoseText.text = eachPlayerKillOrder[order - 1];
+			// 			WinLoseKillCount.text = "Kill : " +  eachPlayerKills[order - 1].ToString();
+			// 			WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
+			// 			WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 1].ToString();
+			// 			WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 1].ToString();
+			// 			WinNumber[2].SetActive(false);
+			// 			WinNumber[1].SetActive(true);
+			// 			WinNumber[0].SetActive(false);
+			// 			WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false, true, false);
+			// 		}
+			// 		if (winnerTime > 10 && winnerTime < 11){
+			// 			WinLoseText.text = playername;
+			// 			WinLoseKillCount.text = "Kill : " +  playerkillCount;
+			// 			WinLoseBombCount.text = "Bombs placed : " + playerBombCount;
+			// 			WinLoseBreakCount.text = "Boxes broken : " + playerBreakCount;
+			// 			WinLoseStepCount.text = "Steps taken : " + playerStepCount;
+			// 			WinNumber[1].SetActive(false);
+			// 			WinNumber[0].SetActive(true);
+			// 			WinNumber[2].SetActive(false);
 						
-						WinnerAnimation (playerObjectname, playername, true, false, false);
-					}
-				}
-				if (allPlayers.Length == 2) {
+			// 			WinnerAnimation (playerObjectname, playername, true, false, false);
+			// 		}
+			// 	}
+			// 	if (allPlayers.Length == 2) {
 					
-					if (winnerTime < 5 && winnerTime > 1f){
-						WinLoseText.text = eachPlayerKillOrder[order - 1];
-						WinLoseKillCount.text = "Kill : " + eachPlayerKills[order - 1].ToString();
-						WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
-						WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 1].ToString();
-						WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 1].ToString();
-						WinNumber[0].SetActive(false);
-						WinNumber[1].SetActive(true);
-						WinNumber[2].SetActive(false);
-						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
-						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
-						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
-						playerBombCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_bomb;
-						playerBreakCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_break;
-						playerStepCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_step;
-						WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false, false, true);
-					}
-					if (winnerTime > 5 && winnerTime < 6 ){
-						WinLoseText.text = playername;
-						WinLoseKillCount.text = "Kill : " +  playerkillCount;
-						WinLoseBombCount.text = "Bombs placed : " + playerBombCount;
-						WinLoseBreakCount.text = "Boxes broken : " + playerBreakCount;
-						WinLoseStepCount.text = "Steps taken : " + playerStepCount;
-						WinNumber[1].SetActive(false);
-						WinNumber[0].SetActive(true);
-						WinNumber[2].SetActive(false);
-						WinnerAnimation (playerObjectname, playername, true, false, false);
+			// 		if (winnerTime < 5 && winnerTime > 1f){
+			// 			WinLoseText.text = eachPlayerKillOrder[order - 1];
+			// 			WinLoseKillCount.text = "Kill : " + eachPlayerKills[order - 1].ToString();
+			// 			WinLoseBombCount.text = "Bombs placed : " + eachPlayerBomb[order - 1].ToString();
+			// 			WinLoseBreakCount.text = "Boxes broken : " + eachPlayerBreak[order - 1].ToString();
+			// 			WinLoseStepCount.text = "Steps taken : " + eachPlayerStep[order - 1].ToString();
+			// 			WinNumber[0].SetActive(false);
+			// 			WinNumber[1].SetActive(true);
+			// 			WinNumber[2].SetActive(false);
+			// 			playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+			// 			playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
+			// 			playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
+			// 			playerBombCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_bomb;
+			// 			playerBreakCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_break;
+			// 			playerStepCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_step;
+			// 			WinnerAnimation (eachPlayerOrderName[order - 1], eachPlayerKillOrder[order - 1], false, false, true);
+			// 		}
+			// 		if (winnerTime > 5 && winnerTime < 6 ){
+			// 			WinLoseText.text = playername;
+			// 			WinLoseKillCount.text = "Kill : " +  playerkillCount;
+			// 			WinLoseBombCount.text = "Bombs placed : " + playerBombCount;
+			// 			WinLoseBreakCount.text = "Boxes broken : " + playerBreakCount;
+			// 			WinLoseStepCount.text = "Steps taken : " + playerStepCount;
+			// 			WinNumber[1].SetActive(false);
+			// 			WinNumber[0].SetActive(true);
+			// 			WinNumber[2].SetActive(false);
+			// 			WinnerAnimation (playerObjectname, playername, true, false, false);
 						
-					}
-				}
-				if (allPlayers.Length == 1) {
+			// 		}
+			// 	}
+			// 	if (allPlayers.Length == 1) {
 					
-					if (winnerTime < 5){
-						WinLoseText.text = playername;
-						WinLoseKillCount.text = "Kill : " +  playerkillCount;
-						WinLoseBombCount.text = "Bombs placed : " + playerBombCount;
-						WinLoseBreakCount.text = "Boxes broken : " + playerBreakCount;
-						WinLoseStepCount.text = "Steps taken : " + playerStepCount;
-						WinNumber[0].SetActive(true);
-						WinNumber[2].SetActive(false);
-						WinNumber[1].SetActive(false);
-						playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
-						playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
-						playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
-						playerBombCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_bomb;
-						playerBreakCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_break;
-						playerStepCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_step;
-						WinnerAnimation (playerObjectname, playername, true, false, false);
-					}
-				}
-				if (winnerTime > 11) {
-					for (int i = 0; i < allPlayers.Length; i++) {
-						Destroy(allPlayers[i]);
-					}
-				}
+			// 		if (winnerTime < 5){
+			// 			WinLoseText.text = playername;
+			// 			WinLoseKillCount.text = "Kill : " +  playerkillCount;
+			// 			WinLoseBombCount.text = "Bombs placed : " + playerBombCount;
+			// 			WinLoseBreakCount.text = "Boxes broken : " + playerBreakCount;
+			// 			WinLoseStepCount.text = "Steps taken : " + playerStepCount;
+			// 			WinNumber[0].SetActive(true);
+			// 			WinNumber[2].SetActive(false);
+			// 			WinNumber[1].SetActive(false);
+			// 			playername = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<TextMeshPro>().text;
+			// 			playerObjectname = GameObject.FindGameObjectWithTag("Player").transform.GetChild(3).GetComponent<TextMesh>().text;
+			// 			playerkillCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_kill;
+			// 			playerBombCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_bomb;
+			// 			playerBreakCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_break;
+			// 			playerStepCount = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Player_Controller>().count_step;
+			// 			WinnerAnimation (playerObjectname, playername, true, false, false);
+			// 		}
+			// 	}
+			// 	if (winnerTime > 11) {
+			// 		for (int i = 0; i < allPlayers.Length; i++) {
+			// 			Destroy(allPlayers[i]);
+			// 		}
+			// 	}
 				
-			}
+			// }
 			AllDeleteObjets();
 			
 		}
