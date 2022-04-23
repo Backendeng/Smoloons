@@ -141,7 +141,7 @@ public class KillsIncrementer: MonoBehaviour {
 			}
 		}
 
-		if (EndGame_status && winnerTime > 2) {
+		if (EndGame_status && winnerTime > 0.3f) {
 			for (int i = 0; i < allPlayers.Length; i++) {
 				allPlayers[i].transform.position = new Vector3 (50, 50, 50);
 			}
@@ -221,7 +221,6 @@ public class KillsIncrementer: MonoBehaviour {
 			}
 			
 			if (winnerTime > 0.3f) {
-				WinLosePanel.SetActive(true);
 				int order = 6;
 				for (int i = eachPlayerKillOrder.Length; i > 0; i--) {
 					if(eachPlayerKillOrder[i-1] != "") {
@@ -229,7 +228,7 @@ public class KillsIncrementer: MonoBehaviour {
 						break;
 					}
 				}
-				
+				WinLosePanel.SetActive(true);
 				// if (GameObject.FindGameObjectsWithTag("Player").Length == 0) {
 					if ( allPlayers.Length > 2 ){
 						

@@ -35,7 +35,7 @@ public class PlayerLayoutGroup: MonoBehaviour {
 
 		if ((bool) PhotonNetwork.room.CustomProperties["PrivateRoom"])
 			MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
-		if ((bool) PhotonNetwork.room.CustomProperties["PrivateRoom"] == false)
+		else
 			MainCanvasManager.Instance.RoomCanvas1.transform.SetAsLastSibling();
 
 		PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;

@@ -37,9 +37,31 @@ public class LeaveMatch: MonoBehaviour {
         // PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		
 		if (PhotonNetwork.isMasterClient) {
-			PhotonNetwork.room.IsVisible = true;
+			GameObject [] blocks = GameObject.FindGameObjectsWithTag("Breakable");
+			foreach (GameObject block in blocks) {
+				PhotonNetwork.Destroy(block);
+			}
+			GameObject [] powerups = GameObject.FindGameObjectsWithTag("powerup");
+			foreach (GameObject powerup in powerups) {
+				PhotonNetwork.Destroy(powerup);
+			}
+			GameObject [] players = GameObject.FindGameObjectsWithTag("Player");
+			foreach (GameObject player in players) {
+				PhotonNetwork.Destroy(player);
+			}
+			GameObject [] ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+			foreach (GameObject ghost in ghosts) {
+				PhotonNetwork.Destroy(ghost);
+			}
+
 			PhotonNetwork.automaticallySyncScene = true;
-			PhotonNetwork.LoadLevel(1);
+			if ((bool) PhotonNetwork.room.CustomProperties["PrivateRoom"] == false){
+				PhotonNetwork.room.IsVisible = true;
+				PhotonNetwork.LoadLevel(3);
+			} else {
+				PhotonNetwork.LoadLevel(4);
+			}
+			
 		}
 	}
 

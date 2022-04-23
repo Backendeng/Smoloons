@@ -46,6 +46,9 @@ public class RoomCanvas1: MonoBehaviour {
 		PV = GetComponent < PhotonView > ();
 	}
 
+	private void Start(){
+		PV.RPC("RPC_UnReady", PhotonTargets.All);
+	}
 
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
@@ -86,6 +89,7 @@ public class RoomCanvas1: MonoBehaviour {
 
 	}
 
+
 	public void Dragon() {
 		PlayerNetwork.Instance.cha = "Player";
 	}
@@ -115,6 +119,7 @@ public class RoomCanvas1: MonoBehaviour {
      private void Update()
      {
         //  Debug.Log("Player Ready = " + _playerCustomProperties["PlayerReady"]);
+		OnIsMaster();
      }
 
      private void Ready()
@@ -143,8 +148,50 @@ public class RoomCanvas1: MonoBehaviour {
 
      }
 	
+
+	 public void OnIsMaster() {
+		 if (PhotonNetwork.isMasterClient) {
+			// _playerCustomProperties["isMaster"] = true;
+        	// PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+			// crown.SetActive(true);
+			if (master_status){
+				_playerCustomProperties["isMaster"] = true;
+        		PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+				PV.RPC("RPC_Crown", PhotonTargets.All, PhotonNetwork.player.ID, true);
+				master_status = false;
+			}
+		
+		 } else {
+			if (!master_status){
+				_playerCustomProperties["isMaster"] = false;
+        		PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+				PV.RPC("RPC_Crown", PhotonTargets.All, PhotonNetwork.player.ID, false);
+				master_status = true;
+			}
+			// _playerCustomProperties["isMaster"] = false;
+        	// PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+			// crown.SetActive(false);
+		 }
+	 }
+
 	[PunRPC]
 	private void RPC_Ready(int PlayerID) {
 		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("Pointer").gameObject.SetActive(false);
 	}
+
+	[PunRPC]
+	private void RPC_UnReady() {
+		_playerCustomProperties["PlayerReady"] = false;
+        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+		foreach (Transform child in PlayerLayoutGroup.transform)
+		{
+			child.Find("Pointer").gameObject.SetActive(true);
+		}
+	}
+
+	[PunRPC]
+	private void RPC_Crown(int PlayerID, bool flag) {
+		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("Crown").gameObject.SetActive(flag);
+	}
+
 }
