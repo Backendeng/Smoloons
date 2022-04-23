@@ -131,19 +131,20 @@ public class Player_Controller: Photon.MonoBehaviour {
 			delete_status = false;
 
 			if (!death_status && gameObject.tag == "Player"){
+				Debug.Log(PhotonView.viewID);
 				for ( int i = 0 ; i < 6 ; i++ ){
 				if (globalKi.eachPlayerKillOrder[i] == "" || globalKi.eachPlayerKillOrder[i] == transform.GetChild(1).GetComponent<TextMeshPro>().text){
 					// if (globalKi.eachPlayerKillOrder[i] == transform.GetChild(1).GetComponent<TextMeshPro>().text) {
 						// break;
 					// } else {
-						PhotonView.RPC("DeathMonkeyInfo", PhotonTargets.All, i, PhotonView.viewID, transform.GetChild(1).GetComponent<TextMeshPro>().text, transform.GetChild(3).GetComponent<TextMesh>().text, count_kill, count_bomb, count_break, count_step);
-						Debug.Log("monkey");
-						// globalKi.eachPlayerKillOrder[i] = transform.GetChild(1).GetComponent<TextMeshPro>().text;
-						// globalKi.eachPlayerOrderName[i] = transform.GetChild(3).GetComponent<TextMesh>().text;
-						// globalKi.eachPlayerKills[i] = GetComponent<Player_Controller>().count_kill;
-						// globalKi.eachPlayerBomb[i] = GetComponent<Player_Controller>().count_bomb;
-						// globalKi.eachPlayerBreak[i] = GetComponent<Player_Controller>().count_break;
-						// globalKi.eachPlayerStep[i] = GetComponent<Player_Controller>().count_step;
+						GameObject WinnerMonkey = PhotonView.Find(PhotonView.viewID).gameObject;
+						// PhotonView.RPC("DeathMonkeyInfo", PhotonTargets.All, i, transform.GetChild(1).GetComponent<TextMeshPro>().text, transform.GetChild(3).GetComponent<TextMesh>().text, count_kill, count_bomb, count_break, count_step);
+						globalKi.eachPlayerKillOrder[i] = WinnerMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
+						globalKi.eachPlayerOrderName[i] = WinnerMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
+						globalKi.eachPlayerKills[i] = WinnerMonkey.transform.GetComponent<Player_Controller>().count_kill;
+						globalKi.eachPlayerBomb[i] = WinnerMonkey.transform.GetComponent<Player_Controller>().count_bomb;
+						globalKi.eachPlayerBreak[i] = WinnerMonkey.transform.GetComponent<Player_Controller>().count_break;
+						globalKi.eachPlayerStep[i] = WinnerMonkey.transform.GetComponent<Player_Controller>().count_step;
 						death_status = true;
 						break;
 					// }
@@ -196,14 +197,13 @@ public class Player_Controller: Photon.MonoBehaviour {
 					} else {
 						if (PlayerKillID != PlayerViewID)
 							PhotonView.Find(PlayerKillID).transform.GetComponent<Player_Controller>().count_kill += 1;
-						Debug.Log("death");
-						PhotonView.RPC("DeathMonkeyInfo", PhotonTargets.All, i, PhotonView.viewID,  ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text, ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text, ghostMonkey.transform.GetComponent<Player_Controller>().count_kill, ghostMonkey.transform.GetComponent<Player_Controller>().count_bomb, ghostMonkey.transform.GetComponent<Player_Controller>().count_break,ghostMonkey.transform.GetComponent<Player_Controller>().count_step);
-						// globalKi.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
-						// globalKi.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
-						// globalKi.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
-						// globalKi.eachPlayerBomb[i] = ghostMonkey.GetComponent<Player_Controller>().count_bomb;
-						// globalKi.eachPlayerBreak[i] = ghostMonkey.GetComponent<Player_Controller>().count_break;
-						// globalKi.eachPlayerStep[i] = ghostMonkey.GetComponent<Player_Controller>().count_step;
+						PhotonView.RPC("DeathMonkeyInfo", PhotonTargets.All, i, ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text, ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text, ghostMonkey.transform.GetComponent<Player_Controller>().count_kill, ghostMonkey.transform.GetComponent<Player_Controller>().count_bomb, ghostMonkey.transform.GetComponent<Player_Controller>().count_break,ghostMonkey.transform.GetComponent<Player_Controller>().count_step);
+						globalKi.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
+						globalKi.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
+						globalKi.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
+						globalKi.eachPlayerBomb[i] = ghostMonkey.GetComponent<Player_Controller>().count_bomb;
+						globalKi.eachPlayerBreak[i] = ghostMonkey.GetComponent<Player_Controller>().count_break;
+						globalKi.eachPlayerStep[i] = ghostMonkey.GetComponent<Player_Controller>().count_step;
 						break;
 					}
 				}
@@ -632,10 +632,8 @@ public class Player_Controller: Photon.MonoBehaviour {
     }
 
 	[PunRPC]
-    private void DeathMonkeyInfo(int i, int viewID, string RPC_KillOrder, string RPC_OrderName, int RPC_count_kill, int RPC_count_bomb, int RPC_count_break, int RPC_count_step)
+    private void DeathMonkeyInfo(int i, string RPC_KillOrder, string RPC_OrderName, int RPC_count_kill, int RPC_count_bomb, int RPC_count_break, int RPC_count_step)
     {
-		Debug.Log(PhotonView.viewID);
-		Debug.Log(viewID);
         globalKi.eachPlayerKillOrder[i] = RPC_KillOrder;
 		globalKi.eachPlayerOrderName[i] = RPC_OrderName;
 		globalKi.eachPlayerKills[i] = RPC_count_kill;
@@ -647,6 +645,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 	[PunRPC]
     private void MonkeyInfo(int viewID, int RPC_count_bomb, int RPC_count_break, int RPC_count_step)
     {
+		
 		Transform WinnerMonkey = PhotonView.Find(viewID).transform;
 		WinnerMonkey.GetComponent<Player_Controller>().count_bomb = RPC_count_bomb;
 		WinnerMonkey.GetComponent<Player_Controller>().count_break = RPC_count_break;
