@@ -32,7 +32,11 @@ public class PlayerLayoutGroup: MonoBehaviour {
 			Destroy(child.gameObject);
 		}
 		
-		MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
+
+		if ((bool) PhotonNetwork.room.CustomProperties["PrivateRoom"])
+			MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
+		if ((bool) PhotonNetwork.room.CustomProperties["PrivateRoom"] == false)
+			MainCanvasManager.Instance.RoomCanvas1.transform.SetAsLastSibling();
 
 		PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;
 		for (int i = 0; i < photonPlayers.Length; i++) {

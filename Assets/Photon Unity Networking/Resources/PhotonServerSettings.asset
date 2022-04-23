@@ -61,4 +61,10 @@ MonoBehaviour:
   - RPC_Crown
   - DeathMonkeyInfo
   - MonkeyInfo
+  - DeathMonkeyInfo1
+  - DeathMonkeyInfo2
+  - DeathMonkeyInfo3
+  - DeathMonkeyInfo4
+  - DeathMonkeyInfo5
+  - RPC_UnReady
   DisableAutoOpenWizard: 1

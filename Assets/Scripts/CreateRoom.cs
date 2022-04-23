@@ -12,7 +12,6 @@ public class CreateRoom: MonoBehaviour {
 	public GameObject LobNet;
 	public GameObject CreateDialog;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
-
 	LobbyNetwork LN;
 
 	[SerializeField]
@@ -50,6 +49,10 @@ public class CreateRoom: MonoBehaviour {
 		MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
 	}
 
+	public void OnCreateExit() {
+		MainCanvasManager.Instance.LobbyCanvas.transform.SetAsLastSibling();
+	}
+
 	public void OnAppear() {
 		MainCanvasManager.Instance.CreateRoom.transform.SetAsLastSibling();
 	}
@@ -61,7 +64,8 @@ public class CreateRoom: MonoBehaviour {
 			IsOpen = true,
 			MaxPlayers = 6
 		};
-
+		_playerCustomProperties["PrivateRoom"] = false;
+		roomOptions.CustomRoomProperties = _playerCustomProperties;
 		roomOptions.PlayerTtl = 3000;
 		roomOptions.EmptyRoomTtl = 3000;
 
@@ -83,7 +87,8 @@ public class CreateRoom: MonoBehaviour {
 			IsOpen = true,
 			MaxPlayers = 6
 		};
-
+		_playerCustomProperties["PrivateRoom"] = true;
+		roomOptions.CustomRoomProperties = _playerCustomProperties;
 		roomOptions.PlayerTtl = 3000;
 		roomOptions.EmptyRoomTtl = 3000;
 

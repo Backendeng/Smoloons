@@ -49,6 +49,10 @@ public class RoomCanvas: MonoBehaviour {
 		PV = GetComponent < PhotonView > ();
 	}
 
+	private void Start(){
+		PV.RPC("RPC_UnReady", PhotonTargets.All);
+	}
+
 	public void OnStartMatch() {
 		if (PhotonNetwork.isMasterClient) {
 			ready_status = true;
@@ -165,6 +169,18 @@ public class RoomCanvas: MonoBehaviour {
 	private void RPC_Ready(int PlayerID) {
 		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("Pointer").gameObject.SetActive(false);
 	}
+
+	[PunRPC]
+	private void RPC_UnReady() {
+		_playerCustomProperties["PlayerReady"] = false;
+        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+		foreach (Transform child in PlayerLayoutGroup.transform)
+		{
+			child.Find("Pointer").gameObject.SetActive(true);
+		}
+	}
+
+	
 
 	[PunRPC]
 	private void RPC_Crown(int PlayerID, bool flag) {

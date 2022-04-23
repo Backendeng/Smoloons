@@ -222,40 +222,40 @@ public class Player: Photon.MonoBehaviour {
 	// 	}
 	// }
 
-	[PunRPC]
-	private void increaseKills(int playerUID) {
+	// [PunRPC]
+	// private void increaseKills(int playerUID) {
 
-		GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
-		KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
-		switch (playerUID % 5) {
-		case 1:
-			ki.eachPlayerKills[0]++;
-			ki.eachPlayerScore[0] = ki.eachPlayerScore[0] + 25;
-			break;
-		case 2:
-			ki.eachPlayerKills[1]++;
-			ki.eachPlayerScore[1] = ki.eachPlayerScore[1] + 25;
-			break;
-		case 3:
-			ki.eachPlayerKills[2]++;
-			ki.eachPlayerScore[2] = ki.eachPlayerScore[2] + 25;
-			break;
-		case 4:
-			ki.eachPlayerKills[3]++;
-			ki.eachPlayerScore[3] = ki.eachPlayerScore[3] + 25;
-			break;
-		case 5:
-			ki.eachPlayerKills[4]++;
-			ki.eachPlayerScore[4] = ki.eachPlayerScore[4] + 25;
-			break;
-		case 0:
-			ki.eachPlayerKills[5]++;
-			ki.eachPlayerScore[5] = ki.eachPlayerScore[5] + 25;
-			break;
-		default:
-			break;
-		}
-	}
+	// 	GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
+	// 	KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
+	// 	switch (playerUID % 5) {
+	// 	case 1:
+	// 		ki.eachPlayerKills[0]++;
+	// 		ki.eachPlayerScore[0] = ki.eachPlayerScore[0] + 25;
+	// 		break;
+	// 	case 2:
+	// 		ki.eachPlayerKills[1]++;
+	// 		ki.eachPlayerScore[1] = ki.eachPlayerScore[1] + 25;
+	// 		break;
+	// 	case 3:
+	// 		ki.eachPlayerKills[2]++;
+	// 		ki.eachPlayerScore[2] = ki.eachPlayerScore[2] + 25;
+	// 		break;
+	// 	case 4:
+	// 		ki.eachPlayerKills[3]++;
+	// 		ki.eachPlayerScore[3] = ki.eachPlayerScore[3] + 25;
+	// 		break;
+	// 	case 5:
+	// 		ki.eachPlayerKills[4]++;
+	// 		ki.eachPlayerScore[4] = ki.eachPlayerScore[4] + 25;
+	// 		break;
+	// 	case 0:
+	// 		ki.eachPlayerKills[5]++;
+	// 		ki.eachPlayerScore[5] = ki.eachPlayerScore[5] + 25;
+	// 		break;
+	// 	default:
+	// 		break;
+	// 	}
+	// }
 
 	[PunRPC]
 	private void setDeaths(int id) {

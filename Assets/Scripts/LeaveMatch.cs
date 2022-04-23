@@ -7,8 +7,13 @@ public class LeaveMatch: MonoBehaviour {
 
 	public Text MC;
 	public Text connState;
+	private PhotonView PV;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
+	public GameObject PlayerLayoutGroup;
 
+	private void Awake() {
+		PV = GetComponent < PhotonView > ();
+	}
 	private void Update() {
 		if (PhotonNetwork.isMasterClient) {
 			MC.text = "Master";
@@ -28,10 +33,14 @@ public class LeaveMatch: MonoBehaviour {
 
 	}
 	public void OnRestart() {
-		_playerCustomProperties["PlayerReady"] = false;
-        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
-		PhotonNetwork.room.IsVisible = true;
-		PhotonNetwork.LoadLevel(3);
+		// _playerCustomProperties["PlayerReady"] = false;
+        // PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+		
+		if (PhotonNetwork.isMasterClient) {
+			PhotonNetwork.room.IsVisible = true;
+			PhotonNetwork.automaticallySyncScene = true;
+			PhotonNetwork.LoadLevel(1);
+		}
 	}
 
 	public void ExitGame() {

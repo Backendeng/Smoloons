@@ -24,6 +24,14 @@ public class MainCanvasManager: MonoBehaviour {
 	}
 
 	[SerializeField]
+	private RoomCanvas1 _roomCanvas1;
+	public RoomCanvas1 RoomCanvas1 {
+		get {
+			return _roomCanvas1;
+		}
+	}
+
+	[SerializeField]
 	private CreateRoom _createRoom;
 	public CreateRoom CreateRoom {
 		get {

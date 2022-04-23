@@ -40,8 +40,8 @@ public class breakable_script: Photon.MonoBehaviour {
 		// 		Destory(gameObject);
 		// }
 		if (flag) {
-			
 			PhotonView.Find(PlayerID).GetComponent<Player_Controller> ().count_break++;
+			PhotonView.Find(PlayerID).transform.GetChild(6).GetComponent<TextMesh>().text = PhotonView.Find(PlayerID).GetComponent<Player_Controller> ().count_break.ToString();
 			photonView.RPC("LocalDestroy", PhotonTargets.AllBuffered, photonView.viewID); 
 			flag = false;
 		}
