@@ -174,7 +174,8 @@ public class KillsIncrementer: MonoBehaviour {
 		    // WinLosePanel.SetActive(true);
 		}
 
-		EndGame();
+		if (timer < 180)
+			EndGame();
 
 
 	}

@@ -71,7 +71,7 @@ public class Bomb: Photon.MonoBehaviour {
 					break;
 				} else if (hit.collider.CompareTag("Player")){
 					instantiate_list.Add(transform.position + (i * direction));
-					continue;
+					break;
 				} else if ( hit.collider.CompareTag("powerup") ) {
 					if (i + 1 <= explode_size ) {
 						instantiate_list.Add(transform.position + (i * direction));
