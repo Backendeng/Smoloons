@@ -12,7 +12,7 @@ public class RoomCanvas1: MonoBehaviour {
 	private bool PlayerReady = false;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 	private bool ready_status;
-	private bool master_status = true;
+	public static bool master_status = true;
 
 	private bool AllPlayersReady ()
 	{
@@ -41,7 +41,7 @@ public class RoomCanvas1: MonoBehaviour {
 	// }
 	public string character = "";
 
-	public GameObject PlayerLayoutGroup;
+	public GameObject PlayerLayoutGroup1;
 
 	private void Awake() {
 		PV = GetComponent < PhotonView > ();
@@ -58,9 +58,9 @@ public class RoomCanvas1: MonoBehaviour {
 			// StartCoroutine (WaitAllReady ());  
 			// StartCoroutine (WaitAllReady ());  
 
-			for (int i =0; i < PlayerLayoutGroup.transform.childCount; i++ ) {
-				// Debug.Log(PlayerLayoutGroup.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf);
-				if (PlayerLayoutGroup.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf)
+			for (int i =0; i < PlayerLayoutGroup1.transform.childCount; i++ ) {
+				// Debug.Log(PlayerLayoutGroup1.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf);
+				if (PlayerLayoutGroup1.transform.GetChild(i).transform.GetChild(3).gameObject.activeSelf)
 				{
 					// Debug.Log(false);
 					ready_status = false;
@@ -129,7 +129,7 @@ public class RoomCanvas1: MonoBehaviour {
         selectedHero = "PlayerTest";
         _playerCustomProperties["PlayerReady"] = PlayerReady;
         PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
-		// PlayerLayoutGroup.transform.Find(PhotonNetwork.player.ID.ToString()).transform.Find("PlayerNameText").GetComponent<Text>().text = "Ready";
+		// PlayerLayoutGroup1.transform.Find(PhotonNetwork.player.ID.ToString()).transform.Find("PlayerNameText").GetComponent<Text>().text = "Ready";
 		// Debug.Log("Player Ready = " + _playerCustomProperties["PlayerReady"]);
 		PV.RPC("RPC_Ready", PhotonTargets.All, PhotonNetwork.player.ID);
      }
@@ -158,7 +158,7 @@ public class RoomCanvas1: MonoBehaviour {
 			if (master_status){
 				_playerCustomProperties["isMaster"] = true;
         		PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
-				PV.RPC("RPC_Crown", PhotonTargets.All, PhotonNetwork.player.ID, true);
+				PV.RPC("RPC_Crown1", PhotonTargets.All, PhotonNetwork.player.ID, true);
 				master_status = false;
 			}
 		
@@ -166,7 +166,7 @@ public class RoomCanvas1: MonoBehaviour {
 			if (!master_status){
 				_playerCustomProperties["isMaster"] = false;
         		PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
-				PV.RPC("RPC_Crown", PhotonTargets.All, PhotonNetwork.player.ID, false);
+				PV.RPC("RPC_Crown1", PhotonTargets.All, PhotonNetwork.player.ID, false);
 				master_status = true;
 			}
 			// _playerCustomProperties["isMaster"] = false;
@@ -177,22 +177,22 @@ public class RoomCanvas1: MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_Ready(int PlayerID) {
-		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("Pointer").gameObject.SetActive(false);
+		PlayerLayoutGroup1.transform.Find(PlayerID.ToString()).transform.Find("Pointer").gameObject.SetActive(false);
 	}
 
 	[PunRPC]
 	private void RPC_UnReady() {
 		_playerCustomProperties["PlayerReady"] = false;
         PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
-		foreach (Transform child in PlayerLayoutGroup.transform)
+		foreach (Transform child in PlayerLayoutGroup1.transform)
 		{
 			child.Find("Pointer").gameObject.SetActive(true);
 		}
 	}
 
 	[PunRPC]
-	private void RPC_Crown(int PlayerID, bool flag) {
-		PlayerLayoutGroup.transform.Find(PlayerID.ToString()).transform.Find("Crown").gameObject.SetActive(flag);
+	private void RPC_Crown1(int PlayerID, bool flag) {
+		PlayerLayoutGroup1.transform.Find(PlayerID.ToString()).transform.Find("Crown").gameObject.SetActive(flag);
 	}
 
 }

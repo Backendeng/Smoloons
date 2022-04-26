@@ -4911,6 +4911,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5522431625111086108, guid: 87afd5690fa3b6243a73c603bcb3eacc,
+        type: 3}
+      propertyPath: PlayerLayoutGroup1
+      value: 
+      objectReference: {fileID: 1470777390}
     - target: {fileID: 5522431625111086111, guid: 87afd5690fa3b6243a73c603bcb3eacc,
         type: 3}
       propertyPath: viewIdField
@@ -5051,6 +5056,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206c9ef10a90a3945aec057e5e66058f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1470777390 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5522431624253528739, guid: 87afd5690fa3b6243a73c603bcb3eacc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1470777387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1474579433
 GameObject:
   m_ObjectHideFlags: 0
@@ -6182,6 +6193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerListingPrefab: {fileID: 1949008927140618, guid: 4455c1b7f8cb0eb428538a9288a65ab2,
     type: 3}
+  LobNet: {fileID: 0}
 --- !u!1 &1840041304
 GameObject:
   m_ObjectHideFlags: 0

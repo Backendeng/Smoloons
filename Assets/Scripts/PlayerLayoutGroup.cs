@@ -19,8 +19,15 @@ public class PlayerLayoutGroup: MonoBehaviour {
 			return _playerListings;
 		}
 	}
+	LobbyNetwork LN;	
+	public GameObject LobNet;
+
+	private void Awake() {
+		LobNet = GameObject.FindGameObjectWithTag("LN");
+	}
 
 	void Start () {
+		LN = LobNet.GetComponent < LobbyNetwork > ();
 		PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;
 		for (int i = 0; i < photonPlayers.Length; i++) {
 			PlayerJoinedRoom(photonPlayers[i]);
@@ -42,6 +49,7 @@ public class PlayerLayoutGroup: MonoBehaviour {
 		}
 		PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;
 		for (int i = 0; i < photonPlayers.Length; i++) {
+			OnCheckSameName(photonPlayers, i);
 			PlayerJoinedRoom(photonPlayers[i]);
 		}
 	}
@@ -74,16 +82,18 @@ public class PlayerLayoutGroup: MonoBehaviour {
 		} else {
 			playerListingObject.transform.Find("Pointer").gameObject.SetActive(false);
 		} 
-
+		Debug.Log(photonPlayer.CustomProperties["isMaster"]);
+		
 		if (photonPlayer.CustomProperties["isMaster"] == null){
 
 		} else if ((bool) photonPlayer.CustomProperties["isMaster"] == false) {
 
 		} else {
+			
 			playerListingObject.transform.Find("Crown").gameObject.SetActive(true);
 		} 
 
-		PlayerListing playerListing = playerListingObject.GetComponent < PlayerListing > ();
+		PlayerListing playerListing = playerListingObject.GetComponent < PlayerListing > ();		
 		playerListing.ApplyPhotonPlayer(photonPlayer);
 
 		PlayerListings.Add(playerListing);
@@ -118,6 +128,15 @@ public class PlayerLayoutGroup: MonoBehaviour {
 		PhotonNetwork.LeaveRoom();
 		PhotonNetwork.LoadLevel(1);
 
+	}
+
+	public void OnCheckSameName(PhotonPlayer[] photonPlayers, int index) {
+		for (int i = 0; i < index; i++ ){
+			if (photonPlayers[i].NickName == photonPlayers[index].NickName){
+				LN.arenaStatusText.text = "Failed Joined Room. Already has same name.";
+				PhotonNetwork.LeaveRoom();
+			}
+		}
 	}
 
 }

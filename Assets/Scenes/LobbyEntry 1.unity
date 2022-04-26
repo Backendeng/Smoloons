@@ -2603,7 +2603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedHero: 
   character: 
-  PlayerLayoutGroup: {fileID: 1817191197}
+  PlayerLayoutGroup1: {fileID: 1817191197}
 --- !u!1 &1111512696
 GameObject:
   m_ObjectHideFlags: 0
@@ -5012,6 +5012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerListingPrefab: {fileID: 1949008927140618, guid: 4455c1b7f8cb0eb428538a9288a65ab2,
     type: 3}
+  LobNet: {fileID: 0}
 --- !u!114 &1840351827 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5012145798866739911, guid: 2b6b3e1b078b9e946993eaed7004c379,
@@ -5884,8 +5885,8 @@ RectTransform:
   - {fileID: 1583156037}
   - {fileID: 1311856994}
   - {fileID: 1064492447}
-  - {fileID: 1753054336}
   - {fileID: 2085326518}
+  - {fileID: 1753054336}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5908,6 +5909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lobbyCanvas: {fileID: 2085326519}
   _roomCanvas: {fileID: 0}
+  _roomCanvas1: {fileID: 0}
   _createRoom: {fileID: 1311856998}
   _joinRoom: {fileID: 0}
   _roomList: {fileID: 1753054341}
@@ -6111,7 +6113,7 @@ RectTransform:
   - {fileID: 695520791}
   - {fileID: 702789484}
   m_Father: {fileID: 2004580490}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

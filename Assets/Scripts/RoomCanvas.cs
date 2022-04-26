@@ -14,7 +14,7 @@ public class RoomCanvas: MonoBehaviour {
 	private bool PlayerReady = false;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 	private bool ready_status;
-	private bool master_status = true;
+	public static bool master_status = true;
 
 	public GameObject crown;
 

@@ -68,7 +68,11 @@ public class CreateRoom: MonoBehaviour {
 		roomOptions.CustomRoomProperties = _playerCustomProperties;
 		roomOptions.PlayerTtl = 3000;
 		roomOptions.EmptyRoomTtl = 3000;
-
+		RoomCanvas1.master_status = true;
+		RoomCanvas.master_status = true;
+		_playerCustomProperties["isMaster"] = true;
+        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+		
 		if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default)) {
 			arenaCreationStatus = "Arena creation request sent successfully.";
 			Debug.Log("Request for room creation sent successfully.");
@@ -91,7 +95,11 @@ public class CreateRoom: MonoBehaviour {
 		roomOptions.CustomRoomProperties = _playerCustomProperties;
 		roomOptions.PlayerTtl = 3000;
 		roomOptions.EmptyRoomTtl = 3000;
-
+		RoomCanvas.master_status = true;
+		RoomCanvas1.master_status = true;
+		_playerCustomProperties["isMaster"] = true;
+        PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
+		
 		if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default)) {
 			arenaCreationStatus = "Arena creation request sent successfully.";
 			Debug.Log("Request for room creation sent successfully.");
