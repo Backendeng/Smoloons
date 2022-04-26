@@ -82,8 +82,7 @@ public class PlayerLayoutGroup: MonoBehaviour {
 		} else {
 			playerListingObject.transform.Find("Pointer").gameObject.SetActive(false);
 		} 
-		Debug.Log(photonPlayer.CustomProperties["isMaster"]);
-		
+				
 		if (photonPlayer.CustomProperties["isMaster"] == null){
 
 		} else if ((bool) photonPlayer.CustomProperties["isMaster"] == false) {

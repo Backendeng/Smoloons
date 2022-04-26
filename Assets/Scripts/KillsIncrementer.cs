@@ -120,6 +120,7 @@ public class KillsIncrementer: MonoBehaviour {
 		WinLosePanel.SetActive(false);
 		winnerTime = 0;
 		EndGame_status = false;
+		createStonestats = false;
 	}
 
 	// Update is called once per frame
@@ -174,7 +175,7 @@ public class KillsIncrementer: MonoBehaviour {
 		    // WinLosePanel.SetActive(true);
 		}
 
-		if (timer < 180)
+		// if (timer < 180)
 			EndGame();
 
 
