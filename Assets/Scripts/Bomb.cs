@@ -23,10 +23,10 @@ public class Bomb: Photon.MonoBehaviour {
 
 	}
 
+	// When bomb explode,
 	void Explode() {
-		// center one
+
 		GameObject explosion = Instantiate(explosionPrefab, Round(transform.position), Quaternion.identity); //1
-		// explosion.name = "Explosion_"+player.playername;
 
 		StartCoroutine(CreateExplosions(Vector3.forward));
 		StartCoroutine(CreateExplosions(Vector3.right));
@@ -37,8 +37,8 @@ public class Bomb: Photon.MonoBehaviour {
 		transform.Find("audio").gameObject.SetActive (true);
 		transform.Find("pop").gameObject.SetActive (true);
 		exploded = true;
-		transform.Find("Collider").gameObject.SetActive(false); //3
-		Destroy(gameObject, .3f); //4
+		// transform.Find("Collider").gameObject.SetActive(false); //3
+		Destroy(gameObject, .5f); //4
 		if (PhotonView != null && PhotonView.isMine) {
 			player.bombs++;
 		}
@@ -61,7 +61,6 @@ public class Bomb: Photon.MonoBehaviour {
 			//4
 			if (!hit.collider) {
 				instantiate_list.Add(transform.position + (i * direction));
-
 				//6
 			}
 			else { //7
@@ -90,7 +89,7 @@ public class Bomb: Photon.MonoBehaviour {
 			explosionPrefab.name = gameObject.name;
 			GameObject go = Instantiate(explosionPrefab, v, explosionPrefab.transform.rotation);
 			// go.name = gameObject.name;
-			yield return new WaitForSeconds(.05f);
+			yield return new WaitForSeconds(.01f);
 		}
 	}
 

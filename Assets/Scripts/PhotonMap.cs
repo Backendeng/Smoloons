@@ -28,7 +28,7 @@ public class PhotonMap: Photon.MonoBehaviour {
 	bool xplus, yplus, xminus, yminus;
 	float timer = 0.0f;
 	int second = 0;
-	bool startStonestats = false;
+	public bool startStonestats = false;
 
 	private void Awake() {
 		PhotonView = GetComponent < PhotonView > ();

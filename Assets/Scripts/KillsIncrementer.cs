@@ -168,7 +168,7 @@ public class KillsIncrementer: MonoBehaviour {
 
 		GameObject [] blocks = GameObject.FindGameObjectsWithTag("Breakable");
 
-		if (timer <= 0 && !createStonestats || !createStonestats && blocks.Length == 0) {
+		if (timer <= 0 && !createStonestats || !createStonestats && blocks.Length == 0 && timer < 180) {
 		    
 		    timerText.text = "0" + " : " + "0"; 
 			pv.RPC("CreateStone", PhotonTargets.All);
@@ -224,6 +224,10 @@ public class KillsIncrementer: MonoBehaviour {
 		if (eachPlayerKillOrder[0] != "" && GameObject.FindGameObjectsWithTag("Player").Length < 2 || EndGame_status) {
 			winnerTime += Time.deltaTime;
 			LeaveMatch.SetActive(false);
+			if (photonmap1.activeSelf)
+				photonmap1.GetComponent<PhotonMap>().startStonestats = false;
+			else 
+				photonmap2.GetComponent<PhotonMap>().startStonestats = false;
 			// if (winnerTime < 1){
 			// 	_playerCustomProperties["PlayerReady"] = false;
         	// 	PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
