@@ -3,6 +3,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 public class fade_script: MonoBehaviour {
+
+	/*
+	* Don't need this script.
+	*/
+
+
     #region FIELDS
 
 	public bool fade_on_start = true;

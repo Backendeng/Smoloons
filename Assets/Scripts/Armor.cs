@@ -3,6 +3,11 @@
 //using UnityEngine;
 
 //public class Armor : MonoBehaviour {
+    
+    /*
+	* Don't need this script.
+	*/
+
 
 //    private void Awake() {
 

@@ -28,11 +28,13 @@ public class Bomb: Photon.MonoBehaviour {
 
 		GameObject explosion = Instantiate(explosionPrefab, Round(transform.position), Quaternion.identity); //1
 
+		//explosion size
 		StartCoroutine(CreateExplosions(Vector3.forward));
 		StartCoroutine(CreateExplosions(Vector3.right));
 		StartCoroutine(CreateExplosions(Vector3.back));
 		StartCoroutine(CreateExplosions(Vector3.left));
 
+		// bomb animation
 		transform.Find("model").transform.GetComponent < MeshRenderer > ().enabled = false; //2
 		transform.Find("audio").gameObject.SetActive (true);
 		transform.Find("pop").gameObject.SetActive (true);
@@ -48,6 +50,7 @@ public class Bomb: Photon.MonoBehaviour {
 		return new Vector3(Mathf.RoundToInt(v.x), Mathf.RoundToInt(v.y), Mathf.RoundToInt(v.z));
 	}
 
+	// instantiate explosions
 	private IEnumerator CreateExplosions(Vector3 direction) {
 
 		List < Vector3 > instantiate_list = new List < Vector3 > ();

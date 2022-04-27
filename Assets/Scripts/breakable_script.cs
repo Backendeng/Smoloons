@@ -16,11 +16,10 @@ public class breakable_script: Photon.MonoBehaviour {
 	private Animator animator;
 	private float random, delete_time;
 	private int PlayerID = 0;
-	public bool flag;
+	public bool flag;  //for once call
 
 	// Use this for initialization
 	void Start() {
-		// powerup_prefab = (GameObject) Resources.Load("PowerUp", typeof(GameObject));
 		photonView = GetComponent < PhotonView > ();
 		animation_status = false;
 		delete_status = false;
@@ -33,13 +32,9 @@ public class breakable_script: Photon.MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		// if (animation_status) {
-		// 	transform.GetComponent <Animator> ().enabled  = true;
-		// 	liveTimer += Time.deltaTime;
-		// 	if (liveTimer > 1.0f )
-		// 		Destory(gameObject);
-		// }
+
 		if (flag) {
+			// block count and break.
 			PhotonView.Find(PlayerID).GetComponent<Player_Controller> ().count_break++;
 			PhotonView.Find(PlayerID).transform.GetChild(6).GetComponent<TextMesh>().text = PhotonView.Find(PlayerID).GetComponent<Player_Controller> ().count_break.ToString();
 			photonView.RPC("LocalDestroy", PhotonTargets.AllBuffered, photonView.viewID); 
@@ -51,30 +46,23 @@ public class breakable_script: Photon.MonoBehaviour {
 	void OnCollisionEnter(Collision collision)
 
 	{
-		// if (collision.collider.CompareTag ("Explosion"))
-		// {
-
-		// //  Instantiate(explosion, transform.position, Quaternion.identity);
-
-		// // 	if(Random.Range(0.0f, 1.0f)> 0.7f){
-
-		// // 		Instantiate(powerup_prefab, transform.position, Quaternion.identity) ;
-		// // 	}
-		// // 	 Destroy(gameObject); // 3  
-
-		// }
+		
 		if (collision.collider.CompareTag("Explosion")) {
 			
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			transform.GetComponent <BoxCollider> ().enabled = false;
 			transform.GetChild(0).GetComponent <BoxCollider> ().enabled = true;
+			
 			Instantiate(blockAnimation, transform.position, Quaternion.identity);
 			animator.enabled = true;
+			
 			if (PhotonNetwork.connected == true) {
 				if(photonView.isMine){
+
+					// powerups probability of occurrence
 					if (Random.Range(0.0f, 1.0f) > 0.5f && random == -1f) {
-						//  photonView.RPC("RPC_Powerup", PhotonTargets.All);
-						random = Random.Range(0, 3);
+						
+						random = Random.Range(0, 3); // random - bomb, explosion, speed
 						if (random == 0 ) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp"), transform.position, Quaternion.identity, 0);
 						} 
@@ -84,27 +72,25 @@ public class breakable_script: Photon.MonoBehaviour {
 						if (random == 2) {
 							PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PowerUp2"), transform.position, Quaternion.identity, 0);
 						}
-						// Powerups.transform.GetComponent<powerup_script>().Starts();
 					}
 				}
-				// if (PhotonNetwork.isMasterClient)
-				// Destroy(gameObject.transform.GetChild(0).gameObject, 0.7f);
-				// DestroySceneObject(photonView);
+
 				flag = true;
+				// convert string to int for get playerID
 				int.TryParse(collision.gameObject.name.Split(char.Parse("("))[0], out PlayerID);
 				
-				// PhotonNetwork.Destroy(PhotonView.Find(photonView.viewID).gameObject);
 			} else {
 				Destroy(gameObject, 0.5f);
-				// int viewID =  photonView.viewID;
-				// photonView.RPC("DeleteBlock", PhotonTargets.MasterClient, viewID);
 			}
 		}
+
+		// when hit Laststone
 		if (collision.collider.CompareTag("LastStone")) {
 			Destroy(gameObject);
 		}
 	}
 
+	// when creation two powerups at same time, destroy powerups
 	[PunRPC]
 	private void RPC_Powerup() {
 		if (Random.Range(0.0f, 1.0f) > 0.5f) {
@@ -112,6 +98,7 @@ public class breakable_script: Photon.MonoBehaviour {
 		}
 	}
 	
+	// delete blocks. why? block made by master and scene
     [PunRPC]
     private void LocalDestroy(int viewId)
     {

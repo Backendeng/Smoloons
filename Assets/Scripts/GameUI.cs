@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour {
 
+    /*
+	* Don't need this script.
+	*/
+
+
     public static GameUI Instance;
 
     public Text playerHealth;

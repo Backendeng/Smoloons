@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class door_script : MonoBehaviour {
 
+	/*
+	* Don't need this script.
+	*/
 
 
 	// Use this for initialization
@@ -17,6 +20,6 @@ public class door_script : MonoBehaviour {
 	}
 
 	public void Destroy(){
-	Destroy(gameObject);
+		Destroy(gameObject);
 	}
 }

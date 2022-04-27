@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Audio_volumn : MonoBehaviour
 {
+
+    /*
+	* Don't need this script.
+	*/
+
     public GameObject slider;
     public GameObject powerupSound;
     public GameObject bombSound;

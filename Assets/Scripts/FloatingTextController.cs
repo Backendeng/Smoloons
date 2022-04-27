@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class FloatingTextController: MonoBehaviour {
 
+	/*
+	* Don't need this script.
+	*/
+
+
 	private static FloatingText popupText;
 	private static GameObject canvas;
 

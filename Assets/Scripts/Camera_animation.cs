@@ -12,6 +12,7 @@ public class Camera_animation : MonoBehaviour
     public float zoom_in_speed = 0.5f;
     public float zoom_out_speed = 0.2f;
     public static bool zoom;
+    
     // Start is called before the first frame update
     void Start()
     {

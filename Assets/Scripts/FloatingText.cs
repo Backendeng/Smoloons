@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class FloatingText: MonoBehaviour {
 
+	/*
+	* Don't need this script.
+	*/
+
+
 	public Animator animator;
 	private Text dmgText;
 

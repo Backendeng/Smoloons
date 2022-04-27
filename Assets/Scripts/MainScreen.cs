@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class MainScreen : MonoBehaviour
 {
 
+    // loading page animation 
+    
     public Image creator;
     public Image leaf1;
     public Image leaf2;

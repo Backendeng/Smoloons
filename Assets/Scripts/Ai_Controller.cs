@@ -3,6 +3,10 @@ using System.Collections;
 using System;
 
 public class Ai_Controller: Controller {
+	
+	/*
+	* Don't need this script.
+	*/
 
 	public GameObject bombPrefab;
 	private AI_STATES state = AI_STATES.IDLE;

@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class Global_Game_Controller: MonoBehaviour {
 
+	/*
+	* Don't need this script.
+	*/
+
 	private Text level_label;
 	private Text enemy_label;
 

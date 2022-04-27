@@ -54,6 +54,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		} else {
 			mobile = true;
 		}
+
 		movement_status = holding_status = animation_status = delete_status = false;
 		canDropBombs = true;
 		holding_time = hand_time = delete_time = end_time = 0.0f;
@@ -76,10 +77,14 @@ public class Player_Controller: Photon.MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
+		// not game is over
 		if (!globalKi.EndGame_status){
+			
 			if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected) {
+				// if you are main player on photon, control player using button.
 				UpdateMovement();
 			} else {
+				// recieve and show other player postion and movement.
 				SmoothMovement();
 			}
 
@@ -88,6 +93,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 				setDeaths();
 			}
 
+			// for bubble atimation
 			if (holding_status){
 				holding_time += Time.deltaTime;
 		
@@ -107,8 +113,12 @@ public class Player_Controller: Photon.MonoBehaviour {
 				}
 			}
 
+			// when player die, so player 
 			for (int i = 0; i < globalKi.allPlayers.Length; i++) {
+
+				// in your scene.
 				if (PhotonView.isMine) {
+					// if you die, change ghost.
 					if ( gameObject.tag == "Ghost"){
 						globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(true);
 						globalKi.allPlayers[i].transform.Find("name").gameObject.SetActive(true);
@@ -116,6 +126,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 							GameObject.FindGameObjectWithTag("light").transform.GetChild(0).gameObject.SetActive(false);
 							GameObject.FindGameObjectWithTag("light").transform.GetChild(1).gameObject.SetActive(true);
 						}
+					// if other player die, not show it.
 					} else {
 						if (globalKi.allPlayers[i].tag == "Ghost") {
 							globalKi.allPlayers[i].transform.Find("model").gameObject.SetActive(false);
@@ -125,59 +136,52 @@ public class Player_Controller: Photon.MonoBehaviour {
 				}
 			}
 
+		// when game is over,
 		} else {
 			movement_status = false;
 			holding_status = false;
 			animation_status = false;
 			delete_status = false;
 			end_time += Time.deltaTime;
+
+			// add alive player info in KillsIncrementer.
+
 			if (!death_status && gameObject.tag == "Player" && end_time > 1 && gameObject.name == "Monkey"){
 				for ( int i = 0 ; i < 6 ; i++ ){
-				if (globalKi.eachPlayerKillOrder[i] == "" || globalKi.eachPlayerKillOrder[i] == transform.GetChild(1).GetComponent<TextMeshPro>().text){
-					// if (globalKi.eachPlayerKillOrder[i] == transform.GetChild(1).GetComponent<TextMeshPro>().text) {
-						// break;
-					// } else {
-						// globalKi.eachPlayerKillOrder[i] = transform.GetChild(1).GetComponent<TextMeshPro>().text;
-						// globalKi.eachPlayerOrderName[i] = transform.GetChild(3).GetComponent<TextMesh>().text;
-						// globalKi.eachPlayerKills[i] = count_kill;
-						// globalKi.eachPlayerBomb[i] = count_bomb;
-						// globalKi.eachPlayerBreak[i] = count_break;
-						// globalKi.eachPlayerStep[i] = count_step;
-						// PhotonView.RPC("DeathMonkeyInfo", PhotonTargets.All, i, transform.GetChild(1).GetComponent<TextMeshPro>().text, transform.GetChild(3).GetComponent<TextMesh>().text, transform.GetChild(4).GetComponent<TextMesh>().text, transform.GetChild(5).GetComponent<TextMesh>().text, transform.GetChild(6).GetComponent<TextMesh>().text, transform.GetChild(7).GetComponent<TextMesh>().text);
-						PhotonView.RPC("DeathMonkeyInfo", PhotonTargets.All, i, transform.GetChild(1).GetComponent<TextMeshPro>().text);
-						PhotonView.RPC("DeathMonkeyInfo1", PhotonTargets.All, i, transform.GetChild(3).GetComponent<TextMesh>().text);
-						PhotonView.RPC("DeathMonkeyInfo2", PhotonTargets.All, i, transform.GetChild(4).GetComponent<TextMesh>().text);
-						PhotonView.RPC("DeathMonkeyInfo3", PhotonTargets.All, i, transform.GetChild(5).GetComponent<TextMesh>().text);
-						PhotonView.RPC("DeathMonkeyInfo4", PhotonTargets.All, i, transform.GetChild(6).GetComponent<TextMesh>().text);
-						PhotonView.RPC("DeathMonkeyInfo5", PhotonTargets.All, i, transform.GetChild(7).GetComponent<TextMesh>().text);
-						death_status = true;
-						break;
-					// }
+					if (globalKi.eachPlayerKillOrder[i] == "" || globalKi.eachPlayerKillOrder[i] == transform.GetChild(1).GetComponent<TextMeshPro>().text){
+				
+							PhotonView.RPC("DeathMonkeyInfo", PhotonTargets.All, i, transform.GetChild(1).GetComponent<TextMeshPro>().text);
+							PhotonView.RPC("DeathMonkeyInfo1", PhotonTargets.All, i, transform.GetChild(3).GetComponent<TextMesh>().text);
+							PhotonView.RPC("DeathMonkeyInfo2", PhotonTargets.All, i, transform.GetChild(4).GetComponent<TextMesh>().text);
+							PhotonView.RPC("DeathMonkeyInfo3", PhotonTargets.All, i, transform.GetChild(5).GetComponent<TextMesh>().text);
+							PhotonView.RPC("DeathMonkeyInfo4", PhotonTargets.All, i, transform.GetChild(6).GetComponent<TextMesh>().text);
+							PhotonView.RPC("DeathMonkeyInfo5", PhotonTargets.All, i, transform.GetChild(7).GetComponent<TextMesh>().text);
+							death_status = true;
+							break;
+					}
 				}
-			}
-				// PhotonView.Find(PhotonView.viewID).transform.GetComponent<Player_Controller>().count_kill = count_kill;
-				// PhotonView.Find(PhotonView.viewID).transform.GetComponent<Player_Controller>().count_bomb = count_bomb;
-				// PhotonView.Find(PhotonView.viewID).transform.GetComponent<Player_Controller>().count_break = count_break;
-				// PhotonView.Find(PhotonView.viewID).transform.GetComponent<Player_Controller>().count_step = count_step;
-				// PhotonView.RPC("MonkeyInfo", PhotonTargets.All, PhotonView.viewID, count_bomb, count_break, count_step);
-				// death_status = true;
 			}
 
 			transform.Find("bubble").gameObject.SetActive(false);
 			animator.SetBool("holding", false);
 			animator.SetBool("hitup", false);
+
 		}
 		
+		// player 1st
 		if (dance_status) {
 			animator.SetBool("Dance", true );
 		}
+		// player 3st
 		if (cry_status) {
 			animator.SetBool("crying", true );
 		}
+		// player 2st
 		if (clap_status) {
 			animator.SetBool("clap", true );
 		}
 
+		// when start game, player hand animation start.
 		hand_time += Time.deltaTime;
 		if (hand_time < 2 && hand_status) {
 			animator.SetBool("Hand", true );
@@ -192,6 +196,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 			movement_status = true;
 		}
 
+		// when die player, set die info in killIncreasement.
 		if (PlayerKillID != 0) {
 			GameObject ghostMonkey = PhotonView.Find(PlayerViewID).gameObject;
 
@@ -203,13 +208,6 @@ public class Player_Controller: Photon.MonoBehaviour {
 						if (PlayerKillID != PlayerViewID){
 							PhotonView.Find(PlayerKillID).transform.GetComponent<Player_Controller>().count_kill += 1;
 							PhotonView.Find(PlayerKillID).transform.GetChild(4).GetComponent<TextMesh>().text = PhotonView.Find(PlayerKillID).transform.GetComponent<Player_Controller>().count_kill.ToString();
-						// } else {
-						// 	globalKi.eachPlayerKillOrder[i] = transform.GetChild(1).GetComponent<TextMeshPro>().text;
-						// 	globalKi.eachPlayerOrderName[i] = transform.GetChild(3).GetComponent<TextMesh>().text;
-						// 	globalKi.eachPlayerKills[i] = count_kill;
-						// 	globalKi.eachPlayerBomb[i] = count_bomb;
-						// 	globalKi.eachPlayerBreak[i] = count_break;
-						// 	globalKi.eachPlayerStep[i] = count_step;
 						}
 						if (ghostMonkey.name == "Monkey") {
 							PhotonView.RPC("DeathMonkeyInfo", PhotonTargets.All, i, ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text);
@@ -219,12 +217,6 @@ public class Player_Controller: Photon.MonoBehaviour {
 							PhotonView.RPC("DeathMonkeyInfo4", PhotonTargets.All, i, ghostMonkey.transform.GetChild(6).GetComponent<TextMesh>().text);
 							PhotonView.RPC("DeathMonkeyInfo5", PhotonTargets.All, i, ghostMonkey.transform.GetChild(7).GetComponent<TextMesh>().text);
 						}
-						// globalKi.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
-						// globalKi.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
-						// globalKi.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
-						// globalKi.eachPlayerBomb[i] = ghostMonkey.GetComponent<Player_Controller>().count_bomb;
-						// globalKi.eachPlayerBreak[i] = ghostMonkey.GetComponent<Player_Controller>().count_break;
-						// globalKi.eachPlayerStep[i] = ghostMonkey.GetComponent<Player_Controller>().count_step;
 						PlayerKillID = 0;
 						PlayerViewID = 0;
 						break;
@@ -235,6 +227,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 			
 		}
 
+		// when hit last stone,  
 		if (delete_status) {
 			delete_time += Time.deltaTime;
 			
@@ -247,6 +240,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		
 	}
 
+	// when player working.
 	private void UpdateMovement() {
 		animator.SetBool("Walking", false);
 		animation_status = false;
@@ -363,6 +357,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 		bombObject.GetComponent < Bomb > ().explode_size = power;
 	}
 
+	// create player in scene.
 	public void RPC_SpawnPlayer(Transform spawnPoint, Transform cameraPoint, string shape, string name) {
 		
 		Camera_animation.zoom = false;
@@ -422,31 +417,27 @@ public class Player_Controller: Photon.MonoBehaviour {
 			if (!holding_status){
 				int viewID =  PhotonView.viewID;
 				PhotonView.RPC("BubbleMonkey", PhotonTargets.All, viewID);
-				// movement_status = false;
-				// holding_time  = .0f;
-				// holding_status = true;
-				// myTransform.rotation = Quaternion.Euler(0, 90, 30);
-				// animator.SetBool("hitup", true);
-				// animator.SetBool("holding", true);
-				// transform.Find("bubble").gameObject.SetActive(true);
+				
 			} else if (holding_time > 0.4) {
 				int viewID =  PhotonView.viewID;
-				// PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
-				// GhostMonkey();
+				
 				if (collision.gameObject.name != "Explosion(Clone)")
 					PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.name);
 			}
 		}
+
 		if (collision.collider.CompareTag("LastStone")) {
 			int viewID =  PhotonView.viewID;
 			PhotonView.RPC("DeletePlayer", PhotonTargets.All, viewID);
 		}
+
 		if (collision.collider.CompareTag("Player")) {
 			if (holding_time > 0.4 && holding_status) {
 				int viewID =  PhotonView.viewID;
 				PhotonView.RPC("GhostMonkey", PhotonTargets.All, viewID, collision.gameObject.transform.GetComponent<PhotonView>().viewID.ToString()+"(clone)");
 			}
 		}
+
 		if (collision.collider.CompareTag("step")) {
 			count_step++;
 		}
@@ -471,6 +462,7 @@ public class Player_Controller: Photon.MonoBehaviour {
 
 	}
 
+	// bubble Monkey
 	[PunRPC]
 	private void BubbleMonkey(int viewID) {
 		GameObject bubbleMonkey = PhotonView.Find(viewID).gameObject;
@@ -483,40 +475,26 @@ public class Player_Controller: Photon.MonoBehaviour {
 		bubbleMonkey.transform.Find("bubble").gameObject.SetActive(true);
 	}
 
+	// Ghost Monkey
 	[PunRPC]
 	private void GhostMonkey(int viewID, string killID) {
-		// canDropBombs = false;
 		
 		GameObject ghostMonkey = PhotonView.Find(viewID).gameObject;
 		ghostMonkey.transform.GetComponent<Player_Controller>().canDropBombs = false;
-		// transform.GetComponent<CapsuleCollider>().enabled = false;
+		
 		ghostMonkey.transform.GetComponent<CapsuleCollider>().center = new Vector3(0f, 2.5f, 0f);
 		ghostMonkey.gameObject.tag = "Ghost";
+
 		for (int i = 1 ; i < 7; i++ ){
 			ghostMonkey.transform.Find("model").GetChild(i).GetComponent<SkinnedMeshRenderer> ().material = ghost_material;
 		}
+
 		ghostMonkey.transform.Find("bubble").gameObject.SetActive(false);
 		ghostMonkey.transform.GetComponent<Player_Controller>().holding_time = 10;
 		ghostMonkey.transform.GetComponent<AudioSource>().enabled = true;
-		// if (killID != viewID.ToString()){
-			PlayerViewID = viewID;
-			int.TryParse(killID.Split(char.Parse("("))[0], out PlayerKillID);
-		// }
-		// if (PhotonView.isMine) {
-		// 	PhotonView.RPC("killIncrease", PhotonTargets.All, viewID, killID);
-		// }
-
-		// GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
-		// KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
-		// for ( int i = 0 ; i < 6 ; i++ ){
-		// 	if (ki.eachPlayerKillOrder[i] == ""){
-		// 		ki.eachPlayerKillOrder[i] = ghostMonkey.transform.GetChild(1).GetComponent<TextMeshPro>().text;
-		// 		ki.eachPlayerOrderName[i] = ghostMonkey.transform.GetChild(3).GetComponent<TextMesh>().text;
-		// 		ki.eachPlayerKills[i] = ghostMonkey.GetComponent<Player_Controller>().count_kill;
-		// 		break;
-		// 	}
-		// }
-		
+			
+		PlayerViewID = viewID;
+		int.TryParse(killID.Split(char.Parse("("))[0], out PlayerKillID);
 		
 	}
 

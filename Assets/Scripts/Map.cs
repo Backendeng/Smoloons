@@ -8,6 +8,10 @@ using UnityEngine;
  */
 public class Map: MonoBehaviour {
 
+	/* 
+		Create Wall on map.
+ 	*/
+
 	// These variables most be added in editor!
 
 	public int width;

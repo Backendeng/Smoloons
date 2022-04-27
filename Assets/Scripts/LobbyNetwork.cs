@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class LobbyNetwork: MonoBehaviour {
 
 	public string status;
-	public Text lobbyStatusText,
-	arenaStatusText;
+	public Text lobbyStatusText, arenaStatusText;
+	
 	// Use this for initialization
 	private void Start() {
 

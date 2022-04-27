@@ -39,15 +39,18 @@ public class PlayerLayoutGroup: MonoBehaviour {
 		foreach(Transform child in transform) {
 			Destroy(child.gameObject);
 		}
+
 		Scene scene = SceneManager.GetActiveScene();
-		Debug.Log(scene.name);
+		
 		if (scene.name == "LobbyEntry"){
 			if ((bool) PhotonNetwork.room.CustomProperties["PrivateRoom"])
 				MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
 			else
 				MainCanvasManager.Instance.RoomCanvas1.transform.SetAsLastSibling();
 		}
+
 		PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;
+		
 		for (int i = 0; i < photonPlayers.Length; i++) {
 			OnCheckSameName(photonPlayers, i);
 			PlayerJoinedRoom(photonPlayers[i]);

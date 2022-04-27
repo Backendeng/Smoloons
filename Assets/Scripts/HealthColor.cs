@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class HealthColor : MonoBehaviour {
 
+    /*
+	* Don't need this script.
+	*/
     Color healthGreen, healthOrange, healthRed;
 
 	// Use this for initialization

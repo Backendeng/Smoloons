@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class CurvedText: Text {
+
+	/*
+	* Don't need this script.
+	*/
+
 	public float radius = 0.5f;
 	public float wrapAngle = 180.0f;
 	public float scaleFactor = 100.0f;
@@ -23,19 +28,6 @@ public class CurvedText: Text {
 	private float _radius = -1;
 	private float _scaleFactor = -1;
 	private float _circumference = -1;
-
-	//protected override void OnValidate()
-	//{
-	//    base.OnValidate();
-	//    if (radius <= 0.0f)
-	//    {
-	//        radius = 0.001f;
-	//    }
-	//    if (scaleFactor <= 0.0f)
-	//    {
-	//        scaleFactor = 0.001f;
-	//    }
-	//}
 
 	protected override void OnPopulateMesh(VertexHelper vh) {
 		base.OnPopulateMesh(vh);

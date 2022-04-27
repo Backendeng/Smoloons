@@ -72,36 +72,27 @@ public class Player: Photon.MonoBehaviour {
 	public POWERUPS powerups;
 	public string playername;
 
- 
+	// show player bomb, power, speed, status in panel.
 	public void update_label(POWERUPS powerup) {
 		int childID = 0;
 		switch (powerup) {
-		case POWERUPS.BOMB:
-			bomb_label.text = bombs.ToString();
-			childID = bombs - 2;
-			// bomb_label.transform.parent.gameObject.transform.GetChild(childID).GetComponent<Image>().color = new Color32(255,255,255,255);
-			ChangeColor(bomb_label.transform.parent.gameObject.transform.GetChild(2).transform.GetChild(childID).transform, childID);
-			break;
-		// case POWERUPS.KICK:
-		// 	if (canKick) {
-		// 		kick_label.text = "1";
-		// 	} else {
-		// 		kick_label.text = "0";
-		// 	}
-		// 	break;
-		// case POWERUPS.LIFE:
-		// 	life_label.text = lifes.ToString();
-		// 	break;
-		case POWERUPS.POWER:
-			explosion_label.text = explosion_power.ToString();
-			childID = explosion_power - 2;
-			ChangeColor(explosion_label.transform.parent.gameObject.transform.GetChild(2).transform.GetChild(childID).transform, childID);
-			break;
-		case POWERUPS.SPEED:
-			speed_label.text = moveSpeed.ToString();
-			childID = moveSpeed - 5;
-			ChangeColor(speed_label.transform.parent.gameObject.transform.GetChild(2).transform.GetChild(childID).transform, childID);
-			break;
+			case POWERUPS.BOMB:
+				bomb_label.text = bombs.ToString();
+				childID = bombs - 2;
+				ChangeColor(bomb_label.transform.parent.gameObject.transform.GetChild(2).transform.GetChild(childID).transform, childID);
+				break;
+
+			case POWERUPS.POWER:
+				explosion_label.text = explosion_power.ToString();
+				childID = explosion_power - 2;
+				ChangeColor(explosion_label.transform.parent.gameObject.transform.GetChild(2).transform.GetChild(childID).transform, childID);
+				break;
+			
+			case POWERUPS.SPEED:
+				speed_label.text = moveSpeed.ToString();
+				childID = moveSpeed - 5;
+				ChangeColor(speed_label.transform.parent.gameObject.transform.GetChild(2).transform.GetChild(childID).transform, childID);
+				break;
 		}
 	}
 
@@ -210,52 +201,6 @@ public class Player: Photon.MonoBehaviour {
 		PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position, Quaternion.identity, 0);
 
 	}
-
-	// void OnTriggerEnter(Collider collider) {
-	// 	if (collider.CompareTag("powerup")) {
-			
-	// 		Debug.Log(collider.gameObject.GetComponent < powerup_script > ().powerup);
-	// 		if (PhotonView != null && PhotonView.isMine) {
-	// 			update_label(collider.gameObject.GetComponent < powerup_script > ().powerup);
-	// 			// PlayerManagement.Instance.ModifyHealth(PhotonView.owner, lifes);
-	// 		}
-	// 	}
-	// }
-
-	// [PunRPC]
-	// private void increaseKills(int playerUID) {
-
-	// 	GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
-	// 	KillsIncrementer ki = KillsInc.GetComponent < KillsIncrementer > ();
-	// 	switch (playerUID % 5) {
-	// 	case 1:
-	// 		ki.eachPlayerKills[0]++;
-	// 		ki.eachPlayerScore[0] = ki.eachPlayerScore[0] + 25;
-	// 		break;
-	// 	case 2:
-	// 		ki.eachPlayerKills[1]++;
-	// 		ki.eachPlayerScore[1] = ki.eachPlayerScore[1] + 25;
-	// 		break;
-	// 	case 3:
-	// 		ki.eachPlayerKills[2]++;
-	// 		ki.eachPlayerScore[2] = ki.eachPlayerScore[2] + 25;
-	// 		break;
-	// 	case 4:
-	// 		ki.eachPlayerKills[3]++;
-	// 		ki.eachPlayerScore[3] = ki.eachPlayerScore[3] + 25;
-	// 		break;
-	// 	case 5:
-	// 		ki.eachPlayerKills[4]++;
-	// 		ki.eachPlayerScore[4] = ki.eachPlayerScore[4] + 25;
-	// 		break;
-	// 	case 0:
-	// 		ki.eachPlayerKills[5]++;
-	// 		ki.eachPlayerScore[5] = ki.eachPlayerScore[5] + 25;
-	// 		break;
-	// 	default:
-	// 		break;
-	// 	}
-	// }
 
 	[PunRPC]
 	private void setDeaths(int id) {

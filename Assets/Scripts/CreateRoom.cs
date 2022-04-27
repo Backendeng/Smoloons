@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 
 public class CreateRoom: MonoBehaviour {
 
-	public string arenaCreationStatus;
+	public string arenaCreationStatus; // photon network status commet
 	public GameObject LobNet;
 	public GameObject CreateDialog;
 	private ExitGames.Client.Photon.Hashtable _playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
@@ -35,9 +35,8 @@ public class CreateRoom: MonoBehaviour {
 		RoomName.text = "Smoloon" + Random.Range(10000000, 99999999);
 	}
 
+	// room name copy event for inviting player
 	public void OnCopy() {
-		// GUIUtility.systemCopyBuffer = RoomName.text;
-		// passCopyToBrowser(GUIUtility.systemCopyBuffer);
 		#if UNITY_WEBGL        
             WebGLCopyAndPasteAPI.GetCopyClipboard(RoomName.text);
 		#else
@@ -57,6 +56,7 @@ public class CreateRoom: MonoBehaviour {
 		MainCanvasManager.Instance.CreateRoom.transform.SetAsLastSibling();
 	}
 
+	// Create Room for public game play
 	public void OnCreateRoom() {
 
 		RoomOptions roomOptions = new RoomOptions() {
@@ -64,15 +64,20 @@ public class CreateRoom: MonoBehaviour {
 			IsOpen = true,
 			MaxPlayers = 6
 		};
-		_playerCustomProperties["PrivateRoom"] = false;
+		
+		_playerCustomProperties["PrivateRoom"] = false; // custom private room status.
 		roomOptions.CustomRoomProperties = _playerCustomProperties;
+
 		roomOptions.PlayerTtl = 3000;
 		roomOptions.EmptyRoomTtl = 3000;
-		RoomCanvas1.master_status = true;
-		RoomCanvas.master_status = true;
-		_playerCustomProperties["isMaster"] = true;
+		
+		RoomCanvas1.master_status = true; // isMaster? yes
+		RoomCanvas.master_status = true; // isMaster? yes
+
+		_playerCustomProperties["isMaster"] = true; // custom isMaster status.
         PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		
+		// Create room.
 		if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default)) {
 			arenaCreationStatus = "Arena creation request sent successfully.";
 			Debug.Log("Request for room creation sent successfully.");
@@ -84,6 +89,7 @@ public class CreateRoom: MonoBehaviour {
 
 	}
 
+	// private room
 	public void OnPrivateCreateRoom() {
 
 		RoomOptions roomOptions = new RoomOptions() {
@@ -91,12 +97,16 @@ public class CreateRoom: MonoBehaviour {
 			IsOpen = true,
 			MaxPlayers = 6
 		};
+
 		_playerCustomProperties["PrivateRoom"] = true;
 		roomOptions.CustomRoomProperties = _playerCustomProperties;
+
 		roomOptions.PlayerTtl = 3000;
 		roomOptions.EmptyRoomTtl = 3000;
+
 		RoomCanvas.master_status = true;
 		RoomCanvas1.master_status = true;
+
 		_playerCustomProperties["isMaster"] = true;
         PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		
@@ -126,9 +136,5 @@ public class CreateRoom: MonoBehaviour {
 	private void Update() {
 		LN.arenaStatusText.text = arenaCreationStatus;
 	}
-
-	//private void idf() {
-	//    PlayerNetwork.Instance.eachPlayerName[((PhotonNetwork.player.ID) - 1) % 5] = PhotonNetwork.playerName;
-	//}
 
 }

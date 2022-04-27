@@ -14,7 +14,9 @@ public class LeaveMatch: MonoBehaviour {
 	private void Awake() {
 		PV = GetComponent < PhotonView > ();
 	}
+
 	private void Update() {
+
 		if (PhotonNetwork.isMasterClient) {
 			MC.text = "Master";
 		}
@@ -32,27 +34,11 @@ public class LeaveMatch: MonoBehaviour {
 		PhotonNetwork.LoadLevel(1);
 
 	}
+
+	// when game is over, master player can click restart.
 	public void OnRestart() {
-		// _playerCustomProperties["PlayerReady"] = false;
-        // PhotonNetwork.SetPlayerCustomProperties(_playerCustomProperties);
 		
 		if (PhotonNetwork.isMasterClient) {
-			// GameObject [] blocks = GameObject.FindGameObjectsWithTag("Breakable");
-			// foreach (GameObject block in blocks) {
-			// 	PhotonNetwork.Destroy(block);
-			// }
-			// GameObject [] powerups = GameObject.FindGameObjectsWithTag("powerup");
-			// foreach (GameObject powerup in powerups) {
-			// 	PhotonNetwork.Destroy(powerup);
-			// }
-			// GameObject [] players = GameObject.FindGameObjectsWithTag("Player");
-			// foreach (GameObject player in players) {
-			// 	PhotonNetwork.Destroy(player);
-			// }
-			// GameObject [] ghosts = GameObject.FindGameObjectsWithTag("Ghost");
-			// foreach (GameObject ghost in ghosts) {
-			// 	PhotonNetwork.Destroy(ghost);
-			// }
 
 			PhotonNetwork.DestroyAll();
 

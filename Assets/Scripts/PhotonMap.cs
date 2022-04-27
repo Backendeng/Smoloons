@@ -71,6 +71,7 @@ public class PhotonMap: Photon.MonoBehaviour {
 		}
 	}
 
+	
 	public void createStone() {
 		if (xplus) {
 			if (x1 < x2) {

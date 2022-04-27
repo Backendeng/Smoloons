@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 public class hide_on_start: MonoBehaviour {
 
+	/*
+	* Don't need this script.
+	*/
+
 	public bool hide = true;
 
 	// Use this for initialization
@@ -50,5 +54,5 @@ public class hide_on_start: MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-}
+	}
 }
