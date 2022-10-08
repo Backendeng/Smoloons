@@ -5,7 +5,7 @@ Networking project to understand and learn how different components work in Phot
 
 Just connect to the Internet, launch game, create room with a name and distribute it to your friends with whom you want to battle.
 
-Max players allowed per room = 5
+Max players allowed per room = 6
 
 ### Gained knowledge of
 
