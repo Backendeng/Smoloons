@@ -7,8 +7,7 @@ Just connect to the Internet, launch game, create room with a name and distribut
 
 Max players allowed per room = 6
 
-## Demo 
-https://simmer.io/@JamesR/smoloons
+
 
 ## Gained knowledge of
 
